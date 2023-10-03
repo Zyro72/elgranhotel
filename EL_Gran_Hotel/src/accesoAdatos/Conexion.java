@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package accesoAdatos;
-import com.mysql.jdbc.PreparedStatement;
-//import java.sql.PreparedStatement;
+//import com.mysql.jdbc.PreparedStatement;//este no va
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

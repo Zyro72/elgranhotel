@@ -13,16 +13,16 @@ public class huesped {
     
     private int idHuesped;
     private int Dni;
-    private char Apellidoynom;
-    private char Direccion;
-    private char Correo;
-    private char Celular;
+    private String Apellidoynom;
+    private String Direccion;
+    private String Correo;
+    private String Celular;
     private boolean Estado;
     
     public huesped() {
              
 }
-    public huesped (int Dni, char Apellidoynom, char Direccion, char Correo, char Celular, boolean Estado){
+    public huesped (int Dni, String Apellidoynom, String Direccion, String Correo, String Celular, boolean Estado){
         this.Dni = Dni;
         this.Apellidoynom = Apellidoynom;
         this.Direccion = Direccion;
@@ -30,7 +30,7 @@ public class huesped {
         this.Celular = Celular;
         this.Estado = Estado; 
     }
-    public huesped(int idHuesped, int Dni, char Apellidoynom, char Direccion, char Correo, char Celular, boolean Estado) {
+    public huesped(int idHuesped, int Dni, String Apellidoynom, String Direccion, String Correo, String Celular, boolean Estado) {
         this.idHuesped = idHuesped;
         this.Dni = Dni;
         this.Apellidoynom = Apellidoynom;
@@ -56,35 +56,35 @@ public class huesped {
         this.Dni = Dni;
     }
 
-    public char getApellidoynom() {
+    public String getApellidoynom() {
         return Apellidoynom;
     }
 
-    public void setApellidoynom(char Apellidoynom) {
+    public void setApellidoynom(String Apellidoynom) {
         this.Apellidoynom = Apellidoynom;
     }
 
-    public char getDireccion() {
+    public String getDireccion() {
         return Direccion;
     }
 
-    public void setDireccion(char Direccion) {
+    public void setDireccion(String Direccion) {
         this.Direccion = Direccion;
     }
 
-    public char getCorreo() {
+    public String getCorreo() {
         return Correo;
     }
 
-    public void setCorreo(char Correo) {
+    public void setCorreo(String Correo) {
         this.Correo = Correo;
     }
 
-    public char getCelular() {
+    public String getCelular() {
         return Celular;
     }
 
-    public void setCelular(char Celular) {
+    public void setCelular(String Celular) {
         this.Celular = Celular;
     }
 
