@@ -26,13 +26,11 @@ public class huespedData {
         con=Conexion.getConnection();
          }
         public List<huesped>listarhuespedes(){
-            
-        try {
-            ArrayList<huesped>registrados =new ArrayList<>();
-            
             String sql ="SELECT * FROM huesped";
-           
+             
+        try {
             PreparedStatement ps=con.prepareStatement(sql);
+            ArrayList<huesped>registrados =new ArrayList<>();
             ResultSet rs=ps.executeQuery();
             while (rs.next()){
                 huesped huesped=new huesped();
@@ -40,20 +38,17 @@ public class huespedData {
                 huesped.setDni(rs.getInt("Dni"));
                 huesped.setApellidoynom(rs.getString("Apellidoynom"));
                 huesped.setDireccion(rs.getString("Direccion"));
-                
                 huesped.setCorreo(rs.getString("Correo"));
-                
                 huesped.setCelular(rs.getString("Celular"));
                 huesped.setEstado(rs.getBoolean("Estado"));
                 registrados.add(huesped);
-                
-                
-                
-                
+                          
             }
             return registrados;
         } catch (SQLException ex) {
           JOptionPane.showMessageDialog(null, "Error en conexion a Base de Datos al listar huesped");
+          return null;
         }
     
-        
+        }  
+}
