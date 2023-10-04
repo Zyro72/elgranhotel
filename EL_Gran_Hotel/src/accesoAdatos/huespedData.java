@@ -38,7 +38,8 @@ public class huespedData {
                 System.out.println("Apellido y nombre:"+rs.getString(3));
                 System.out.println("Domicilio:"+rs.getString(4));
                 System.out.println("Correo:"+rs.getString(5));
-                System.out.println("Estado:"+rs.getBoolean(6));
+                System.out.println("Celular"+rs.getString(6));
+                System.out.println("Estado:"+rs.getBoolean(7));
                 
                 
             }
