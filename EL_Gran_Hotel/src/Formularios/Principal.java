@@ -20,6 +20,7 @@ public class Principal {
      public static void main(String[] args) {
          Connection con=Conexion.getConection();
          huespedData hd=new huespedData();
+
          hd.listarhuespedes();
          
          //PRUEBA DE MODIFICAR HUESPED
@@ -30,5 +31,10 @@ public class Principal {
          
          
          
+
+        //  PRUEBA DE GUARDAR HUESPED (HUESPED YA CARGADO EL QUE FIGURA ABAJO)
+//         hd.guardarhuesped(17625173, "Aponte Alda", "Bulevard 1047","aponte.ale@gmail.com" ,"1165432109" , true);
+          hd.listarhuespedes();
+
     }
 }
