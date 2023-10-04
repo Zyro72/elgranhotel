@@ -6,7 +6,6 @@
 package accesoAdatos;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.sql.Connection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -19,18 +18,43 @@ import java.util.List;
  * @author perey
  */
 public class huespedData {
-    public Conexion con =null;
+    private Connection con =null;
 
     public huespedData (){
         
-        con=Conexion.getConnection();
+        con=Conexion.getConection();
+        
+        System.out.println("conexion creada");
          }
-        public List<huesped>listarhuespedes(){
+
+    public void listarhuespedes(){
+        String sql="SELECT * FROM huesped";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                System.out.println("id:"+rs.getInt(1));
+                System.out.println("DNI:"+rs.getInt(2));
+                System.out.println("Apellido y nombre:"+rs.getString(3));
+                System.out.println("Domicilio:"+rs.getString(4));
+                System.out.println("Correo:"+rs.getString(5));
+                System.out.println("Estado:"+rs.getBoolean(6));
+                
+                
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error consultando BD");
+        }
+        
+    }
+    
+    /*public ArrayList<huesped>listarhuespedes(){
+            ArrayList<huesped>registrados =new ArrayList<>();
             String sql ="SELECT * FROM huesped";
+            System.out.println("sql creado");
              
         try {
             PreparedStatement ps=con.prepareStatement(sql);
-            ArrayList<huesped>registrados =new ArrayList<>();
             ResultSet rs=ps.executeQuery();
             while (rs.next()){
                 huesped huesped=new huesped();
@@ -42,7 +66,7 @@ public class huespedData {
                 huesped.setCelular(rs.getString("Celular"));
                 huesped.setEstado(rs.getBoolean("Estado"));
                 registrados.add(huesped);
-                          
+                System.out.println("Resultset");          
             }
             return registrados;
         } catch (SQLException ex) {
@@ -50,5 +74,12 @@ public class huespedData {
           return null;
         }
     
-        }  
+        } 
+*/
+ 
+ 
+ 
+        
+        
+        
 }
