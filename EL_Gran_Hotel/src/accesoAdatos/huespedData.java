@@ -103,7 +103,7 @@ public class huespedData {
         nuevo.setCelular(Celular);
         nuevo.setEstado(Estado);
         System.out.println("nuevo huesped"+nuevo.toString());
-        
+       }
 //        try {
 //            String sql ="INSERT  INTO `huesped` ( `Dni`, `Apellidoynom`, `Direccion`, `Correo`, `Celular`, `Estado`) VALUES(?,?,?,?,?,?)" ;
 //            PreparedStatement ps= con.prepareStatement(sql);
@@ -158,6 +158,7 @@ public class huespedData {
  
  
         
-       }   
+}
+               
         
 
