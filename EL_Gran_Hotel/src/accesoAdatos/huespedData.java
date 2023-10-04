@@ -48,6 +48,7 @@ public class huespedData {
         
     }
     
+
     
     
     public void modificarhuesped(int idHuesped,int dni,String apeynom,String correo,String direccion,String celular,boolean estado){
@@ -71,8 +72,11 @@ public class huespedData {
             JOptionPane.showMessageDialog(null,"Error modificando huesped");
         }
         
+         
+        
     }
     
+
     public void eliminarhuesped(int idHuesped){
         String sql="UPDATE huesped SET estado=0 Where idHuesped=?";
         try {
@@ -88,8 +92,39 @@ public class huespedData {
             
         }
     }
-    
-    
+
+       public void guardarhuesped(int Dni,String Apellidoynom , String Direccion, String Correo , String Celular , boolean Estado){
+        huesped nuevo= new huesped() ;
+        nuevo.setDni(Dni);
+        nuevo.setApellidoynom(Apellidoynom);
+        nuevo.setDireccion(Direccion);
+        nuevo.setCorreo(Correo);
+        nuevo.setCelular(Celular);
+        nuevo.setEstado(Estado);
+        System.out.println("nuevo huesped"+nuevo.toString());
+        
+//        try {
+//            String sql ="INSERT  INTO `huesped` ( `Dni`, `Apellidoynom`, `Direccion`, `Correo`, `Celular`, `Estado`) VALUES(?,?,?,?,?,?)" ;
+//            PreparedStatement ps= con.prepareStatement(sql);
+//            ps.setInt(1, Dni);
+//            ps.setString(2, Apellidoynom);
+//            ps.setString(3, Direccion);
+//            ps.setString(4, Correo);
+//            ps.setString(5, Celular);
+//            ps.setBoolean(6, Estado);
+//            ps.executeUpdate();
+//            ResultSet rs=ps.getGeneratedKeys();
+//            if (rs.next()){
+//               nuevo.setIdHuesped(rs.getInt(1));
+//                JOptionPane.showMessageDialog(null,"Huesped Guardado correctamente");
+//            
+//            }
+//        } 
+//            catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null,"Error conectando a base de Datos en huesped ");
+//
+//        }
+
     /*public ArrayList<huesped>listarhuespedes(){
             ArrayList<huesped>registrados =new ArrayList<>();
             String sql ="SELECT * FROM huesped";
@@ -122,6 +157,6 @@ public class huespedData {
  
  
         
+       }   
         
-        
-}
+
