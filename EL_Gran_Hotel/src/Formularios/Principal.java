@@ -13,7 +13,9 @@ import java.sql.*;
 /**
  *
  * @author RodrigoI
- */
+ */ 
+//clase para hacer pruebas
+
 public class Principal {
      public static void main(String[] args) {
          Connection con=Conexion.getConection();
