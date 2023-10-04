@@ -22,5 +22,13 @@ public class Principal {
          huespedData hd=new huespedData();
          hd.listarhuespedes();
          
+         //PRUEBA DE MODIFICAR HUESPED
+         hd.modificarhuesped(1, 28126572, "Rodrigo Juan Irusta", "rirusta@guerrero.com.ar", "San Martin 98", "3476-155662211", true);
+         
+         //PRUEBA DE ELIMINAR HUESPED
+         hd.eliminarhuesped(1);
+         
+         
+         
     }
 }

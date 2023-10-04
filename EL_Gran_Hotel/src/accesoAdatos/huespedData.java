@@ -48,6 +48,48 @@ public class huespedData {
         
     }
     
+    
+    
+    public void modificarhuesped(int idHuesped,int dni,String apeynom,String correo,String direccion,String celular,boolean estado){
+        String sql="UPDATE huesped SET Dni=?, Apellidoynom=?, Direccion=?, Correo=?, Celular=?, Estado=? WHERE idHuesped=?";
+        try{
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ps.setString(2, apeynom);
+            ps.setString(3, direccion);
+            ps.setString(4, correo);
+            ps.setString(5, celular);
+            ps.setBoolean(6, estado);
+            ps.setInt(7, idHuesped);
+            ps.executeUpdate();
+            listarhuespedes();
+            
+            
+            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error modificando huesped");
+        }
+        
+    }
+    
+    public void eliminarhuesped(int idHuesped){
+        String sql="UPDATE huesped SET estado=0 Where idHuesped=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, idHuesped);
+            ps.executeQuery();
+            listarhuespedes();
+            
+            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error eliminando el huesped");
+            
+        }
+    }
+    
+    
     /*public ArrayList<huesped>listarhuespedes(){
             ArrayList<huesped>registrados =new ArrayList<>();
             String sql ="SELECT * FROM huesped";
