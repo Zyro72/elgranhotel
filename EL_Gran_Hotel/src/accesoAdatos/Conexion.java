@@ -4,49 +4,42 @@
  * and open the template in the editor.
  */
 package accesoAdatos;
-//import com.mysql.jdbc.PreparedStatement;//este no va
-import java.sql.PreparedStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author perey
  */
 public class Conexion {
-    public static final String URL = "jdbc:mariadb://localhost/elgranhotel";
-    public static final String USER = "root";
-    public static final String PASS = "";
+    private static final String URL = "jdbc:mariadb://localhost/";
+    private static final String BD ="elgranhotel";
+    private static final String USER = "root";
+    private static final String PASS = "";
+    private static Connection con;
+    
+    private Conexion(){}
+    
+    public static Connection getConection(){
+        if (con==null){
+            try {
+                Class.forName("org.mariadb.jdbc.Driver");
+                con=DriverManager.getConnection(URL+BD,USER,PASS);
+                
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null,"Error cargando drivers" );
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error conectando a la base de datos");
+            }
+                      
+        }
+        return con;
+    }
+}
+
     /**
      * @param args the command line arguments
      */
-    private static Conexion conexion;
-     PreparedStatement ps;
-        ResultSet rs;
-    
-    public static Conexion getConnection(){
-        Conexion conexion=null;
-       try{
-            
-            Class.forName("org.mariadb.jdbc.Driver"); //"org.mariadb.jdbc.Driver"
-            conexion = (Conexion)DriverManager.getConnection(URL, USER, PASS);
-            //JOptionPane.showMessageDialog(null, "Conexión Exitosa");
-        
-        }catch(Exception ex){
-            System.err.println("Error: "+ex);
-        }
-        
-        return conexion;
-    }
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-
-    PreparedStatement prepareStatement(String sql) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-}
