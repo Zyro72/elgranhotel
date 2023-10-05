@@ -35,6 +35,6 @@ public class Principal {
         //  PRUEBA DE GUARDAR HUESPED
 //         hd.guardarhuesped(17224173, "Pereyra Miguel", "Bulevard 1047 depto 2","cheche@gmail.com" ,"1121977690" , true);
           hd.listarhuespedes();
-
+         hd.buscarporDni(36608818); 
     }
 }
