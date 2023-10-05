@@ -162,10 +162,10 @@ public class huespedData {
         }
        }
 
-    /*public ArrayList<huesped>listarhuespedes(){
+    public ArrayList<huesped>listarhuesped(){
             ArrayList<huesped>registrados =new ArrayList<>();
             String sql ="SELECT * FROM huesped";
-            System.out.println("sql creado");
+           
              
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -180,7 +180,8 @@ public class huespedData {
                 huesped.setCelular(rs.getString("Celular"));
                 huesped.setEstado(rs.getBoolean("Estado"));
                 registrados.add(huesped);
-                System.out.println("Resultset");          
+                //SOUT DE PRUEBA
+                System.out.println(" "+registrados);         
             }
             return registrados;
         } catch (SQLException ex) {
@@ -189,7 +190,7 @@ public class huespedData {
         }
     
         } 
-*/
+
  
  
  
