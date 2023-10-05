@@ -96,35 +96,36 @@ public class huespedData {
 
        public void guardarhuesped(int Dni,String Apellidoynom , String Direccion, String Correo , String Celular , boolean Estado){
         huesped nuevo= new huesped() ;
-        nuevo.setDni(Dni);
-        nuevo.setApellidoynom(Apellidoynom);
-        nuevo.setDireccion(Direccion);
-        nuevo.setCorreo(Correo);
-        nuevo.setCelular(Celular);
-        nuevo.setEstado(Estado);
-        System.out.println("nuevo huesped"+nuevo.toString());
+//        nuevo.setDni(Dni);
+//        nuevo.setApellidoynom(Apellidoynom);
+//        nuevo.setDireccion(Direccion);
+//        nuevo.setCorreo(Correo);
+//        nuevo.setCelular(Celular);
+//        nuevo.setEstado(Estado);
+//        System.out.println("nuevo huesped"+nuevo.toString());
+//       }
+        try {
+            String sql ="INSERT  INTO `huesped` ( `Dni`, `Apellidoynom`, `Direccion`, `Correo`, `Celular`, `Estado`) VALUES(?,?,?,?,?,?)" ;
+            PreparedStatement ps= con.prepareStatement(sql);
+            ps.setInt(1, Dni);
+            ps.setString(2, Apellidoynom);
+            ps.setString(3, Direccion);
+            ps.setString(4, Correo);
+            ps.setString(5, Celular);
+            ps.setBoolean(6, Estado);
+            ps.executeUpdate();
+            ResultSet rs=ps.getGeneratedKeys();
+            if (rs.next()){
+               nuevo.setIdHuesped(rs.getInt(1));
+                JOptionPane.showMessageDialog(null,"Huesped Guardado correctamente");
+            
+            }
+        } 
+            catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error conectando a base de Datos en huesped ");
+
+        }
        }
-//        try {
-//            String sql ="INSERT  INTO `huesped` ( `Dni`, `Apellidoynom`, `Direccion`, `Correo`, `Celular`, `Estado`) VALUES(?,?,?,?,?,?)" ;
-//            PreparedStatement ps= con.prepareStatement(sql);
-//            ps.setInt(1, Dni);
-//            ps.setString(2, Apellidoynom);
-//            ps.setString(3, Direccion);
-//            ps.setString(4, Correo);
-//            ps.setString(5, Celular);
-//            ps.setBoolean(6, Estado);
-//            ps.executeUpdate();
-//            ResultSet rs=ps.getGeneratedKeys();
-//            if (rs.next()){
-//               nuevo.setIdHuesped(rs.getInt(1));
-//                JOptionPane.showMessageDialog(null,"Huesped Guardado correctamente");
-//            
-//            }
-//        } 
-//            catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null,"Error conectando a base de Datos en huesped ");
-//
-//        }
 
     /*public ArrayList<huesped>listarhuespedes(){
             ArrayList<huesped>registrados =new ArrayList<>();

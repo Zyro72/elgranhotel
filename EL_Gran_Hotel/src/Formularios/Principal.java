@@ -32,8 +32,8 @@ public class Principal {
          
          
 
-        //  PRUEBA DE GUARDAR HUESPED (HUESPED YA CARGADO EL QUE FIGURA ABAJO)
-//         hd.guardarhuesped(17625173, "Aponte Alda", "Bulevard 1047","aponte.ale@gmail.com" ,"1165432109" , true);
+        //  PRUEBA DE GUARDAR HUESPED
+//         hd.guardarhuesped(17224173, "Pereyra Miguel", "Bulevard 1047 depto 2","cheche@gmail.com" ,"1121977690" , true);
           hd.listarhuespedes();
 
     }
