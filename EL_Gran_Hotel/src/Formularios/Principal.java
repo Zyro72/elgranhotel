@@ -46,7 +46,7 @@ public class Principal {
          
 
         //  PRUEBA DE GUARDAR HUESPED
-         hd.guardarhuesped(17224173, "Pereyra Miguel", "Bulevard 1047 depto 2","cheche@gmail.com" ,"1121977690" , true);
+       //  hd.guardarhuesped(123, "Perez", "Buas depto 2","chece@gmail.com" ,"11290" , true);
          // hd.listarhuespedes();
 
 
@@ -75,7 +75,7 @@ public class Principal {
           //PRUEBA BUSCAR POR DNI
         // hd.buscarporDni(36608818); 
         
-        //PRUBA DE LISTAR HUSPEDES
+        //PRUBA DE LISTAR HUSPEDES POR ARRAYLIST
        // hd.listarhuesped();
 
     }

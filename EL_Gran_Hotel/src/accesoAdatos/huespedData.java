@@ -149,15 +149,17 @@ public class huespedData {
             ps.setString(5, Celular);
             ps.setBoolean(6, Estado);
             ps.executeUpdate();
-            ResultSet rs=ps.getGeneratedKeys();
-            if (rs.next()){
+            ResultSet rs=ps.executeQuery();
+            
+            
+             if (rs.next()){
                nuevo.setIdHuesped(rs.getInt(1));
                 JOptionPane.showMessageDialog(null,"Huesped Guardado correctamente");
             
             }
         } 
             catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error conectando a base de Datos en huesped ");
+            JOptionPane.showMessageDialog(null,"Error conectando a base de Datos en huesped "+ex);
 
         }
        }
@@ -181,14 +183,19 @@ public class huespedData {
                 huesped.setEstado(rs.getBoolean("Estado"));
                 registrados.add(huesped);
                 //SOUT DE PRUEBA
-                System.out.println(" "+registrados);         
+                  
             }
+             System.out.println(""+registrados);
+             
+           
             return registrados;
+            
         } catch (SQLException ex) {
           JOptionPane.showMessageDialog(null, "Error en conexion a Base de Datos al listar huesped");
-          return null;
+          
+          return registrados;
         }
-    
+            
         } 
 
  
