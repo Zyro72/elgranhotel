@@ -24,6 +24,7 @@ public class Principal {
          Connection con=Conexion.getConection();
          huespedData hd=new huespedData();
 
+
          //hd.listarhuespedes();
          
          //PRUEBA DE MODIFICAR HUESPED
@@ -31,6 +32,15 @@ public class Principal {
          
          //PRUEBA DE ELIMINAR HUESPED
         // hd.eliminarhuesped(1);
+
+        // hd.listarhuespedes();
+         
+         //PRUEBA DE MODIFICAR HUESPED
+        // hd.modificarhuesped(1, 28126572, "Rodrigo Juan Irusta", "rirusta@guerrero.com.ar", "San Martin 98", "3476-155662211", true);
+         
+         //PRUEBA DE ELIMINAR HUESPED
+         //hd.eliminarhuesped(1);
+
          
          
          
@@ -38,6 +48,7 @@ public class Principal {
         //  PRUEBA DE GUARDAR HUESPED
 //         hd.guardarhuesped(17224173, "Pereyra Miguel", "Bulevard 1047 depto 2","cheche@gmail.com" ,"1121977690" , true);
          // hd.listarhuespedes();
+
 
         //PRUEBA DE GUARDAR HABITACION
         //1RO CREO UN TIPO DE HABITACION
@@ -60,17 +71,13 @@ public class Principal {
         habitacionData habdata=new habitacionData();
         habdata.guardarHabitacion(hab);
         
+ 
+          //PRUEBA BUSCAR POR DNI
+        // hd.buscarporDni(36608818); 
         
-        
-        
-        
-        
-              
-        
-        
-        
-        
-          
-          
+        //PRUBA DE LISTAR HUSPEDES
+       // hd.listarhuesped();
+
     }
 }
+

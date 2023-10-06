@@ -93,7 +93,42 @@ public class huespedData {
             
         }
     }
-
+        public void buscarporDni(int Dni){
+            
+        try {
+            huesped buscado= new huesped();
+            String sql="SELECT * FROM huesped WHERE Dni =?";
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, Dni);
+            ResultSet rs=ps.executeQuery();
+             if (rs.next()) {
+               
+                buscado.setIdHuesped(rs.getInt("idHuesped"));
+                buscado.setDni(rs.getInt("Dni"));
+                buscado.setApellidoynom(rs.getString("Apellidoynom"));
+                buscado.setDireccion(rs.getString("Direccion"));
+                buscado.setCorreo(rs.getString("Correo"));
+                buscado.setCelular(rs.getString("Celular"));
+              
+                buscado.setEstado(true);
+                // ESTE SOUT ES SOLO A MODO DE PRUEBA
+                 System.out.println("id: "+rs.getInt("idHuesped")+" - "+"Apellido y Nombre: "+rs.getString("Apellidoynom"));
+            }else {
+            JOptionPane.showMessageDialog(null, "No existe ese huesped ");
+            }
+            ps.close();
+            
+            
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Error buscando el huesped");
+        }
+          
+            
+            
+        }
+    
+    
+    
        public void guardarhuesped(int Dni,String Apellidoynom , String Direccion, String Correo , String Celular , boolean Estado){
         huesped nuevo= new huesped() ;
 //        nuevo.setDni(Dni);
@@ -127,10 +162,10 @@ public class huespedData {
         }
        }
 
-    /*public ArrayList<huesped>listarhuespedes(){
+    public ArrayList<huesped>listarhuesped(){
             ArrayList<huesped>registrados =new ArrayList<>();
             String sql ="SELECT * FROM huesped";
-            System.out.println("sql creado");
+           
              
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -145,7 +180,8 @@ public class huespedData {
                 huesped.setCelular(rs.getString("Celular"));
                 huesped.setEstado(rs.getBoolean("Estado"));
                 registrados.add(huesped);
-                System.out.println("Resultset");          
+                //SOUT DE PRUEBA
+                System.out.println(" "+registrados);         
             }
             return registrados;
         } catch (SQLException ex) {
@@ -154,7 +190,7 @@ public class huespedData {
         }
     
         } 
-*/
+
  
  
  
