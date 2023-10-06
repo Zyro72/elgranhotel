@@ -46,7 +46,7 @@ public class Principal {
          
 
         //  PRUEBA DE GUARDAR HUESPED
-//         hd.guardarhuesped(17224173, "Pereyra Miguel", "Bulevard 1047 depto 2","cheche@gmail.com" ,"1121977690" , true);
+         hd.guardarhuesped(17224173, "Pereyra Miguel", "Bulevard 1047 depto 2","cheche@gmail.com" ,"1121977690" , true);
          // hd.listarhuespedes();
 
 
@@ -69,7 +69,7 @@ public class Principal {
         
         //3ro llamo al metodo guardarhabitacion
         habitacionData habdata=new habitacionData();
-        habdata.guardarHabitacion(hab);
+        //habdata.guardarHabitacion(hab);
         
  
           //PRUEBA BUSCAR POR DNI
