@@ -46,31 +46,39 @@ public class Principal {
          
 
         //  PRUEBA DE GUARDAR HUESPED
-         hd.guardarhuesped(17224173, "Pereyra Miguel", "Bulevard 1047 depto 2","cheche@gmail.com" ,"1121977690" , true);
+         //hd.guardarhuesped(28924567, "Gomez Pedro", "Sgto Cabral 2312","gomezpe@gmail.com" ,"34521577690" , true);
          // hd.listarhuespedes();
 
 
         //PRUEBA DE GUARDAR HABITACION
         //1RO CREO UN TIPO DE HABITACION
-        tipodehabitacion tipo1=new tipodehabitacion();
-        tipo1.setCodigo(1);
-        tipo1.setTipo("STANDAR");
-        tipo1.setCapacidad(1);
-        tipo1.setCantcamas(1);
-        tipo1.setTipocamas("SIMPLE");
-        tipo1.setPrecio(18000);
+        tipodehabitacion tipo2=new tipodehabitacion();
+        tipo2.setCodigo(2);
+        tipo2.setTipo("DOBLE");
+        tipo2.setCapacidad(2);
+        tipo2.setCantcamas(1);
+        tipo2.setTipocamas("QUEEN");
+        tipo2.setPrecio(25000);
         
         //2DO CREO UNA HABITACION
         habitacion hab=new habitacion();
         hab.setNumero(101);
         hab.setPiso(1);
-        hab.setTipohabitacion(tipo1);
+        hab.setTipohabitacion(tipo2);
         hab.setEstado(true);
         
         //3ro llamo al metodo guardarhabitacion
         habitacionData habdata=new habitacionData();
         //habdata.guardarHabitacion(hab);
         
+ // PRUEBA DE MODIFICAR UNA HABITACION
+       //habdata.modificarHabitacion(hab);
+ 
+//PRUEBA DE ELIMINAR HABITACION (INACTIVAR)
+    habdata.eliminarHabitacion(hab);
+    
+       
+ 
  
           //PRUEBA BUSCAR POR DNI
         // hd.buscarporDni(36608818); 

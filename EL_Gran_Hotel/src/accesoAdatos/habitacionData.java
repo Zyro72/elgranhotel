@@ -41,8 +41,41 @@ public class habitacionData {
             
             
         }
+    }  
+    public void modificarHabitacion(habitacion habit){
+               
+        String sql="UPDATE habitacion SET TipoHabitacion=? , Estado=? WHERE Numero=?";
+        
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, habit.getTipohabitacion().getCodigo());
+            ps.setBoolean(2, habit.isEstado());
+            ps.setInt(3, habit.getNumero());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Se ha modificado la habitacion nro "+habit.getNumero());
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error modificando habitacion");
+        }
+    }
+    public void eliminarHabitacion(habitacion habit){
+        String sql="UPDATE habitacion SET Estado=false WHERE Numero=?";
+        
+        try{
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, habit.getNumero());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Se ha inactivado la habitacion nro"+habit.getNumero());
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al intentar inactivar la habitacion");
+            
+        }
         
         
+        
+        
+        
+    }
         
         
         
@@ -55,4 +88,4 @@ public class habitacionData {
     
     
     
-}
+
