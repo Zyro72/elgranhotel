@@ -61,14 +61,14 @@ public class Principal {
         tipo1.setPrecio(18000);
         
         //2DO CREO UNA HABITACION
-        habitacion hab=new habitacion();
-        hab.setNumero(101);
-        hab.setPiso(1);
-        hab.setTipohabitacion(tipo1);
-        hab.setEstado(true);
+        //habitacion hab=new habitacion();
+        //hab.setNumero(101);
+        //hab.setPiso(1);
+        //hab.setTipohabitacion(tipo1);
+        //hab.setEstado(true);
         
         //3ro llamo al metodo guardarhabitacion
-        habitacionData habdata=new habitacionData();
+        //habitacionData habdata=new habitacionData();
         //habdata.guardarHabitacion(hab);
         
  
@@ -77,6 +77,18 @@ public class Principal {
         
         //PRUBA DE LISTAR HUSPEDES POR ARRAYLIST
        // hd.listarhuesped();
+       
+       //PRUEBA DE BUSCAR UNA HABITACION
+       //CREO UNA HABITACION PARA TRAER EL RESULTADO
+       habitacion habit=new habitacion();
+       habitacionData habdat=new habitacionData();
+       habit=habdat.buscarHabitacion(101);
+        System.out.println("Tipo habitacion:"+habit.getTipohabitacion().getTipo());
+         System.out.println("Piso:"+habit.getPiso());
+         System.out.println("Estado:"+habit.isEstado());
+       
+       
+       
 
     }
 }

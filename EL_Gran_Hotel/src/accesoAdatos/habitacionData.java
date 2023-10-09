@@ -6,6 +6,7 @@
 package accesoAdatos;
 
 import Entidades.habitacion;
+import Entidades.tipodehabitacion;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,11 +71,48 @@ public class habitacionData {
             JOptionPane.showMessageDialog(null,"Error al intentar inactivar la habitacion");
             
         }
+    }
+    
         
-        
-        
-        
-        
+    public habitacion buscarHabitacion(int numero)    {
+        String sql="SELECT * FROM habitacion WHERE numero=?";
+        String sqlTh="SELECT * FROM tipodehabitacion WHERE Codigo=?";
+        try{
+            
+            PreparedStatement ps=con.prepareStatement(sql);
+            PreparedStatement psTh=con.prepareStatement(sqlTh);
+            ps.setInt(1, numero);
+            System.out.println(numero);
+            ResultSet rs=ps.executeQuery();
+            if (rs.next()){
+                int tipoHab=rs.getInt(2);
+             psTh.setInt(1, tipoHab);
+            }else { JOptionPane.showMessageDialog(null,"Habitación no encontrada");
+            }
+            
+            ResultSet rsTh=psTh.executeQuery();
+            if (rsTh.next()){
+                tipodehabitacion tipoH=new tipodehabitacion();
+                tipoH.setCodigo(rsTh.getInt(1));
+                tipoH.setTipo(rsTh.getString(2));
+                tipoH.setCapacidad(rsTh.getInt(3));
+                tipoH.setCantcamas(rsTh.getInt(4));
+                tipoH.setTipocamas(rsTh.getString(5));
+                tipoH.setPrecio(rsTh.getDouble(6));
+                habitacion hab=new habitacion();
+                hab.setNumero(numero);
+                hab.setTipohabitacion(tipoH);
+                hab.setPiso(rs.getInt(3));
+                hab.setEstado(rs.getBoolean(4));
+                return hab;
+                
+            }
+                      
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error buscando habitacion");
+            return null;
+        }
+     return null;
     }
         
         
