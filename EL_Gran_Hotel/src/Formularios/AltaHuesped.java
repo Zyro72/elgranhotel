@@ -206,7 +206,7 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
         String dire =jTdomi.getText();
         String mail =jTcorreo.getText();
         String celu =jTcelu.getText();
-        
+      
         nuevo.guardarhuesped(dni,apeynom, dire, mail,celu, estados);
         
         
