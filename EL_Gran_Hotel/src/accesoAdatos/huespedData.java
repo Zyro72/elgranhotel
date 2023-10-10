@@ -112,10 +112,11 @@ public class huespedData {
               
                 buscado.setEstado(true);
                 // ESTE SOUT ES SOLO A MODO DE PRUEBA
-                 System.out.println("id: "+rs.getInt("idHuesped")+" - "+"Apellido y Nombre: "+rs.getString("Apellidoynom"));
+                // System.out.println("id: "+rs.getInt("idHuesped")+" - "+"Apellido y Nombre: "+rs.getString("Apellidoynom"));
             }else {
             JOptionPane.showMessageDialog(null, "No existe ese huesped ");
             }
+             
             ps.close();
             
             
@@ -124,7 +125,7 @@ public class huespedData {
         }
           
             
-            
+           
         }
     
     
