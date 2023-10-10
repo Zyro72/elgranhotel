@@ -16,7 +16,7 @@ import java.awt.Color;
 public class AltaHuesped extends javax.swing.JInternalFrame {
 
     huespedData nuevo= new huespedData();
-     boolean estados;
+     boolean estados=true;
     /**
      * Creates new form AltaHuesped
      */
@@ -203,12 +203,6 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
 
        
-        int dni=Integer.parseInt(jTdni.getText());
-        String apeynom =jTapeynom.getText();
-        String dire =jTdomi.getText();
-        String mail =jTcorreo.getText();
-        String celu =jTcelu.getText();
-      
         huesped auxh=new huesped();
 //        int dni=Integer.parseInt(jTdni.getText());
 //        String apeynom =jTapeynom.getText();

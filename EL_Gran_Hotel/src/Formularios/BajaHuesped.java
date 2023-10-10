@@ -48,6 +48,7 @@ public class BajaHuesped extends javax.swing.JInternalFrame {
         jBsalir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTbhuesped = new javax.swing.JTable();
+        jBlimpiar = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -64,7 +65,7 @@ public class BajaHuesped extends javax.swing.JInternalFrame {
             }
         });
 
-        jBelim.setText("Eliminar");
+        jBelim.setText("Dar Baja");
         jBelim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBelimActionPerformed(evt);
@@ -88,6 +89,13 @@ public class BajaHuesped extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(jTbhuesped);
 
+        jBlimpiar.setText("Limpiar Tabla");
+        jBlimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBlimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,7 +107,7 @@ public class BajaHuesped extends javax.swing.JInternalFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -107,7 +115,9 @@ public class BajaHuesped extends javax.swing.JInternalFrame {
                                 .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(79, 79, 79)
                                 .addComponent(jBbuscar)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBlimpiar)))))
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
@@ -124,10 +134,11 @@ public class BajaHuesped extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBbuscar))
+                    .addComponent(jBbuscar)
+                    .addComponent(jBlimpiar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jBelim)
@@ -147,13 +158,15 @@ public class BajaHuesped extends javax.swing.JInternalFrame {
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
         int dni=Integer.parseInt(jTdni.getText());
        aux= baja.buscarporDni(dni);
-        
+        int est;
+        if(aux.isEstado()==true){
+       est =1;
+        }else{
+            est=0;
+    }
     
-            formatoTabla.addRow(new Object[]{aux.getIdHuesped(),aux.getDni(),aux.getApellidoynom(),aux.getDireccion(),aux.getCorreo(),aux.getCelular()/*aux.getestado() */});      
+            formatoTabla.addRow(new Object[]{aux.getIdHuesped(),aux.getDni(),aux.getApellidoynom(),aux.getDireccion(),aux.getCorreo(),aux.getCelular(),est });      
             
-            
-        
-        
         
         
         
@@ -163,15 +176,24 @@ public class BajaHuesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jBelimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBelimActionPerformed
-        baja.eliminarhuesped(aux.getIdHuesped()); ;
-        
+         int fs=jTbhuesped.getSelectedRow();
+       if(fs!=-1){
+           int idhuesped=(Integer)formatoTabla.getValueAt(fs, 0) ;
+             baja.eliminarhuesped(idhuesped); 
+       }
         // TODO add your handling code here:
     }//GEN-LAST:event_jBelimActionPerformed
+
+    private void jBlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlimpiarActionPerformed
+         limpiarT();
+    // TODO add your handling code here:
+    }//GEN-LAST:event_jBlimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBbuscar;
     private javax.swing.JButton jBelim;
+    private javax.swing.JButton jBlimpiar;
     private javax.swing.JButton jBsalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
@@ -185,11 +207,19 @@ public class BajaHuesped extends javax.swing.JInternalFrame {
     public void inicializarTabla(){
         formatoTabla.addColumn("idHuesped");
         formatoTabla.addColumn("Dni");
-        formatoTabla.addColumn("Apellido y Nomre");
+        formatoTabla.addColumn("Apellido y Nombre");
         formatoTabla.addColumn("Domicilio");
         formatoTabla.addColumn("Correo");
         formatoTabla.addColumn("Celular");
         formatoTabla.addColumn("Estado");
          jTbhuesped.setModel(formatoTabla);
     }
+    private void limpiarT(){
+          int ind= formatoTabla.getRowCount()-1;
+          for (int x=ind ;x>=0;x--){
+             formatoTabla.removeRow(x);
+              
+          }
+          
+      }  
 }

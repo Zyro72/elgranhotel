@@ -20,9 +20,9 @@ import java.sql.*;
 //clase para hacer pruebas
 
 public class Principal {
-     public static void main(String[] args) {
-         Connection con=Conexion.getConection();
-         huespedData hd=new huespedData();
+//     public static void main(String[] args) {
+//         Connection con=Conexion.getConection();
+//         huespedData hd=new huespedData();
 
 
          //hd.listarhuespedes();
@@ -90,6 +90,6 @@ public class Principal {
        
        
 
-    }
+//    }
 }
 
