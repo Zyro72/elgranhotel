@@ -21,7 +21,7 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
      */
     public AltaHuesped() {
         initComponents();
-        jTestado.setText("ACTIVA");
+        jTestado.setText("Null");
         jTestado.setBackground(Color.GREEN);
         jTestado.setForeground(Color.BLACK);
     }

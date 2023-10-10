@@ -93,7 +93,7 @@ public class huespedData {
             
         }
     }
-        public void buscarporDni(int Dni){
+        public huesped buscarporDni(int Dni){
             
         try {
             huesped buscado= new huesped();
@@ -109,8 +109,8 @@ public class huespedData {
                 buscado.setDireccion(rs.getString("Direccion"));
                 buscado.setCorreo(rs.getString("Correo"));
                 buscado.setCelular(rs.getString("Celular"));
-              
-                buscado.setEstado(true);
+                buscado.setEstado(rs.getBoolean("Estado"));
+                 return buscado;
                 // ESTE SOUT ES SOLO A MODO DE PRUEBA
                 // System.out.println("id: "+rs.getInt("idHuesped")+" - "+"Apellido y Nombre: "+rs.getString("Apellidoynom"));
             }else {
@@ -123,10 +123,11 @@ public class huespedData {
         } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error buscando el huesped");
         }
+        return null;
           
-            
+          
            
-        }
+       }  
     
     
     
