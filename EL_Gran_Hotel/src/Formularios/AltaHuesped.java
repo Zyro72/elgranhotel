@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import Entidades.huesped;
 import accesoAdatos.huespedData;
 import java.awt.Color;
 
@@ -21,7 +22,7 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
      */
     public AltaHuesped() {
         initComponents();
-        jTestado.setText("Null");
+        jTestado.setText("ACTIVADO");
         jTestado.setBackground(Color.GREEN);
         jTestado.setForeground(Color.BLACK);
     }
@@ -200,6 +201,7 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBsalirActionPerformed
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
+
        
         int dni=Integer.parseInt(jTdni.getText());
         String apeynom =jTapeynom.getText();
@@ -207,8 +209,21 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
         String mail =jTcorreo.getText();
         String celu =jTcelu.getText();
       
-        nuevo.guardarhuesped(dni,apeynom, dire, mail,celu, estados);
+        huesped auxh=new huesped();
+//        int dni=Integer.parseInt(jTdni.getText());
+//        String apeynom =jTapeynom.getText();
+//        String dire =jTdomi.getText();
+//        String mail =jTcorreo.getText();
+//        String celu =jTcelu.getText();
+            auxh.setDni(Integer.parseInt(jTdni.getText()));
+            auxh.setApellidoynom(jTapeynom.getText());
+            auxh.setDireccion(jTdomi.getText());
+            auxh.setCorreo(jTcorreo.getText());
+            auxh.setCelular(jTcelu.getText());
+            auxh.setEstado(estados);
         
+        nuevo.guardarhuesped(auxh);
+  
         
         
         

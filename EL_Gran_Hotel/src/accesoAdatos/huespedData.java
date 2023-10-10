@@ -131,7 +131,7 @@ public class huespedData {
     
     
     
-       public void guardarhuesped(int Dni,String Apellidoynom , String Direccion, String Correo , String Celular , boolean Estado){
+       public void guardarhuesped(huesped a){
         huesped nuevo= new huesped() ;
 //        nuevo.setDni(Dni);
 //        nuevo.setApellidoynom(Apellidoynom);
@@ -144,21 +144,21 @@ public class huespedData {
         try {
             String sql ="INSERT  INTO `huesped` ( `Dni`, `Apellidoynom`, `Direccion`, `Correo`, `Celular`, `Estado`) VALUES(?,?,?,?,?,?)" ;
             PreparedStatement ps= con.prepareStatement(sql);
-            ps.setInt(1, Dni);
-            ps.setString(2, Apellidoynom);
-            ps.setString(3, Direccion);
-            ps.setString(4, Correo);
-            ps.setString(5, Celular);
-            ps.setBoolean(6, Estado);
-            ps.executeUpdate();
+            ps.setInt(1, a.getDni());
+            ps.setString(2, a.getApellidoynom());
+            ps.setString(3, a.getDireccion());
+            ps.setString(4, a.getCorreo());
+            ps.setString(5, a.getCelular());
+            ps.setBoolean(6, a.isEstado());
+//            ps.executeUpdate();
             ResultSet rs=ps.executeQuery();
+            System.out.println("grabe");
             
-            
-             if (rs.next()){
-               nuevo.setIdHuesped(rs.getInt(1));
+             
+//            nuevo.setIdHuesped(rs.getInt(1));
                 JOptionPane.showMessageDialog(null,"Huesped Guardado correctamente");
             
-            }
+            
         } 
             catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error conectando a base de Datos en huesped "+ex);
