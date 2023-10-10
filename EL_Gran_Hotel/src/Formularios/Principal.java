@@ -52,14 +52,14 @@ public class Principal {
 
         //PRUEBA DE GUARDAR HABITACION
         //1RO CREO UN TIPO DE HABITACION
-        tipodehabitacion tipo1=new tipodehabitacion();
-        tipo1.setCodigo(1);
-        tipo1.setTipo("STANDAR");
-        tipo1.setCapacidad(1);
-        tipo1.setCantcamas(1);
-        tipo1.setTipocamas("SIMPLE");
-        tipo1.setPrecio(18000);
-        
+//        tipodehabitacion tipo1=new tipodehabitacion();
+//        tipo1.setCodigo(1);
+//        tipo1.setTipo("STANDAR");
+//        tipo1.setCapacidad(1);
+//        tipo1.setCantcamas(1);
+//        tipo1.setTipocamas("SIMPLE");
+//        tipo1.setPrecio(18000);
+//        
         //2DO CREO UNA HABITACION
         //habitacion hab=new habitacion();
         //hab.setNumero(101);
@@ -80,12 +80,12 @@ public class Principal {
        
        //PRUEBA DE BUSCAR UNA HABITACION
        //CREO UNA HABITACION PARA TRAER EL RESULTADO
-       habitacion habit=new habitacion();
-       habitacionData habdat=new habitacionData();
-       habit=habdat.buscarHabitacion(101);
-        System.out.println("Tipo habitacion:"+habit.getTipohabitacion().getTipo());
-         System.out.println("Piso:"+habit.getPiso());
-         System.out.println("Estado:"+habit.isEstado());
+//       habitacion habit=new habitacion();
+//       habitacionData habdat=new habitacionData();
+//       habit=habdat.buscarHabitacion(101);
+//        System.out.println("Tipo habitacion:"+habit.getTipohabitacion().getTipo());
+//         System.out.println("Piso:"+habit.getPiso());
+//         System.out.println("Estado:"+habit.isEstado());
        
        
        

@@ -150,7 +150,7 @@ public class huespedData {
             ps.setString(4, a.getCorreo());
             ps.setString(5, a.getCelular());
             ps.setBoolean(6, a.isEstado());
-            ps.executeUpdate();
+//            ps.executeUpdate();
             ResultSet rs=ps.executeQuery();
             System.out.println("grabe");
             
