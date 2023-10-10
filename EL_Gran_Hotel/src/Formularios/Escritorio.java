@@ -141,13 +141,21 @@ public class Escritorio extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMbajahuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMbajahuespedActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        BajaHuesped bajahuesped = new BajaHuesped();
+        bajahuesped.setVisible(true);
+        escritorio.add(bajahuesped);
+        escritorio.moveToFront(bajahuesped);  
         // TODO add your handling code here:
     }//GEN-LAST:event_jMbajahuespedActionPerformed
 
@@ -156,7 +164,14 @@ public class Escritorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMmodhuespedActionPerformed
 
     private void jMaltahuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMaltahuespedActionPerformed
-               // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        AltaHuesped altahuesped = new AltaHuesped();
+        altahuesped.setVisible(true);
+        escritorio.add(altahuesped);
+        escritorio.moveToFront(altahuesped);  
+
+        // TODO add your handling code here:
     }//GEN-LAST:event_jMaltahuespedActionPerformed
 
     private void jMaltahabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMaltahabActionPerformed

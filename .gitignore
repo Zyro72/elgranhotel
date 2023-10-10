@@ -25,3 +25,4 @@ replay_pid*
 EL_Gran_Hotel/nbproject/project.properties
 /EL_Gran_Hotel/build/
 *.properties
+*.xml
