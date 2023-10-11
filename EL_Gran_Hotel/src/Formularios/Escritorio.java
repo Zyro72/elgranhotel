@@ -35,7 +35,6 @@ public class Escritorio extends javax.swing.JFrame {
         jMmodhuesped = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMaltahab = new javax.swing.JMenuItem();
-        jMbajahab = new javax.swing.JMenuItem();
         jMmodhab = new javax.swing.JMenuItem();
         jMpreciohab = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -97,10 +96,7 @@ public class Escritorio extends javax.swing.JFrame {
         });
         jMenu1.add(jMaltahab);
 
-        jMbajahab.setText("Baja");
-        jMenu1.add(jMbajahab);
-
-        jMmodhab.setText("Modificacion");
+        jMmodhab.setText("Modificar/Baja");
         jMmodhab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMmodhabActionPerformed(evt);
@@ -236,7 +232,6 @@ public class Escritorio extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem jMaltahab;
     private javax.swing.JMenuItem jMaltahuesped;
-    private javax.swing.JMenuItem jMbajahab;
     private javax.swing.JMenuItem jMbajahuesped;
     private javax.swing.JMenuItem jMbuscarres;
     private javax.swing.JMenuItem jMcrearreserva;
