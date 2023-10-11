@@ -11,6 +11,7 @@ import accesoAdatos.habitacionData;
 import accesoAdatos.tipohabitaciondata;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,9 +28,8 @@ public class ModHabit extends javax.swing.JInternalFrame {
     public ModHabit() {
         initComponents();
         inicializarTabla();
-        jTBestadoh.setText("ACTIVA");
-        jTBestadoh.setBackground(Color.GREEN);
-        jTBestadoh.setForeground(Color.BLACK);
+        jTBestadoh.setEnabled(false);
+                       
     }
 
     /**
@@ -49,6 +49,8 @@ public class ModHabit extends javax.swing.JInternalFrame {
         jBGuardarCambios = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablatiposh = new javax.swing.JTable();
+        jBbuscar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         jTBestadoh = new javax.swing.JToggleButton();
 
         jLabel1.setText("Numero de Habitacion");
@@ -79,6 +81,13 @@ public class ModHabit extends javax.swing.JInternalFrame {
         jTablatiposh.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTablatiposh);
 
+        jBbuscar.setText("Buscar");
+        jBbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBbuscarActionPerformed(evt);
+            }
+        });
+
         jTBestadoh.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jTBestadoh.setText("ACTIVA");
         jTBestadoh.addActionListener(new java.awt.event.ActionListener() {
@@ -97,26 +106,31 @@ public class ModHabit extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addComponent(jBGuardarCambios)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel3))
+                        .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jTpiso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                            .addComponent(jTnumeroh, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(jTnumeroh, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTBestadoh, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBGuardarCambios)
+                            .addComponent(jTBestadoh, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(160, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTnumeroh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTnumeroh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBbuscar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -124,32 +138,18 @@ public class ModHabit extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTBestadoh)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTBestadoh))
+                .addGap(12, 12, 12)
                 .addComponent(jBGuardarCambios)
-                .addGap(174, 174, 174))
+                .addGap(179, 179, 179))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTBestadohActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBestadohActionPerformed
-            if (jTBestadoh.isSelected()){
-                jTBestadoh.setText("INACTIVA");
-                jTBestadoh.setBackground(Color.RED);
-                jTBestadoh.setForeground(Color.WHITE);
-                estadoh=false;
-                
-                
-            }else {
-                jTBestadoh.setText("ACTIVA");
-                jTBestadoh.setBackground(Color.GREEN);
-                jTBestadoh.setForeground(Color.BLACK);
-                estadoh=true;
-            }
-    }//GEN-LAST:event_jTBestadohActionPerformed
 
     private void jBGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarCambiosActionPerformed
         //Guardo en variables todos los datos primero
@@ -175,7 +175,21 @@ public class ModHabit extends javax.swing.JInternalFrame {
         habi.setTipohabitacion(tipoH);
         habi.setPiso(pisoH);
         habi.setEstado(estadoh);
-        habData.guardarHabitacion(habi);
+        if(estadoh==false){
+            int respuesta=JOptionPane.showConfirmDialog(this,"Se dará de baja la habitacion "+habi.getNumero() + " esta seguro?", "ADVERTENCIA",JOptionPane.YES_NO_OPTION );
+            if (respuesta==JOptionPane.YES_OPTION){
+                habData.modificarHabitacion(habi);
+                
+            }else {
+                JOptionPane.showMessageDialog(this,"No se han realizado cambios");
+            }
+                       
+        }else {
+            habData.modificarHabitacion(habi);
+        }
+        
+        
+        
         
         
         
@@ -199,12 +213,63 @@ public class ModHabit extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jBGuardarCambiosActionPerformed
 
+    private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
+    jTBestadoh.setEnabled(true);
+    int numeroBuscar= Integer.parseInt(jTnumeroh.getText());
+    habitacionData habdata=new habitacionData();
+    habitacion habit=new habitacion();
+    habit=habdata.buscarHabitacion(numeroBuscar);
+    estadoh=habit.isEstado();
+    if (estadoh==true){
+        jTBestadoh.setBackground(Color.GREEN);
+        jTBestadoh.setForeground(Color.BLACK);
+        jTBestadoh.setText("ACTIVA");
+        
+        
+    }else {
+        jTBestadoh.setBackground(Color.RED);
+        jTBestadoh.setForeground(Color.WHITE);
+        jTBestadoh.setText("INACTIVA");
+        
+    }
+    jTpiso.setText(Integer.toString(habit.getPiso()));
+    tipodehabitacion tipoH=new tipodehabitacion();
+    tipoH=habit.getTipohabitacion();
+    int filaTipo=(tipoH.getCodigo()-1);
+    jTablatiposh.setRowSelectionInterval(filaTipo,filaTipo);
+    
+    
+    
+    
+    
+    
+    
+    }//GEN-LAST:event_jBbuscarActionPerformed
+
+    private void jTBestadohActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBestadohActionPerformed
+        
+        if (estadoh==true){
+            jTBestadoh.setText("INACTIVA");
+            jTBestadoh.setBackground(Color.RED);
+            jTBestadoh.setForeground(Color.WHITE);
+            estadoh=false;
+
+        }else {
+            jTBestadoh.setText("ACTIVA");
+            jTBestadoh.setBackground(Color.GREEN);
+            jTBestadoh.setForeground(Color.BLACK);
+            estadoh=true;
+        }
+    }//GEN-LAST:event_jTBestadohActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardarCambios;
+    private javax.swing.JButton jBbuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jTBestadoh;
     private javax.swing.JTable jTablatiposh;
