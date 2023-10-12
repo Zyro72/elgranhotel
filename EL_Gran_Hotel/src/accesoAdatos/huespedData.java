@@ -64,7 +64,7 @@ public class huespedData {
             ps.setBoolean(6, estado);
             ps.setInt(7, idHuesped);
             ps.executeUpdate();
-            listarhuespedes();
+           // listarhuespedes();
             
             
             

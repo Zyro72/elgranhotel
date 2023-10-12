@@ -159,6 +159,13 @@ public class Escritorio extends javax.swing.JFrame {
     }//GEN-LAST:event_jMbajahuespedActionPerformed
 
     private void jMmodhuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMmodhuespedActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        ModHuesped modhuesped = new ModHuesped();
+        modhuesped.setVisible(true);
+        escritorio.add(modhuesped);
+        escritorio.moveToFront(modhuesped);  
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jMmodhuespedActionPerformed
 

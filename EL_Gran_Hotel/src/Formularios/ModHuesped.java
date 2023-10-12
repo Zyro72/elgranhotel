@@ -5,12 +5,20 @@
  */
 package Formularios;
 
+import Entidades.huesped;
+import accesoAdatos.huespedData;
+import java.awt.Color;
+
 /**
  *
  * @author perey
  */
 public class ModHuesped extends javax.swing.JInternalFrame {
-
+        huespedData mod = new huespedData ();
+        huesped aux= new huesped ();
+        int id ;
+        boolean estados;
+         int est;
     /**
      * Creates new form ModHuesped
      */
@@ -31,15 +39,17 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        jTdni = new javax.swing.JTextField();
+        jTapeynom = new javax.swing.JTextField();
+        jTdire = new javax.swing.JTextField();
+        jTmail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTcelu = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        jBbuscar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTestado = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
 
         jLabel2.setText("Apellido y Nombre :");
 
@@ -49,83 +59,189 @@ public class ModHuesped extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Celular :");
 
-        jLabel6.setText("Estado :");
+        jTapeynom.setEnabled(false);
+
+        jTdire.setEnabled(false);
+
+        jTmail.setEnabled(false);
 
         jLabel1.setText("Dni :");
 
+        jTcelu.setEnabled(false);
+
         jLabel7.setText("Modificar  Huesped");
 
-        jToggleButton1.setText("jToggleButton1");
+        jBbuscar.setText("Buscar");
+        jBbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBbuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Estado :");
+
+        jTestado.setEnabled(false);
+        jTestado.setHideActionText(true);
+        jTestado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTestadoActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Modificar Datos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(265, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(113, 113, 113))
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(36, 36, 36)
+                        .addComponent(jTestado))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jToggleButton1)))
+                            .addComponent(jTdni)
+                            .addComponent(jTapeynom)
+                            .addComponent(jTdire)
+                            .addComponent(jTmail)
+                            .addComponent(jTcelu, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBbuscar)
+                            .addComponent(jButton1))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(113, 113, 113))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBbuscar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTapeynom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTdire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jButton1)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTcelu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton1))
-                .addContainerGap(107, Short.MAX_VALUE))
+                    .addComponent(jLabel6)
+                    .addComponent(jTestado))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
+       jTapeynom.setEnabled(true);
+        jTdire.setEnabled(true);
+        jTmail.setEnabled(true);
+        jTcelu.setEnabled(true);
+        jTestado.setEnabled(true);
+        int dni=Integer.parseInt(jTdni.getText());
+        aux= mod.buscarporDni(dni);
+       
+        if(aux.isEstado()==true){
+            jTestado.setText("ACTIVO");
+            jTestado.setBackground(Color.GREEN);
+            jTestado.setForeground(Color.BLACK);
+            est =1;
+        }else{
+            jTestado.setText("INACTIVO");
+            jTestado.setBackground(Color.RED);
+            jTestado.setForeground(Color.WHITE);
+            est=0;
+        }
+
+       id=aux.getIdHuesped();
+        //aux.getDni();
+        jTapeynom.setText(aux.getApellidoynom());
+        jTdire.setText(aux.getDireccion());
+        jTmail.setText(aux.getCorreo());
+        jTcelu.setText(aux.getCelular());
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBbuscarActionPerformed
+
+    private void jTestadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTestadoActionPerformed
+    if (jTestado.getText()=="ACTIVO"){
+                jTestado.setText("INACTIVO");
+                jTestado.setBackground(Color.RED);
+                jTestado.setForeground(Color.WHITE);
+                estados=false;
+                
+                
+            }else {
+                jTestado.setText("ACTIVO");
+                jTestado.setBackground(Color.GREEN);
+                jTestado.setForeground(Color.BLACK);
+                estados=true;
+    } 
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTestadoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+            mod.modificarhuesped(id,Integer.parseInt(jTdni.getText()), jTapeynom.getText(),jTmail.getText(),jTdire.getText(),jTcelu.getText(), estados);
+            jTdni.setText("");
+            jTapeynom.setText("");
+            jTdire.setText("");
+            jTmail.setText("");
+            jTcelu.setText("");
+        jTapeynom.setEnabled(false);
+        jTdire.setEnabled(false);
+        jTmail.setEnabled(false);
+        jTcelu.setEnabled(false);
+        jTestado.setEnabled(false);
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBbuscar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -133,11 +249,11 @@ public class ModHuesped extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField jTapeynom;
+    private javax.swing.JTextField jTcelu;
+    private javax.swing.JTextField jTdire;
+    private javax.swing.JTextField jTdni;
+    private javax.swing.JToggleButton jTestado;
+    private javax.swing.JTextField jTmail;
     // End of variables declaration//GEN-END:variables
 }
