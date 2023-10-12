@@ -104,7 +104,12 @@ public class Escritorio extends javax.swing.JFrame {
         });
         jMenu1.add(jMmodhab);
 
-        jMpreciohab.setText("Cambiar Precio");
+        jMpreciohab.setText("Ver/Cambiar Precios");
+        jMpreciohab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMpreciohabActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMpreciohab);
 
         jMenuBar1.add(jMenu1);
@@ -199,6 +204,15 @@ public class Escritorio extends javax.swing.JFrame {
         escritorio.moveToFront(modificarHabitaciones);
         
     }//GEN-LAST:event_jMmodhabActionPerformed
+
+    private void jMpreciohabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMpreciohabActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        Precios modificarPrecios=new Precios();
+        modificarPrecios.setVisible(true);
+        escritorio.add(modificarPrecios);
+        escritorio.moveToFront(modificarPrecios);
+    }//GEN-LAST:event_jMpreciohabActionPerformed
 
     /**
      * @param args the command line arguments

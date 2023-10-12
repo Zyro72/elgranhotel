@@ -46,12 +46,37 @@ public ArrayList<tipodehabitacion> todoslostipos(){
         JOptionPane.showMessageDialog(null, "Error conectando a la BD");
         return null;
     }
+}
+    public void modificarPrecios(tipodehabitacion tipodeH){
+        
+        String sql="UPDATE tipodehabitacion SET precio=? WHERE Codigo=?";
+        
+        try{
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setDouble(1,tipodeH.getPrecio());
+            ps.setInt(2,tipodeH.getCodigo());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cambios realizados con éxito");
+            
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al intentar modificar precios");
+        }
+       
     
     
     
     
     
-}    
+    
+    
+}
+    
+    
+    
+    
+    
+    
     
     
 }
