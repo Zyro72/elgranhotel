@@ -58,8 +58,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMpreciohab">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cambiar Precio"/>
+                <Property name="text" type="java.lang.String" value="Ver/Cambiar Precios"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMpreciohabActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
