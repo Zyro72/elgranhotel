@@ -228,6 +228,7 @@ public class ModHuesped extends javax.swing.JInternalFrame {
             jTdire.setText("");
             jTmail.setText("");
             jTcelu.setText("");
+            jTestado.setText("");
         jTapeynom.setEnabled(false);
         jTdire.setEnabled(false);
         jTmail.setEnabled(false);
