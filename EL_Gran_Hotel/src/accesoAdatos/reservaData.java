@@ -5,7 +5,12 @@
  */
 package accesoAdatos;
 
+import Entidades.habitacion;
+import Entidades.huesped;
+import Entidades.reserva;
 import java.sql.*;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,5 +23,31 @@ public reservaData(){
     con=Conexion.getConection();
 }
     
+ 
+//metodo para hacer una reserva
+public void guardarReserva(reserva reservaNueva){
+ 
+    String sql="INSERT INTO reserva SET nrohabitacion=?, idHuesped=?, FechaEntrada=?, FechaSalida=?, ImporteTotal=?, Estado=true ";
     
+    try {
+    PreparedStatement ps=con.prepareStatement(sql);
+    reservaNueva.getIdHuesped().getIdHuesped();
+    
+    
+    
+    ps.executeUpdate();
+    
+}catch(SQLException ex){
+        JOptionPane.showMessageDialog(null, "Error al intentar guardar la reserva");
+        }
+    
+    
+    
+    
+    
+}
+
+
+
+
 }
