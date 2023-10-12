@@ -110,19 +110,25 @@ public class huespedData {
                 buscado.setCorreo(rs.getString("Correo"));
                 buscado.setCelular(rs.getString("Celular"));
                 buscado.setEstado(rs.getBoolean("Estado"));
-                 return buscado;
+                 ps.close();
+                return buscado;
+                 
                 // ESTE SOUT ES SOLO A MODO DE PRUEBA
                 // System.out.println("id: "+rs.getInt("idHuesped")+" - "+"Apellido y Nombre: "+rs.getString("Apellidoynom"));
             }else {
             JOptionPane.showMessageDialog(null, "No existe ese huesped ");
+            ps.close();
+            return null;
+             
             }
              
-            ps.close();
+           
             
             
         } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error buscando el huesped");
         }
+         
         return null;
           
           
