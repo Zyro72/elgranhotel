@@ -182,13 +182,13 @@ public class huespedData {
             ResultSet rs=ps.executeQuery();
             while (rs.next()){
                 huesped huesped=new huesped();
-                huesped.setIdHuesped(rs.getInt("idHuesped"));
+//                huesped.setIdHuesped(rs.getInt("idHuesped"));
                 huesped.setDni(rs.getInt("Dni"));
                 huesped.setApellidoynom(rs.getString("Apellidoynom"));
                 huesped.setDireccion(rs.getString("Direccion"));
                 huesped.setCorreo(rs.getString("Correo"));
                 huesped.setCelular(rs.getString("Celular"));
-                huesped.setEstado(rs.getBoolean("Estado"));
+//                huesped.setEstado(rs.getBoolean("Estado"));
                 registrados.add(huesped);
                 //SOUT DE PRUEBA
                   
