@@ -47,7 +47,29 @@ public void guardarReserva(reserva reservaNueva){
     
 }
 
-
+public boolean verificarDisponible(int numeroHab, LocalDate fechaIng){
+   String sql="SELECT * FROM reserva WHERE nrohabitacion=? AND Estado=true AND ? BETWEEN FechaEntrada AND FechaSalida";
+   boolean resultado=true;
+   try{
+       PreparedStatement ps=con.prepareStatement(sql);
+       Date Fecha=Date.valueOf(fechaIng);
+       ps.setInt(1, numeroHab);
+       ps.setDate(2, Fecha);
+       ResultSet rs=ps.executeQuery();
+       if(rs.next()){
+           resultado=true;
+       }else {resultado=false;}
+       
+   }catch(SQLException ex){
+       JOptionPane.showMessageDialog(null,"Error buscando habitacion en Reservas");
+   }
+    
+    
+    
+   return resultado; 
+    
+    
+}
 
 
 }
