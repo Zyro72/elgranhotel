@@ -62,12 +62,36 @@ public ArrayList<tipodehabitacion> todoslostipos(){
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null,"Error al intentar modificar precios");
         }
-       
+        
+    }
     
     
-    
-    
-    
+ public tipodehabitacion Tipo(int codigo){
+ String sql="SELECT * FROM tipodehabitacion WHERE Codigo=?";
+ tipodehabitacion tipoH=new tipodehabitacion();
+ try{
+     PreparedStatement ps=con.prepareStatement(sql);
+     ps.setInt(1, codigo);
+     ResultSet rs=ps.executeQuery();
+     while (rs.next()){
+         
+         tipoH.setCodigo(codigo);
+         tipoH.setTipo(rs.getString(2));
+         tipoH.setCapacidad(rs.getInt(3));
+         tipoH.setCantcamas(rs.getInt(4));
+         tipoH.setTipocamas(rs.getString(5));
+         tipoH.setPrecio(rs.getDouble(6));
+     }
+         
+         
+     }catch (SQLException ex){
+         JOptionPane.showMessageDialog(null,"Error buscando tipos de habitacion");
+     
+ }
+ return tipoH;
+ 
+ }
+     
     
     
 }
@@ -75,9 +99,9 @@ public ArrayList<tipodehabitacion> todoslostipos(){
     
     
     
+
     
     
     
     
-}
 

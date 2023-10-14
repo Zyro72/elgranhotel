@@ -55,7 +55,7 @@ public class Escritorio extends javax.swing.JFrame {
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
+            .addGap(0, 629, Short.MAX_VALUE)
         );
 
         jMenu2.setText("Huespedes");
@@ -117,6 +117,11 @@ public class Escritorio extends javax.swing.JFrame {
         jMenu3.setText("Reservas");
 
         jMcrearreserva.setText("Reseva");
+        jMcrearreserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMcrearreservaActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMcrearreserva);
 
         jMbuscarres.setText("Buscar Reserva");
@@ -229,6 +234,15 @@ public class Escritorio extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jMLhuespedActionPerformed
+
+    private void jMcrearreservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMcrearreservaActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        HacerReserva HacerReservas=new HacerReserva();
+        HacerReservas.setVisible(true);
+        escritorio.add(HacerReservas);
+        escritorio.moveToFront(HacerReservas);
+    }//GEN-LAST:event_jMcrearreservaActionPerformed
 
     /**
      * @param args the command line arguments

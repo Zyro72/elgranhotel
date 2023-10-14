@@ -8,6 +8,7 @@ package accesoAdatos;
 import Entidades.habitacion;
 import Entidades.tipodehabitacion;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -115,7 +116,43 @@ public class habitacionData {
      return null;
     }
         
+    public ArrayList<habitacion> listarHabitacionesTipo(int codigoTipoh){
+        String sql="SELECT * FROM habitacion JOIN tipodehabitacion ON (habitacion.Tipohabitacion=tipodehabitacion.Codigo) WHERE habitacion.Tipohabitacion=?";
+        tipohabitaciondata tipoHdata=new tipohabitaciondata();
+        ArrayList<habitacion> listadoHabitacionesT=new ArrayList<>();
+        tipodehabitacion tipodeH=tipoHdata.Tipo(codigoTipoh);
+              
+        try{
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, codigoTipoh);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                habitacion habit=new habitacion();
+                habit.setNumero(rs.getInt(1));
+                habit.setTipohabitacion(tipodeH);
+                habit.setPiso(rs.getInt(3));
+                habit.setEstado(rs.getBoolean(4));
+                listadoHabitacionesT.add(habit);
+            }
         
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error listando las habitaciones");
+                    
+            
+        }
+        return listadoHabitacionesT;
+        
+        
+        
+        
+                
+        
+        
+        
+        
+        
+        
+    }
         
         
         
