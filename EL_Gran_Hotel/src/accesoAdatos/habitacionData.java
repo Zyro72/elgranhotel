@@ -135,6 +135,7 @@ public class habitacionData {
                 listadoHabitacionesT.add(habit);
             }
         
+
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null,"Error listando las habitaciones");
                     
@@ -153,6 +154,50 @@ public class habitacionData {
         
         
     }
+
+    
+    public ArrayList <habitacion> listarHabitacion()    {
+        ArrayList<habitacion> listado=new ArrayList<>();
+        String sql="SELECT * FROM habitacion ";
+       
+        try{
+            
+            PreparedStatement ps=con.prepareStatement(sql);
+           
+           
+            ResultSet rs=ps.executeQuery();
+            if (rs.next()){
+                
+             
+            }else { JOptionPane.showMessageDialog(null,"Habitación no encontrada");
+            }
+            
+           
+            while(rs.next()){
+                String sqlTh="SELECT * FROM tipodehabitacion WHERE Codigo=?";
+                 PreparedStatement psTh=con.prepareStatement(sqlTh);
+                ResultSet rsTh=psTh.executeQuery();
+                int tipoHab=rs.getInt(2);
+                tipodehabitacion tipoH=new tipodehabitacion();
+                tipoH.setCodigo(rsTh.getInt(1));
+                habitacion hab=new habitacion();
+                hab.setNumero(rs.getInt("Numero"));
+                hab.setTipohabitacion(tipoH);
+                hab.setPiso(rs.getInt("Piso"));
+                hab.setEstado(rs.getBoolean("Estado"));
+                listado.add(hab);
+                return listado;
+                
+            }
+                      
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error buscando habitacion");
+            return null;
+        }
+     return null;
+    }
+        
+
         
         
         
