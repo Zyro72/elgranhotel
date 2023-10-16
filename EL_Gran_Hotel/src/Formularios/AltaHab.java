@@ -28,6 +28,7 @@ public class AltaHab extends javax.swing.JInternalFrame {
         initComponents();
         inicializarTabla();
         jTBestadoh.setText("ACTIVA");
+        estadoh=true;
         jTBestadoh.setBackground(Color.GREEN);
         jTBestadoh.setForeground(Color.BLACK);
     }
@@ -188,6 +189,7 @@ public class AltaHab extends javax.swing.JInternalFrame {
         habi.setTipohabitacion(tipoH);
         habi.setPiso(pisoH);
         habi.setEstado(estadoh);
+        System.out.println("Estado habitacion "+estadoh);
         habData.guardarHabitacion(habi);
         
         

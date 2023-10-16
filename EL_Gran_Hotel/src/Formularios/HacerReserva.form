@@ -273,6 +273,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTcantNoches">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
@@ -304,6 +307,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTimporte">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jBconfirmarReserva">
       <Properties>

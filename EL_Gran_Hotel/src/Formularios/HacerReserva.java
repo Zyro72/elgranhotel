@@ -61,15 +61,6 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         initComponents();
         inicializarTablas();
         
-                
-         
-         
-        
-        
-        
-        
-        
-        
     }
 
     /**
@@ -160,6 +151,8 @@ public class HacerReserva extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Cantidad de Noches:");
 
+        jTcantNoches.setEditable(false);
+
         jThabitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -179,6 +172,8 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jThabitaciones);
 
         jLabel11.setText("Importe total de la estadía: $");
+
+        jTimporte.setEditable(false);
 
         jBconfirmarReserva.setText("Confirmar Reserva");
         jBconfirmarReserva.addActionListener(new java.awt.event.ActionListener() {
@@ -443,22 +438,16 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         //Busco las habitaciones en la BD de reserva para ver si estan ocupada en esa fecha
         verifico=resData.verificarDisponible(hab.getNumero(),fechaIng);
         if(verifico==false){
-        formatoTablaHabs.addRow(new Object[]{hab.getNumero(),hab.getTipohabitacion().getTipo(),hab.getPiso(),hab.isEstado()});
+            //verifico el estado de la habitacion y no agrego si esta en False
+            boolean estadoHabit=hab.isEstado();
+            if(estadoHabit==true){
+        formatoTablaHabs.addRow(new Object[]{hab.getNumero(),hab.getTipohabitacion().getTipo(),hab.getPiso(),"ACTIVA"});
         }
-        
-        
-        
+       
     }
     
-    
-    
-    
-    
-            
-    
-    
     }//GEN-LAST:event_jTtiposHabitacionMouseClicked
-
+    }
     private void jBvalidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBvalidarActionPerformed
    
     
@@ -557,19 +546,21 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     }catch(NumberFormatException ex){
         JOptionPane.showMessageDialog(this,"Ingrese un Dni Válido");
     }
-    huespedReserva=huesData.buscarporDni(dniHuesped);
-    estadoHuesped=huespedReserva.isEstado();
-    String palabraEstadoHuesped;
-    if (estadoHuesped==false){
-        JOptionPane.showMessageDialog(this,"ADVERTENCIA, el HUESPED INGRESADO ESTA DADO DE BAJA, DEBE REACTIVARLO PRIMERO");
-        palabraEstadoHuesped="INACTIVO";
-        return;
-        
-                
-    }else {
+   try{
+        huespedReserva=huesData.buscarporDni(dniHuesped);
+        estadoHuesped=huespedReserva.isEstado();
+        String palabraEstadoHuesped;
+        if (estadoHuesped==false){
+            JOptionPane.showMessageDialog(this,"ADVERTENCIA, el HUESPED INGRESADO ESTA DADO DE BAJA, DEBE REACTIVARLO PRIMERO");
+            palabraEstadoHuesped="INACTIVO";
+            return;
+                   
+        }else {
         palabraEstadoHuesped="ACTIVO";
-    }
-        
+        }
+   }catch(NullPointerException ex){
+       return;
+   }
     
     
     formatoTablaHuesped.addRow(new Object[]{huespedReserva.getApellidoynom(),huespedReserva.getDireccion(),huespedReserva.getCorreo(),huespedReserva.getCelular(),palabraEstadoHuesped});
