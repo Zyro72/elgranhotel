@@ -5,7 +5,9 @@
  */
 package Formularios;
 
+import Entidades.huesped;
 import accesoAdatos.huespedData;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author perey
  */
 public class ListarHuesped extends javax.swing.JInternalFrame {
-    huespedData listar= new huespedData();
+    huespedData lista= new huespedData();
     DefaultTableModel formatoTabla=new DefaultTableModel();
     
     
@@ -23,7 +25,7 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
     public ListarHuesped() {
         initComponents();
         inicializarTabla();
-        listar.listarhuesped();
+         cargarTabla();
         
     }
 
@@ -65,15 +67,15 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(210, 210, 210)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(222, 222, 222)
                 .addComponent(jBsalir)
                 .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,7 +86,7 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
                     .addComponent(jBsalir))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,4 +116,14 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
         
         jTLHuesped.setModel(formatoTabla);
 }
+    
+    public void cargarTabla(){
+      ArrayList<huesped> listar=new ArrayList<>();
+      listar=(ArrayList)lista.listarhuesped();
+      for (huesped item:listar){
+          formatoTabla.addRow(new Object[]{item.getDni(),item.getApellidoynom(),item.getDireccion(),item.getCorreo(),item.getCelular()});
+      }
+        
+        
+    }
 }
