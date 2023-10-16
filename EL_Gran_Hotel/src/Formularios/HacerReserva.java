@@ -6,8 +6,11 @@
 package Formularios;
 
 import Entidades.habitacion;
+import Entidades.huesped;
+import Entidades.reserva;
 import Entidades.tipodehabitacion;
 import accesoAdatos.habitacionData;
+import accesoAdatos.huespedData;
 import accesoAdatos.reservaData;
 import accesoAdatos.tipohabitaciondata;
 import java.time.DateTimeException;
@@ -26,7 +29,19 @@ import javax.swing.table.DefaultTableModel;
 public class HacerReserva extends javax.swing.JInternalFrame {
     DefaultTableModel formatoTablaTipos =new DefaultTableModel();
     DefaultTableModel formatoTablaHabs=new DefaultTableModel();
+    DefaultTableModel formatoTablaHuesped=new DefaultTableModel();
     LocalDate fechaIng;
+    LocalDate fechaSal;
+    huespedData huesData=new huespedData();
+    tipohabitaciondata tipohData=new tipohabitaciondata();
+    habitacionData habData=new habitacionData();
+    reservaData resData=new reservaData();
+    tipodehabitacion tipoHreserva=new tipodehabitacion();
+    habitacion habitReserva=new habitacion();
+    huesped huespedReserva=new huesped();
+    reserva nuevaReserva=new reserva();
+    double importe;
+    boolean estadoHuesped;
     /**
      * Creates new form HacerReserva
      */
@@ -96,6 +111,12 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         jBvalidar = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jTdniHuesped = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTablaHuesped = new javax.swing.JTable();
+        jBverificarHuesped = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
 
         jLabel1.setText("Fecha de Entrada:");
 
@@ -135,7 +156,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Elija el tipo de habitacion deseada");
 
-        jLabel9.setText("Haga click en las habitaciones para verificar la disponiblidad en la fecha elegida");
+        jLabel9.setText("Elija la habtacion deseada y haga click en confimar Reserva");
 
         jLabel10.setText("Cantidad de Noches:");
 
@@ -160,6 +181,11 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         jLabel11.setText("Importe total de la estadía: $");
 
         jBconfirmarReserva.setText("Confirmar Reserva");
+        jBconfirmarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBconfirmarReservaActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -186,20 +212,38 @@ public class HacerReserva extends javax.swing.JInternalFrame {
 
         jLabel13.setText("  dd        mm          aaaa");
 
+        jLabel15.setText("DNI del Huesped:");
+
+        jTablaHuesped.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTablaHuesped);
+
+        jBverificarHuesped.setText("Verificar Huesped");
+        jBverificarHuesped.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBverificarHuespedActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Datos del Huesped");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jBconfirmarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -218,6 +262,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTdiaS, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,27 +273,44 @@ public class HacerReserva extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTanoS, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBvalidar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35))
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTimporte, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBvalidar)
+                                .addGap(23, 23, 23)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTcantNoches, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 31, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTcantNoches, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addComponent(jTcantPas))
-                        .addGap(10, 10, 10)
-                        .addComponent(jBbuscar)))
-                .addGap(0, 69, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTimporte, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jBconfirmarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel15)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTdniHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jBverificarHuesped))
+                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTcantPas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jBbuscar))
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(0, 24, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,29 +329,36 @@ public class HacerReserva extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
-                    .addComponent(jBvalidar))
+                    .addComponent(jBvalidar)
+                    .addComponent(jLabel10)
+                    .addComponent(jTcantNoches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jTcantNoches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel15)
+                    .addComponent(jTdniHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBverificarHuesped))
+                .addGap(8, 8, 8)
+                .addComponent(jLabel16)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jTcantPas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBbuscar))
-                .addGap(13, 13, 13)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jTimporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -297,7 +366,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBconfirmarReserva)
                     .addComponent(jBSalir))
-                .addContainerGap())
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
@@ -338,7 +407,6 @@ public class HacerReserva extends javax.swing.JInternalFrame {
 //Relleno la tabla con los tipos de habitaciones que cumplan la condicion
       
    ArrayList<tipodehabitacion> tiposdeH=new ArrayList<>();
-   tipohabitaciondata tipohData=new tipohabitaciondata();
    tiposdeH=tipohData.todoslostipos();
    
       for(tipodehabitacion tipo:tiposdeH){
@@ -361,17 +429,16 @@ public class HacerReserva extends javax.swing.JInternalFrame {
 
     private void jTtiposHabitacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTtiposHabitacionMouseClicked
     formatoTablaHabs.setNumRows(0);
-      
-    habitacionData habData=new habitacionData();
-    reservaData resData=new reservaData();
+    
     boolean verifico;
     int filaSeleccionada=jTtiposHabitacion.getSelectedRow();
     int codigo=(Integer) formatoTablaTipos.getValueAt(filaSeleccionada,0);
-    double importe=(Double) formatoTablaTipos.getValueAt(filaSeleccionada,5);
+    importe=(Double) formatoTablaTipos.getValueAt(filaSeleccionada,5);
     importe=importe*Integer.parseInt(jTcantNoches.getText());
     jTimporte.setText(String.valueOf(importe));
     ArrayList<habitacion> habitacionesTipo=new ArrayList<>();
     habitacionesTipo=habData.listarHabitacionesTipo(codigo);
+    
     for(habitacion hab:habitacionesTipo){
         //Busco las habitaciones en la BD de reserva para ver si estan ocupada en esa fecha
         verifico=resData.verificarDisponible(hab.getNumero(),fechaIng);
@@ -394,7 +461,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
 
     private void jBvalidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBvalidarActionPerformed
    
-    LocalDate fechaSal;
+    
     LocalDate fechaActual=LocalDate.now();
     try{
         int diaE=Integer.parseInt(jTdiaE.getText());
@@ -441,8 +508,9 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBvalidarActionPerformed
 
     private void jThabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jThabitacionesMouseClicked
-        
-        
+        int filaSeleccionada=jThabitaciones.getSelectedRow();
+        int numeroBuscar=(Integer) formatoTablaHabs.getValueAt(filaSeleccionada,0);
+        habitReserva=habData.buscarHabitacion(numeroBuscar);
         
         
         
@@ -450,17 +518,81 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jThabitacionesMouseClicked
 
+    private void jBconfirmarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBconfirmarReservaActionPerformed
+    if(estadoHuesped=false){
+        JOptionPane.showMessageDialog(this,"El huesped está dado de baja, Reactívelo primero o elije un huesped activo");
+        return;
+    }
+    nuevaReserva.setNrohabitacion(habitReserva);
+    nuevaReserva.setIdHuesped(huespedReserva);
+    nuevaReserva.setFechaEntrada(fechaIng);
+    nuevaReserva.setFechaSalida(fechaSal);
+    nuevaReserva.setImporteTotal(importe);
+    nuevaReserva.setEstado(true);
+    
+   resData.guardarReserva(nuevaReserva);
+    
+        
+            
+    
+    
+    
+    
+    
+    
+    
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jBconfirmarReservaActionPerformed
+
+    private void jBverificarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBverificarHuespedActionPerformed
+    int dniHuesped=0;
+        try{
+        dniHuesped=Integer.parseInt(jTdniHuesped.getText());
+           
+    }catch(NumberFormatException ex){
+        JOptionPane.showMessageDialog(this,"Ingrese un Dni Válido");
+    }
+    huespedReserva=huesData.buscarporDni(dniHuesped);
+    estadoHuesped=huespedReserva.isEstado();
+    String palabraEstadoHuesped;
+    if (estadoHuesped==false){
+        JOptionPane.showMessageDialog(this,"ADVERTENCIA, el HUESPED INGRESADO ESTA DADO DE BAJA, DEBE REACTIVARLO PRIMERO");
+        palabraEstadoHuesped="INACTIVO";
+        return;
+        
+                
+    }else {
+        palabraEstadoHuesped="ACTIVO";
+    }
+        
+    
+    
+    formatoTablaHuesped.addRow(new Object[]{huespedReserva.getApellidoynom(),huespedReserva.getDireccion(),huespedReserva.getCorreo(),huespedReserva.getCelular(),palabraEstadoHuesped});
+    
+        
+        
+        
+    }//GEN-LAST:event_jBverificarHuespedActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBSalir;
     private javax.swing.JButton jBbuscar;
     private javax.swing.JButton jBconfirmarReserva;
     private javax.swing.JButton jBvalidar;
+    private javax.swing.JButton jBverificarHuesped;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -471,12 +603,15 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTablaHuesped;
     private javax.swing.JTextField jTanoE;
     private javax.swing.JTextField jTanoS;
     private javax.swing.JTextField jTcantNoches;
     private javax.swing.JTextField jTcantPas;
     private javax.swing.JTextField jTdiaE;
     private javax.swing.JTextField jTdiaS;
+    private javax.swing.JTextField jTdniHuesped;
     private javax.swing.JTable jThabitaciones;
     private javax.swing.JTextField jTimporte;
     private javax.swing.JTextField jTmesE;
@@ -502,18 +637,20 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         formatoTablaHabs.addColumn("Piso");
         formatoTablaHabs.addColumn("Estado");
         
+        //Tabla que muestra datos del huesped
+        formatoTablaHuesped.addColumn("Apellido y Nombre");
+        formatoTablaHuesped.addColumn("Direccion");
+        formatoTablaHuesped.addColumn("Correo");
+        formatoTablaHuesped.addColumn("Celular");
+        formatoTablaHuesped.addColumn("Estado");
+        
+        
+        
         jTtiposHabitacion.setModel(formatoTablaTipos);
         jThabitaciones.setModel(formatoTablaHabs);
+        jTablaHuesped.setModel(formatoTablaHuesped);
         
-        
-     /*   ArrayList<tipodehabitacion> tiposH=new ArrayList<>();
-        tipohabitaciondata tipohdata=new tipohabitaciondata();
-        tiposH=tipohdata.todoslostipos();
-        for (tipodehabitacion tipo:tiposH){
-            formatoTabla.addRow(new Object[]{tipo.getCodigo(),tipo.getTipo(),tipo.getCapacidad(),tipo.getCantcamas(),tipo.getTipocamas(),tipo.getPrecio()});
-            
-
-    */
+     
 
 
 

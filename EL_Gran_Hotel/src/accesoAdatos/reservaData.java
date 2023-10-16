@@ -31,11 +31,16 @@ public void guardarReserva(reserva reservaNueva){
     
     try {
     PreparedStatement ps=con.prepareStatement(sql);
-    reservaNueva.getIdHuesped().getIdHuesped();
-    
-    
-    
+    ps.setInt(1, reservaNueva.getNrohabitacion().getNumero());
+    ps.setInt(2, reservaNueva.getIdHuesped().getIdHuesped());
+    Date fechaEntrada=Date.valueOf(reservaNueva.getFechaEntrada());
+    Date fechaSalida=Date.valueOf(reservaNueva.getFechaSalida());
+    ps.setDate(3,fechaEntrada);
+    ps.setDate(4, fechaSalida);
+    ps.setDouble(5,reservaNueva.getImporteTotal());
     ps.executeUpdate();
+    
+    JOptionPane.showMessageDialog(null, "Se ha registrado la reserva");
     
 }catch(SQLException ex){
         JOptionPane.showMessageDialog(null, "Error al intentar guardar la reserva");
