@@ -42,7 +42,7 @@ public class Escritorio extends javax.swing.JFrame {
         jMbuscarres = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMLhuesped = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        jMListarH = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -125,6 +125,11 @@ public class Escritorio extends javax.swing.JFrame {
         jMenu3.add(jMcrearreserva);
 
         jMbuscarres.setText("Buscar Reserva");
+        jMbuscarres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMbuscarresActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMbuscarres);
 
         jMenuBar1.add(jMenu3);
@@ -139,13 +144,13 @@ public class Escritorio extends javax.swing.JFrame {
         });
         jMenu4.add(jMLhuesped);
 
-        jMenuItem9.setText("Listar Habitaciones");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        jMListarH.setText("Listar Habitaciones");
+        jMListarH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                jMListarHActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem9);
+        jMenu4.add(jMListarH);
 
         jMenuItem10.setText("Listar Reservas");
         jMenu4.add(jMenuItem10);
@@ -251,14 +256,27 @@ public class Escritorio extends javax.swing.JFrame {
         escritorio.moveToFront(HacerReservas);
     }//GEN-LAST:event_jMcrearreservaActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+
+    private void jMListarHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListarHActionPerformed
        escritorio.removeAll();
        escritorio.repaint();
        ListarHabitaciones listarHabs=new ListarHabitaciones();
         listarHabs.setVisible(true);
         escritorio.add(listarHabs);
         escritorio.moveToFront(listarHabs);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_jMListarHActionPerformed
+
+    private void jMbuscarresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMbuscarresActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        BuscarReserva br=new BuscarReserva();
+        br.setVisible(true);
+        escritorio.add(br);
+        escritorio.moveToFront(br);
+
+    // TODO add your handling code here:
+    }//GEN-LAST:event_jMbuscarresActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -298,6 +316,7 @@ public class Escritorio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem jMLhuesped;
+    private javax.swing.JMenuItem jMListarH;
     private javax.swing.JMenuItem jMaltahab;
     private javax.swing.JMenuItem jMaltahuesped;
     private javax.swing.JMenuItem jMbajahuesped;
@@ -309,7 +328,6 @@ public class Escritorio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMmodhab;
     private javax.swing.JMenuItem jMmodhuesped;
     private javax.swing.JMenuItem jMpreciohab;

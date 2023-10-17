@@ -10,6 +10,8 @@ import Entidades.huesped;
 import Entidades.reserva;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +23,7 @@ public class reservaData {
             
 public reservaData(){
     con=Conexion.getConection();
+    
 }
     
  
@@ -76,5 +79,68 @@ public boolean verificarDisponible(int numeroHab, LocalDate fechaIng){
     
 }
 
+public reserva buscarresevaxfecha(LocalDate fecha){
+    reserva reserva= new reserva();
+        try {
+            String sql="SELECT * FROM reserva WHERE  ? BETWEEN FechaEntrada AND FechaSalida";
+            
+            PreparedStatement ps=con.prepareStatement(sql);
+            Date Fecha=Date.valueOf(fecha);
+            ps.setDate(1, Fecha);
+            ResultSet rs=ps.executeQuery();
+       if(rs.next()){
+           reserva.getIdHuesped();
+           reserva.getNrohabitacion();
+           reserva.getFechaEntrada();
+           reserva.getFechaSalida();
+           reserva.getImporteTotal();
+           ps.close();
+           return reserva;
+       }else {
+            JOptionPane.showMessageDialog(null, "Reserva inexistente ");
+            ps.close();
+            return null;
+       }
+            
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null,"Error buscando Reservas");
+       return null;
+        }
+        
+}
+    public reserva buscarreservaxhuesped(huesped huesped){
+        reserva reserva= new reserva();
+        
+        try {
+            
+            
+            String sql="SELECT * FROM reserva WHERE  idHuesped = ?";
+            
+            PreparedStatement ps=con.prepareStatement(sql);
+            
+            ps.setInt(1, huesped.getIdHuesped());
+            ResultSet rs=ps.executeQuery();
+             if(rs.next()){
+           reserva.getIdHuesped();
+           reserva.getNrohabitacion();
+           reserva.getFechaEntrada();
+           reserva.getFechaSalida();
+           reserva.getImporteTotal();
+           ps.close();
+           return reserva;
+             }else{
+                 JOptionPane.showMessageDialog(null, "Reserva inexistente ");
+            ps.close();
+            return null;
+             }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     return reserva;
+     
+}
 
 }

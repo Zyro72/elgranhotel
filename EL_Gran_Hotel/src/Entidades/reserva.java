@@ -22,6 +22,15 @@ public class reserva {
     public reserva() {
     }
 
+    public reserva(habitacion nrohabitacion, huesped idHuesped, LocalDate FechaEntrada, LocalDate FechaSalida, double ImporteTotal, boolean estado) {
+        this.nrohabitacion = nrohabitacion;
+        this.idHuesped = idHuesped;
+        this.FechaEntrada = FechaEntrada;
+        this.FechaSalida = FechaSalida;
+        this.ImporteTotal = ImporteTotal;
+        this.estado = estado;
+    }
+
     public habitacion getNrohabitacion() {
         return nrohabitacion;
     }
