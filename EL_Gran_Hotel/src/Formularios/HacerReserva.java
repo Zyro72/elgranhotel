@@ -428,9 +428,18 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     boolean verifico;
     int filaSeleccionada=jTtiposHabitacion.getSelectedRow();
     int codigo=(Integer) formatoTablaTipos.getValueAt(filaSeleccionada,0);
+        
+    
     importe=(Double) formatoTablaTipos.getValueAt(filaSeleccionada,5);
+    try{
     importe=importe*Integer.parseInt(jTcantNoches.getText());
     jTimporte.setText(String.valueOf(importe));
+    
+    }catch(NumberFormatException ex){
+        JOptionPane.showMessageDialog(this, "Debe completar las fechas primnero");
+        return;
+    }
+    
     ArrayList<habitacion> habitacionesTipo=new ArrayList<>();
     habitacionesTipo=habData.listarHabitacionesTipo(codigo);
     
@@ -508,10 +517,20 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jThabitacionesMouseClicked
 
     private void jBconfirmarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBconfirmarReservaActionPerformed
+    
+    //Validaciones Varias    
+        
     if(estadoHuesped=false){
         JOptionPane.showMessageDialog(this,"El huesped está dado de baja, Reactívelo primero o elije un huesped activo");
         return;
     }
+    
+    
+    
+    
+    
+    
+    
     nuevaReserva.setNrohabitacion(habitReserva);
     nuevaReserva.setIdHuesped(huespedReserva);
     nuevaReserva.setFechaEntrada(fechaIng);
@@ -520,26 +539,17 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     nuevaReserva.setEstado(true);
     
    resData.guardarReserva(nuevaReserva);
-    
-        
-            
-    
-    
-    
-    
-    
-    
-    
-        
-        
-        
-        
-        
+   limpioform();
+   
+         
+   
+     
         
     }//GEN-LAST:event_jBconfirmarReservaActionPerformed
 
     private void jBverificarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBverificarHuespedActionPerformed
     int dniHuesped=0;
+    String palabraEstadoHuesped;
         try{
         dniHuesped=Integer.parseInt(jTdniHuesped.getText());
            
@@ -549,7 +559,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
    try{
         huespedReserva=huesData.buscarporDni(dniHuesped);
         estadoHuesped=huespedReserva.isEstado();
-        String palabraEstadoHuesped;
+        
         if (estadoHuesped==false){
             JOptionPane.showMessageDialog(this,"ADVERTENCIA, el HUESPED INGRESADO ESTA DADO DE BAJA, DEBE REACTIVARLO PRIMERO");
             palabraEstadoHuesped="INACTIVO";
@@ -640,11 +650,24 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         jTtiposHabitacion.setModel(formatoTablaTipos);
         jThabitaciones.setModel(formatoTablaHabs);
         jTablaHuesped.setModel(formatoTablaHuesped);
-        
      
-
-
-
-
 }
+ public void limpioform(){
+ jTdiaE.setText("");
+ jTmesE.setText("");
+ jTanoE.setText("");
+ jTdiaS.setText("");
+ jTmesS.setText("");
+ jTanoS.setText("");
+ jTcantNoches.setText("");
+ jTcantPas.setText("");
+ jTdniHuesped.setText("");
+ jTimporte.setText("");
+ formatoTablaHuesped.setRowCount(0);
+ formatoTablaTipos.setRowCount(0);
+ formatoTablaHabs.setRowCount(0);
+ 
+ 
+ }
+ 
 }
