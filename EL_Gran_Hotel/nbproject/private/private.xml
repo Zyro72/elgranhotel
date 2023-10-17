@@ -12,6 +12,7 @@
         </group>
         <group name="GUIA4">
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/Entidades/habitacion.java</file>
+            <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/Formularios/ListarHabitaciones.java</file>
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/Formularios/AltaHuesped.java</file>
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/accesoAdatos/tipohabitaciondata.java</file>
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/Entidades/tipodehabitacion.java</file>
@@ -21,6 +22,7 @@
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/accesoAdatos/habitacionData.java</file>
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/accesoAdatos/Conexion.java</file>
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/Formularios/HacerReserva.java</file>
+            <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/Formularios/ListarHuesped.java</file>
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/accesoAdatos/huespedData.java</file>
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/Formularios/Escritorio.java</file>
             <file>file:/C:/Users/irust/Desktop/ULP/universidadFinal/elgranhotel/EL_Gran_Hotel/src/Formularios/Precios.java</file>

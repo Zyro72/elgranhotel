@@ -163,38 +163,39 @@ public class habitacionData {
         try{
             
             PreparedStatement ps=con.prepareStatement(sql);
-           
-           
             ResultSet rs=ps.executeQuery();
-            if (rs.next()){
-                
-             
-            }else { JOptionPane.showMessageDialog(null,"Habitación no encontrada");
-            }
-            
-           
+                     
             while(rs.next()){
                 String sqlTh="SELECT * FROM tipodehabitacion WHERE Codigo=?";
-                 PreparedStatement psTh=con.prepareStatement(sqlTh);
+                PreparedStatement psTh=con.prepareStatement(sqlTh);
+                psTh.setInt(1, rs.getInt(2));
                 ResultSet rsTh=psTh.executeQuery();
-                int tipoHab=rs.getInt(2);
-                tipodehabitacion tipoH=new tipodehabitacion();
-                tipoH.setCodigo(rsTh.getInt(1));
-                habitacion hab=new habitacion();
-                hab.setNumero(rs.getInt("Numero"));
-                hab.setTipohabitacion(tipoH);
-                hab.setPiso(rs.getInt("Piso"));
-                hab.setEstado(rs.getBoolean("Estado"));
-                listado.add(hab);
-                return listado;
+                if(rsTh.next()){
+                    tipodehabitacion tipoH=new tipodehabitacion();
+                    tipoH.setCodigo(rsTh.getInt(1));
+                    tipoH.setTipo(rsTh.getString(2));
+                    tipoH.setCapacidad(rsTh.getInt(3));
+                    tipoH.setCantcamas(rsTh.getInt(4));
+                    tipoH.setTipocamas(rsTh.getString(5));
+                    tipoH.setPrecio(rsTh.getDouble(6));
+                            
+                    habitacion hab=new habitacion();
+                    hab.setNumero(rs.getInt(1));
+                    hab.setTipohabitacion(tipoH);
+                    hab.setPiso(rs.getInt("Piso"));
+                    hab.setEstado(rs.getBoolean("Estado"));
+                    listado.add(hab);
+                }
+                
+                
                 
             }
-                      
+              return listado;        
         }catch (SQLException ex){
             JOptionPane.showMessageDialog(null,"Error buscando habitacion");
             return null;
         }
-     return null;
+     
     }
         
 

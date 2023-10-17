@@ -140,6 +140,11 @@ public class Escritorio extends javax.swing.JFrame {
         jMenu4.add(jMLhuesped);
 
         jMenuItem9.setText("Listar Habitaciones");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem9);
 
         jMenuItem10.setText("Listar Reservas");
@@ -245,6 +250,15 @@ public class Escritorio extends javax.swing.JFrame {
         escritorio.add(HacerReservas);
         escritorio.moveToFront(HacerReservas);
     }//GEN-LAST:event_jMcrearreservaActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+       escritorio.removeAll();
+       escritorio.repaint();
+       ListarHabitaciones listarHabs=new ListarHabitaciones();
+        listarHabs.setVisible(true);
+        escritorio.add(listarHabs);
+        escritorio.moveToFront(listarHabs);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      * @param args the command line arguments
