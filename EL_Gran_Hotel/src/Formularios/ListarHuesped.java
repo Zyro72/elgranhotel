@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class ListarHuesped extends javax.swing.JInternalFrame {
     huespedData lista= new huespedData();
     DefaultTableModel formatoTabla=new DefaultTableModel();
-    
+    huesped listado= new huesped();
     
     /**
      * Creates new form ListarHuesped
@@ -42,6 +42,9 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
         jTLHuesped = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jBsalir = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTdni = new javax.swing.JTextField();
+        jBuscar = new javax.swing.JButton();
 
         jTLHuesped.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -62,31 +65,58 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setText("DNI:");
+
+        jTdni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTdniKeyPressed(evt);
+            }
+        });
+
+        jBuscar.setText("Buscar");
+        jBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(222, 222, 222)
+                .addGap(91, 91, 91)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBsalir)
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(274, 274, 274)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBsalir))
+                    .addComponent(jBsalir)
+                    .addComponent(jLabel2)
+                    .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBuscar))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -98,12 +128,40 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBsalirActionPerformed
 
+    private void jTdniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyPressed
+        
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTdniKeyPressed
+
+    private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
+
+    limpiarT();
+    String aux= jTdni.getText();
+    if (aux.isEmpty()){
+        cargarTabla();
+    } else {
+        
+        listado=lista.buscarporDni(Integer.parseInt(jTdni.getText()));
+        
+          formatoTabla.addRow(new Object[]{listado.getDni(),listado.getApellidoynom(),listado.getDireccion(),listado.getCorreo(),listado.getCelular()});
+        
+        jTdni.setText("");
+        
+        
+    }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBsalir;
+    private javax.swing.JButton jBuscar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTLHuesped;
+    private javax.swing.JTextField jTdni;
     // End of variables declaration//GEN-END:variables
 
     public void inicializarTabla(){
@@ -125,5 +183,11 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
       }
         
         
+    }
+    private void limpiarT(){
+          int ind= formatoTabla.getRowCount()-1;
+          for (int x=ind ;x>=0;x--){
+             formatoTabla.removeRow(x);
+          }
     }
 }
