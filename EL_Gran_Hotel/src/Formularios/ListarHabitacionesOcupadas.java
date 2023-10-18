@@ -6,7 +6,9 @@
 package Formularios;
 
 import Entidades.habitacion;
+import Entidades.reserva;
 import accesoAdatos.habitacionData;
+import accesoAdatos.reservaData;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,11 +18,9 @@ import javax.swing.table.DefaultTableModel;
  * @author perey
  */
 public class ListarHabitacionesOcupadas extends javax.swing.JInternalFrame {
-    DefaultTableModel formatoHabitacionesComp=new DefaultTableModel();
-    habitacionData habData=new habitacionData();
-    String estadoPalabra;
-    boolean estadoH;
-        /**
+    DefaultTableModel formatoHabitacionesReservadas=new DefaultTableModel();
+    reservaData resData=new reservaData();
+         /**
      * Creates new form ListarHabitaciones
      */
     public ListarHabitacionesOcupadas() {
@@ -116,54 +116,21 @@ public class ListarHabitacionesOcupadas extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
 public void inicializoTabla(){
-    formatoHabitacionesComp.addColumn("Disponibilidad");
-    formatoHabitacionesComp.addColumn("Numero");
-    formatoHabitacionesComp.addColumn("Piso");
-    formatoHabitacionesComp.addColumn("Tipo");
-    formatoHabitacionesComp.addColumn("Capacidad");
-    formatoHabitacionesComp.addColumn("Cantidad Camas");
-    formatoHabitacionesComp.addColumn("Tipo de camas");
-    formatoHabitacionesComp.addColumn("Precio");
-    jTablaHabitaciones.setModel(formatoHabitacionesComp);
+    formatoHabitacionesReservadas.addColumn("Numero");
+    formatoHabitacionesReservadas.addColumn("Fecha Salida");
+    jTablaHabitaciones.setModel(formatoHabitacionesReservadas);
     
 }
 public void cargoDatos(){
-    formatoHabitacionesComp.setRowCount(0);
-    ArrayList<habitacion> ListadoCompleto=new ArrayList<>();
-    ListadoCompleto=habData.listarHabitacion();
-    for(habitacion hab:ListadoCompleto){
-        estadoH=hab.isEstado();
-        if(estadoH==true){
-            estadoPalabra="DISPONIBLE";
-            
-        }else {
-            estadoPalabra="NO DISPONIBLE";
-        }
-        formatoHabitacionesComp.addRow(new Object[]{estadoPalabra,hab.getNumero(),hab.getPiso(),hab.getTipohabitacion().getTipo(),hab.getTipohabitacion().getCapacidad(),hab.getTipohabitacion().getCantcamas(),hab.getTipohabitacion().getTipocamas(),hab.getTipohabitacion().getPrecio()});
-        
-        
-        
+    formatoHabitacionesReservadas.setRowCount(0);
+    ArrayList<reserva> reservasActivas=new ArrayList<>();
+    reservasActivas=resData.reservasActivasHoy();
+    for(reserva reservas:reservasActivas){
+        formatoHabitacionesReservadas.addRow(new Object[]{reservas.getNrohabitacion(),reservas.getFechaSalida()});
+               
     }
 }
-public void buscoHab(int numeroHab){
-    habitacion habi=new habitacion();
-    habi=habData.buscarHabitacion(numeroHab);
-    formatoHabitacionesComp.setRowCount(0);
-    estadoH=habi.isEstado();
-    if(estadoH==true){
-        estadoPalabra="DISPONIBLE";
-    }
-    else {
-        estadoPalabra="NO DISPONIBLE";
-    }
-        
-    formatoHabitacionesComp.addRow(new Object[]{estadoPalabra,habi.getNumero(),habi.getPiso(),habi.getTipohabitacion().getTipo(),habi.getTipohabitacion().getCapacidad(),habi.getTipohabitacion().getCantcamas(),habi.getTipohabitacion().getTipocamas(),habi.getTipohabitacion().getPrecio()});
-    
+
     
 }    
-    
-}
-
-
-
-
+  

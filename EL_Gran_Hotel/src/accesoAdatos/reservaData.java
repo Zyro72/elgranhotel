@@ -10,6 +10,7 @@ import Entidades.huesped;
 import Entidades.reserva;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -140,6 +141,39 @@ public reserva buscarresevaxfecha(LocalDate fecha){
         }
      
      return reserva;
+     
+}
+     public ArrayList<reserva> reservasActivasHoy(){
+        LocalDate fechaActual=LocalDate.now();
+        Date fechaSql=Date.valueOf(fechaActual);
+        ArrayList<reserva> reservasAct=new ArrayList<>();
+        reserva reserva= new reserva();
+        
+        try {
+            
+            
+            String sql="SELECT * FROM reserva WHERE Estado=true AND ? BETWEEN FechaEntrada AND FechaSalida ";
+            
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setDate(1, fechaSql);
+            
+            ResultSet rs=ps.executeQuery();
+             while(rs.next()){
+           reserva.getIdHuesped();
+           reserva.getNrohabitacion();
+           reserva.getFechaEntrada();
+           reserva.getFechaSalida();
+           reserva.getImporteTotal();
+           reservasAct.add(reserva);
+           ps.close();
+           }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     return reservasAct;
      
 }
 
