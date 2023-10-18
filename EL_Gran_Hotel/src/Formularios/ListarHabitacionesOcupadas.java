@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author perey
  */
-public class ListarHabitaciones extends javax.swing.JInternalFrame {
+public class ListarHabitacionesOcupadas extends javax.swing.JInternalFrame {
     DefaultTableModel formatoHabitacionesComp=new DefaultTableModel();
     habitacionData habData=new habitacionData();
     String estadoPalabra;
@@ -23,7 +23,7 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
         /**
      * Creates new form ListarHabitaciones
      */
-    public ListarHabitaciones() {
+    public ListarHabitacionesOcupadas() {
         initComponents();
         inicializoTabla();
         cargoDatos();
@@ -46,13 +46,10 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
         jBsalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablaHabitaciones = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jTnumeroH = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
-        jLabel1.setText("Listado completo de Habitaciones");
+        jLabel1.setText("Listado de habitaciones ocupadas actualmente");
 
         jBsalir.setText("Salir");
         jBsalir.addActionListener(new java.awt.event.ActionListener() {
@@ -74,15 +71,6 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTablaHabitaciones);
 
-        jLabel2.setText("Ingrese número de habitacion:");
-
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,14 +84,7 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
                         .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTnumeroH, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -111,12 +92,7 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTnumeroH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -130,43 +106,13 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_jBsalirActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String textoHab=jTnumeroH.getText();
-    if (textoHab.isEmpty()){
-        cargoDatos();
-        return;
-    }
-        
-    int numeroHabitacion;
-    try{
-        numeroHabitacion=Integer.parseInt(jTnumeroH.getText());
-        
-    }catch (NumberFormatException ex){
-        JOptionPane.showMessageDialog(this,"Por favor, ingrese un numero válido");
-        return;
-    }
-    if(numeroHabitacion<=0){
-        JOptionPane.showMessageDialog(this,"Por favor, ingrese un número de habitación válido");
-        return;
-    }
-    try{
-        buscoHab(numeroHabitacion);
-    }catch (NullPointerException ex){
-        return;
-    }
-    
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBsalir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablaHabitaciones;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTnumeroH;
     // End of variables declaration//GEN-END:variables
 
 public void inicializoTabla(){
