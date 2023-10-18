@@ -12,6 +12,7 @@ import java.time.LocalDate;
  * @author RodrigoI
  */
 public class reserva {
+    private int idReserva;
     private habitacion nrohabitacion;
     private huesped idHuesped;
     private LocalDate FechaEntrada;
@@ -20,6 +21,23 @@ public class reserva {
     private boolean estado;
 
     public reserva() {
+    }
+
+    public reserva(int idReserva ,habitacion nrohabitacion, huesped idHuesped, LocalDate FechaEntrada, LocalDate FechaSalida, double ImporteTotal, boolean estado) {
+        this.nrohabitacion = nrohabitacion;
+        this.idHuesped = idHuesped;
+        this.FechaEntrada = FechaEntrada;
+        this.FechaSalida = FechaSalida;
+        this.ImporteTotal = ImporteTotal;
+        this.estado = estado;
+    }
+
+    public int getIdReserva() {
+        return idReserva;
+    }
+
+    public void setIdReserva(int idReserva) {
+        this.idReserva = idReserva;
     }
 
     public reserva(habitacion nrohabitacion, huesped idHuesped, LocalDate FechaEntrada, LocalDate FechaSalida, double ImporteTotal, boolean estado) {
