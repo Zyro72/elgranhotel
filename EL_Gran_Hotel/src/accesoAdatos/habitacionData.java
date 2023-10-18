@@ -88,10 +88,7 @@ public class habitacionData {
             if (rs.next()){
                 int tipoHab=rs.getInt(2);
              psTh.setInt(1, tipoHab);
-            }else { JOptionPane.showMessageDialog(null,"Habitación no encontrada");
-            }
-            
-            ResultSet rsTh=psTh.executeQuery();
+             ResultSet rsTh=psTh.executeQuery();
             if (rsTh.next()){
                 tipodehabitacion tipoH=new tipodehabitacion();
                 tipoH.setCodigo(rsTh.getInt(1));
@@ -108,6 +105,15 @@ public class habitacionData {
                 return hab;
                 
             }
+             
+             
+             
+             
+            }else { JOptionPane.showMessageDialog(null,"Habitación no encontrada");
+            return null;
+            }
+            
+            
                       
         }catch (SQLException ex){
             JOptionPane.showMessageDialog(null,"Error buscando habitacion");
