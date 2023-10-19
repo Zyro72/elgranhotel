@@ -98,7 +98,13 @@ public class reserva {
     }
     
     
-    
+    public String toString(){
+        
+       return  nrohabitacion +"-"+idHuesped +"-"+FechaEntrada+"-"+ImporteTotal+"-"+estado;
+       
+        
+        
+    }
     
     
 }

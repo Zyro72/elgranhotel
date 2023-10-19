@@ -10,6 +10,7 @@ import Entidades.huesped;
 import Entidades.reserva;
 import java.sql.*;
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -174,6 +175,50 @@ public reserva buscarresevaxfecha(LocalDate fecha){
         }
      
      return reservasAct;
+     
+}
+     public ArrayList<reserva> listarreserva(){
+        
+        
+        ArrayList<reserva> actuales=new ArrayList<>();
+        reserva reserva= new reserva();
+        
+        try {
+            
+            
+            String sql="SELECT * FROM reserva ";
+            
+            PreparedStatement ps=con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            
+           
+             while(rs.next()){
+             reserva.setIdReserva(rs.getInt("idReserva"));
+//           reserva.setIdHuesped((huesped)rs.getInt("idHuesped"));
+//           reserva.setNrohabitacion(rs.getInt("nrohabitacion"));
+//           reserva.setFechaEntrada(rs.getInt("FechaEntrada"));
+           reserva.setFechaSalida(LocalDate.MIN);
+           reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
+           reserva.getIdReserva();
+           reserva.getIdHuesped();
+           reserva.getNrohabitacion();
+           reserva.getFechaEntrada();
+           reserva.getFechaSalida();
+           reserva.getImporteTotal();
+           reserva.isEstado();
+           actuales.add(reserva);
+           
+           ps.close();
+           }
+             System.out.println(""+actuales.toString());
+             return actuales;
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     return null;
      
 }
 

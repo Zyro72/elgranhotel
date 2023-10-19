@@ -44,7 +44,7 @@ public class Escritorio extends javax.swing.JFrame {
         jMLhuesped = new javax.swing.JMenuItem();
         jMListarH = new javax.swing.JMenuItem();
         jMenuListarOcu = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        jMListarReservas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -161,8 +161,13 @@ public class Escritorio extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuListarOcu);
 
-        jMenuItem10.setText("Listar Reservas");
-        jMenu4.add(jMenuItem10);
+        jMListarReservas.setText("Listar Reservas");
+        jMListarReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMListarReservasActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMListarReservas);
 
         jMenuBar1.add(jMenu4);
 
@@ -295,6 +300,18 @@ public class Escritorio extends javax.swing.JFrame {
         escritorio.moveToFront(listarHabsOcu);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuListarOcuActionPerformed
 
+    private void jMListarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListarReservasActionPerformed
+
+        escritorio.removeAll();
+       escritorio.repaint();
+      ListarReserva listar=new ListarReserva();
+        listar.setVisible(true);
+        escritorio.add(listar);
+        escritorio.moveToFront(listar);  
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMListarReservasActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -335,6 +352,7 @@ public class Escritorio extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem jMLhuesped;
     private javax.swing.JMenuItem jMListarH;
+    private javax.swing.JMenuItem jMListarReservas;
     private javax.swing.JMenuItem jMaltahab;
     private javax.swing.JMenuItem jMaltahuesped;
     private javax.swing.JMenuItem jMbajahuesped;
@@ -345,7 +363,6 @@ public class Escritorio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuListarOcu;
     private javax.swing.JMenuItem jMmodhab;
     private javax.swing.JMenuItem jMmodhuesped;
