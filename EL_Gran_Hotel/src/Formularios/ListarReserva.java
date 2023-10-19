@@ -5,7 +5,11 @@
  */
 package Formularios;
 
+import Entidades.huesped;
+import Entidades.reserva;
 import accesoAdatos.reservaData;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,12 +17,15 @@ import accesoAdatos.reservaData;
  */
 public class ListarReserva extends javax.swing.JInternalFrame {
     reservaData listar = new reservaData();
+    DefaultTableModel formatoTabla=new DefaultTableModel();
     /**
      * Creates new form ListarReserva
      */
     public ListarReserva() {
         initComponents();
-        listar.listarreserva();
+//        listar.listarreserva();
+        inicializarTabla();
+        cargarTabla();
     }
 
     /**
@@ -30,21 +37,90 @@ public class ListarReserva extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTlistares = new javax.swing.JTable();
+        jBSalir = new javax.swing.JButton();
+
+        jTlistares.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTlistares);
+
+        jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 734, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(jBSalir)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBSalir)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        this.dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBSalir;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTlistares;
     // End of variables declaration//GEN-END:variables
+
+ public void inicializarTabla(){
+       
+        formatoTabla.addColumn("IdReserva");
+        formatoTabla.addColumn("IdHuesped");
+        formatoTabla.addColumn("N° de Habitacion");
+        formatoTabla.addColumn("Fecha de Entrada");
+        formatoTabla.addColumn("Fecha de Salida");
+        formatoTabla.addColumn("Importe Total");
+//        formatoTabla.addColumn("");
+        jTlistares.setModel(formatoTabla);
+}
+    
+    public void cargarTabla(){
+      ArrayList<reserva> lista=new ArrayList<>();
+      lista=(ArrayList)listar.listarreserva();
+      for (reserva item:lista){
+          formatoTabla.addRow(new Object[]{item.getIdReserva(),item.getIdHuesped(),item.getNrohabitacion(),item.getFechaEntrada(),item.getFechaSalida(),item.getImporteTotal()});
+      }
+        
+        
+    }
+    
+ private void limpiarT(){
+          int ind= formatoTabla.getRowCount()-1;
+          for (int x=ind ;x>=0;x--){
+             formatoTabla.removeRow(x);
+          }
+    }
+
 }

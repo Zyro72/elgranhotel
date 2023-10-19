@@ -58,6 +58,10 @@ public class habitacion {
     }
  
  
-    
+    public String toString(){
+        
+        String aux=""+numero;
+        return aux ;
+    }
     
 }

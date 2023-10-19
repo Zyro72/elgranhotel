@@ -98,7 +98,8 @@ public class huesped {
     
     @Override
       public String toString() {
-        return idHuesped +" -"+Dni+" -"+ Apellidoynom+"- "+Estado;
+       String aux=""+idHuesped;
+          return aux; //idHuesped +" -"+Dni+" -"+ Apellidoynom+"- "+Estado;
       }
     
     

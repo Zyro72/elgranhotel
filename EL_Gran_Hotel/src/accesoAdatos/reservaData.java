@@ -9,7 +9,9 @@ import Entidades.habitacion;
 import Entidades.huesped;
 import Entidades.reserva;
 import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -149,7 +151,8 @@ public reserva buscarresevaxfecha(LocalDate fecha){
         Date fechaSql=Date.valueOf(fechaActual);
         ArrayList<reserva> reservasAct=new ArrayList<>();
         reserva reserva= new reserva();
-        
+        huesped auxhuesped=new huesped();
+        habitacion auxnhab= new habitacion();
         try {
             
             
@@ -160,12 +163,22 @@ public reserva buscarresevaxfecha(LocalDate fecha){
             
             ResultSet rs=ps.executeQuery();
              while(rs.next()){
-           reserva.getIdHuesped();
-           reserva.getNrohabitacion();
-           reserva.getFechaEntrada();
-           reserva.getFechaSalida();
-           reserva.getImporteTotal();
+                 auxnhab.setNumero(rs.getInt("nrohabitacion"));
+                 auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
+                 
+                 LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                 LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+             reserva.setIdReserva(rs.getInt("idReserva"));
+             reserva.setIdHuesped(auxhuesped);
+             reserva.setNrohabitacion(auxnhab);
+//                 System.out.println("nrohabitacion"+reserva.getNrohabitacion());
+             reserva.setFechaEntrada(entrada);
+             reserva.setFechaSalida(salida);
+             reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
+//             reserva.setEstado(rs.getBoolean("Estado"));
+           
            reservasAct.add(reserva);
+           
            ps.close();
            }
             
@@ -182,7 +195,8 @@ public reserva buscarresevaxfecha(LocalDate fecha){
         
         ArrayList<reserva> actuales=new ArrayList<>();
         reserva reserva= new reserva();
-        
+        huesped auxhuesped=new huesped();
+        habitacion auxnhab= new habitacion();
         try {
             
             
@@ -193,29 +207,30 @@ public reserva buscarresevaxfecha(LocalDate fecha){
             
            
              while(rs.next()){
+                 auxnhab.setNumero(rs.getInt("nrohabitacion"));
+                 auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
+                 
+                 LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                 LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
              reserva.setIdReserva(rs.getInt("idReserva"));
-//           reserva.setIdHuesped((huesped)rs.getInt("idHuesped"));
-//           reserva.setNrohabitacion(rs.getInt("nrohabitacion"));
-//           reserva.setFechaEntrada(rs.getInt("FechaEntrada"));
-           reserva.setFechaSalida(LocalDate.MIN);
-           reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
-           reserva.getIdReserva();
-           reserva.getIdHuesped();
-           reserva.getNrohabitacion();
-           reserva.getFechaEntrada();
-           reserva.getFechaSalida();
-           reserva.getImporteTotal();
-           reserva.isEstado();
+             reserva.setIdHuesped(auxhuesped);
+             reserva.setNrohabitacion(auxnhab);
+//                 System.out.println("nrohabitacion"+reserva.getNrohabitacion());
+             reserva.setFechaEntrada(entrada);
+             reserva.setFechaSalida(salida);
+             reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
+             reserva.setEstado(rs.getBoolean("Estado"));
+           
            actuales.add(reserva);
            
            ps.close();
            }
-             System.out.println(""+actuales.toString());
+//             System.out.println(""+actuales.toString());
              return actuales;
             
             
         } catch (SQLException ex) {
-            Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al listar las reservas "+ex);
         }
      
      return null;
