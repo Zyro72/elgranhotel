@@ -206,7 +206,47 @@ public class huespedData {
             
         } 
 
- 
+         public huesped buscarporId(int iDhuesped){
+            
+        try {
+            huesped buscado= new huesped();
+            String sql="SELECT * FROM huesped WHERE idHuesped =?";
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, iDhuesped);
+            ResultSet rs=ps.executeQuery();
+             if (rs.next()) {
+               
+                buscado.setIdHuesped(rs.getInt("idHuesped"));
+                buscado.setDni(rs.getInt("Dni"));
+                buscado.setApellidoynom(rs.getString("Apellidoynom"));
+                buscado.setDireccion(rs.getString("Direccion"));
+                buscado.setCorreo(rs.getString("Correo"));
+                buscado.setCelular(rs.getString("Celular"));
+                buscado.setEstado(rs.getBoolean("Estado"));
+                 ps.close();
+                return buscado;
+                 
+                // ESTE SOUT ES SOLO A MODO DE PRUEBA
+                // System.out.println("id: "+rs.getInt("idHuesped")+" - "+"Apellido y Nombre: "+rs.getString("Apellidoynom"));
+            }else {
+            JOptionPane.showMessageDialog(null, "No existe ese huesped ");
+            ps.close();
+            return null;
+             
+            }
+             
+           
+            
+            
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Error buscando el huesped");
+        }
+         
+        return null;
+          
+          
+           
+       } 
  
  
         

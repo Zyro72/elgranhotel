@@ -9,6 +9,8 @@ import Entidades.habitacion;
 import Entidades.reserva;
 import accesoAdatos.habitacionData;
 import accesoAdatos.reservaData;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -49,7 +51,7 @@ public class ListarHabitacionesOcupadas extends javax.swing.JInternalFrame {
 
         jTextField1.setText("jTextField1");
 
-        jLabel1.setText("Listado de habitaciones ocupadas actualmente");
+        jLabel1.setText("Listado de habitaciones ocupadas al dia de la fecha");
 
         jBsalir.setText("Salir");
         jBsalir.addActionListener(new java.awt.event.ActionListener() {
@@ -77,15 +79,12 @@ public class ListarHabitacionesOcupadas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addContainerGap(705, Short.MAX_VALUE)
+                .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,17 +116,26 @@ public class ListarHabitacionesOcupadas extends javax.swing.JInternalFrame {
 
 public void inicializoTabla(){
     formatoHabitacionesReservadas.addColumn("Numero");
+    formatoHabitacionesReservadas.addColumn("Tipo");
+    formatoHabitacionesReservadas.addColumn("Dni Huesped");
+    formatoHabitacionesReservadas.addColumn("Apellido y nombre");
+    formatoHabitacionesReservadas.addColumn("Cantidad Noches");
     formatoHabitacionesReservadas.addColumn("Fecha Salida");
     jTablaHabitaciones.setModel(formatoHabitacionesReservadas);
     
+    
 }
 public void cargoDatos(){
+    System.out.println("entrando en metodo cargodatos");
     formatoHabitacionesReservadas.setRowCount(0);
+    int estadia;
     ArrayList<reserva> reservasActivas=new ArrayList<>();
-    reservasActivas=resData.reservasActivasHoy();
+    reservasActivas=(ArrayList) resData.reservasActivasHoy();
     for(reserva reservas:reservasActivas){
-        formatoHabitacionesReservadas.addRow(new Object[]{reservas.getNrohabitacion(),reservas.getFechaSalida()});
-               
+        System.out.println("idReserva" + reservas.getIdReserva());
+        estadia=(int) ChronoUnit.DAYS.between(reservas.getFechaEntrada(),reservas.getFechaSalida());
+    formatoHabitacionesReservadas.addRow(new Object[]{reservas.getNrohabitacion().getNumero(),reservas.getNrohabitacion().getTipohabitacion().getTipo(),reservas.getIdHuesped().getDni(),reservas.getIdHuesped().getApellidoynom(),estadia, reservas.getFechaSalida()});
+    //           formatoHabitacionesReservadas.addRow(new Object[]{reservas.getNrohabitacion().getNumero(),"doble", reservas.getFechaSalida()});
     }
 }
 

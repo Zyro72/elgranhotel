@@ -8,6 +8,7 @@ package accesoAdatos;
 import Entidades.habitacion;
 import Entidades.huesped;
 import Entidades.reserva;
+import Entidades.tipodehabitacion;
 import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,7 +25,9 @@ import javax.swing.JOptionPane;
  */
 public class reservaData {
     private Connection con=null;
-            
+    tipohabitaciondata tipohData=new tipohabitaciondata();
+    habitacionData habData=new habitacionData();
+    huespedData huesData=new huespedData();        
 public reservaData(){
     con=Conexion.getConection();
     
@@ -147,12 +150,14 @@ public reserva buscarresevaxfecha(LocalDate fecha){
      
 }
      public ArrayList<reserva> reservasActivasHoy(){
+         
         LocalDate fechaActual=LocalDate.now();
         Date fechaSql=Date.valueOf(fechaActual);
         ArrayList<reserva> reservasAct=new ArrayList<>();
-        reserva reserva= new reserva();
-        huesped auxhuesped=new huesped();
-        habitacion auxnhab= new habitacion();
+        reserva reservaLista= new reserva();
+        //huesped auxhuesped=new huesped();
+        //habitacion auxnhab= new habitacion();
+        
         try {
             
             
@@ -163,31 +168,39 @@ public reserva buscarresevaxfecha(LocalDate fecha){
             
             ResultSet rs=ps.executeQuery();
              while(rs.next()){
-                 auxnhab.setNumero(rs.getInt("nrohabitacion"));
-                 auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
-                 
+                 int auxnum;
+                 int auxhuespedId;
+                 int auxIdreserva;
+                 double auxImporte;
+                 auxIdreserva=rs.getInt("idReserva");
+                 auxImporte=rs.getDouble("ImporteTotal");
+                 huesped auxhuesped=new huesped();
+                 habitacion auxnhab= new habitacion();
+                 auxnum=rs.getInt("nrohabitacion");
+                 auxnhab=habData.buscarHabitacion(auxnum);
+                 auxhuespedId=rs.getInt("idHuesped");
+                 auxhuesped=huesData.buscarporId(auxhuespedId);
                  LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                  LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-             reserva.setIdReserva(rs.getInt("idReserva"));
-             reserva.setIdHuesped(auxhuesped);
-             reserva.setNrohabitacion(auxnhab);
-//                 System.out.println("nrohabitacion"+reserva.getNrohabitacion());
-             reserva.setFechaEntrada(entrada);
-             reserva.setFechaSalida(salida);
-             reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
-//             reserva.setEstado(rs.getBoolean("Estado"));
+             reservaLista.setIdReserva(auxIdreserva);
+             reservaLista.setIdHuesped(auxhuesped);
+             reservaLista.setNrohabitacion(auxnhab);
+             reservaLista.setFechaEntrada(entrada);
+             reservaLista.setFechaSalida(salida);
+             reservaLista.setImporteTotal(auxImporte);
+             System.out.println("dato "+reservaLista.toString());
+             System.out.println("idReserva" + reservaLista.getIdReserva());
+             reservasAct.add(reservaLista);
            
-           reservasAct.add(reserva);
-           
-           ps.close();
            }
             
-            
+        return reservasAct;    
         } catch (SQLException ex) {
             Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
+            return reservasAct;
         }
      
-     return reservasAct;
+     //return reservasAct;
      
 }
      public ArrayList<reserva> listarreserva(){
