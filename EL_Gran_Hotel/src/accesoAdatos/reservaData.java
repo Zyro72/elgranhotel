@@ -166,8 +166,8 @@ public reserva buscarresevaxfecha(LocalDate fecha){
                  auxnhab.setNumero(rs.getInt("nrohabitacion"));
                  auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
                  
-                 LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                 LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                 LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();
+                 LocalDate salida=rs.getDate("FechaSalida").toLocalDate();
              reserva.setIdReserva(rs.getInt("idReserva"));
              reserva.setIdHuesped(auxhuesped);
              reserva.setNrohabitacion(auxnhab);
@@ -194,9 +194,7 @@ public reserva buscarresevaxfecha(LocalDate fecha){
         
         
         ArrayList<reserva> actuales=new ArrayList<>();
-        reserva reserva= new reserva();
-        huesped auxhuesped=new huesped();
-        habitacion auxnhab= new habitacion();
+       
         try {
             
             
@@ -207,6 +205,9 @@ public reserva buscarresevaxfecha(LocalDate fecha){
             
            
              while(rs.next()){
+                  reserva reserva= new reserva();
+        huesped auxhuesped=new huesped();
+        habitacion auxnhab= new habitacion();
                  auxnhab.setNumero(rs.getInt("nrohabitacion"));
                  auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
                  
@@ -223,11 +224,13 @@ public reserva buscarresevaxfecha(LocalDate fecha){
            
            actuales.add(reserva);
            
+
            ps.close();
+           
+           
            }
-//             System.out.println(""+actuales.toString());
-             return actuales;
-            
+              System.out.println(""+actuales.toString());
+            return actuales;            
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al listar las reservas "+ex);
