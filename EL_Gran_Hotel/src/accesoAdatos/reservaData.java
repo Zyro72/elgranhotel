@@ -150,57 +150,65 @@ public reserva buscarresevaxfecha(LocalDate fecha){
      
 }
      public ArrayList<reserva> reservasActivasHoy(){
-         
+         //este metodo en mi pc, devuelve siempre un array con el ultimo resultado, por eso, movi el codigo dentro del formulario
+         //y en lugar de crear un arraylist, directamente completa la tabla
+         //dejo el codigo aunque esta sin uso
         LocalDate fechaActual=LocalDate.now();
         Date fechaSql=Date.valueOf(fechaActual);
-        ArrayList<reserva> reservasAct=new ArrayList<>();
-        reserva reservaLista= new reserva();
+        ArrayList<reserva> listadoReservas;
+        listadoReservas = new ArrayList<>();
+        reserva reservaParaLista= new reserva();
         //huesped auxhuesped=new huesped();
         //habitacion auxnhab= new habitacion();
-        
+        String sql="SELECT * FROM reserva WHERE Estado=true AND ? BETWEEN FechaEntrada AND FechaSalida ";
+        huesped auxhuesped=new huesped();
+        habitacion auxnhab= new habitacion();
         try {
-            
-            
-            String sql="SELECT * FROM reserva WHERE Estado=true AND ? BETWEEN FechaEntrada AND FechaSalida ";
-            
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setDate(1, fechaSql);
-            
             ResultSet rs=ps.executeQuery();
-             while(rs.next()){
+            
+            while(rs.next()){
                  int auxnum;
                  int auxhuespedId;
                  int auxIdreserva;
                  double auxImporte;
-                 auxIdreserva=rs.getInt("idReserva");
-                 auxImporte=rs.getDouble("ImporteTotal");
-                 huesped auxhuesped=new huesped();
-                 habitacion auxnhab= new habitacion();
-                 auxnum=rs.getInt("nrohabitacion");
+                 auxhuesped=null;
+                 auxnhab=null;
+                 auxIdreserva=rs.getInt(1);
+                 System.out.println("auxIdReserva "+auxIdreserva);
+                 auxImporte=rs.getDouble(6);
+                 auxnum=rs.getInt(2);
                  auxnhab=habData.buscarHabitacion(auxnum);
-                 auxhuespedId=rs.getInt("idHuesped");
+                 auxhuespedId=rs.getInt(3);
                  auxhuesped=huesData.buscarporId(auxhuespedId);
                  LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                  LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-             reservaLista.setIdReserva(auxIdreserva);
-             reservaLista.setIdHuesped(auxhuesped);
-             reservaLista.setNrohabitacion(auxnhab);
-             reservaLista.setFechaEntrada(entrada);
-             reservaLista.setFechaSalida(salida);
-             reservaLista.setImporteTotal(auxImporte);
-             System.out.println("dato "+reservaLista.toString());
-             System.out.println("idReserva" + reservaLista.getIdReserva());
-             reservasAct.add(reservaLista);
-           
-           }
-            
-        return reservasAct;    
+                
+                 reservaParaLista.setIdReserva(auxIdreserva);
+                 reservaParaLista.setNrohabitacion(auxnhab);
+                 reservaParaLista.setIdHuesped(auxhuesped);
+                 reservaParaLista.setFechaEntrada(entrada);
+                 reservaParaLista.setFechaSalida(salida);
+                 reservaParaLista.setImporteTotal(auxImporte);
+                 
+                System.out.println("idReserva antes:" + reservaParaLista.getIdReserva());
+                listadoReservas.add(reservaParaLista);
+                System.out.println("idReserva despues:" + reservaParaLista.getIdReserva());
+                 
+             
+             }
+            System.out.println("recorro el array...");
+                 for(reserva res:listadoReservas){
+                     System.out.println("id reserva del array..."+res.getIdReserva());
+                 }
+        return listadoReservas;
         } catch (SQLException ex) {
             Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
-            return reservasAct;
+            return listadoReservas;
         }
      
-     //return reservasAct;
+     
      
 }
      public ArrayList<reserva> listarreserva(){

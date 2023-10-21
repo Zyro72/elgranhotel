@@ -6,15 +6,24 @@
 package Formularios;
 
 import Entidades.habitacion;
+import Entidades.huesped;
 import Entidades.reserva;
 import accesoAdatos.habitacionData;
 import accesoAdatos.reservaData;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import accesoAdatos.Conexion;
+import accesoAdatos.huespedData;
+import java.sql.Connection;
 /**
  *
  * @author perey
@@ -22,11 +31,15 @@ import javax.swing.table.DefaultTableModel;
 public class ListarHabitacionesOcupadas extends javax.swing.JInternalFrame {
     DefaultTableModel formatoHabitacionesReservadas=new DefaultTableModel();
     reservaData resData=new reservaData();
+    habitacionData habData=new habitacionData();
+    huespedData huesData=new huespedData();
+    private Connection con=null;
          /**
      * Creates new form ListarHabitaciones
      */
     public ListarHabitacionesOcupadas() {
         initComponents();
+        con=Conexion.getConection();
         inicializoTabla();
         cargoDatos();
         
@@ -126,19 +139,61 @@ public void inicializoTabla(){
     
 }
 public void cargoDatos(){
-    System.out.println("entrando en metodo cargodatos");
     formatoHabitacionesReservadas.setRowCount(0);
-    int estadia;
-    ArrayList<reserva> reservasActivas=new ArrayList<>();
-    reservasActivas=(ArrayList) resData.reservasActivasHoy();
-    for(reserva reservas:reservasActivas){
-        System.out.println("idReserva" + reservas.getIdReserva());
-        estadia=(int) ChronoUnit.DAYS.between(reservas.getFechaEntrada(),reservas.getFechaSalida());
-    formatoHabitacionesReservadas.addRow(new Object[]{reservas.getNrohabitacion().getNumero(),reservas.getNrohabitacion().getTipohabitacion().getTipo(),reservas.getIdHuesped().getDni(),reservas.getIdHuesped().getApellidoynom(),estadia, reservas.getFechaSalida()});
-    //           formatoHabitacionesReservadas.addRow(new Object[]{reservas.getNrohabitacion().getNumero(),"doble", reservas.getFechaSalida()});
-    }
+    LocalDate fechaActual=LocalDate.now();
+    Date fechaSql=Date.valueOf(fechaActual);
+    reserva reservaParaLista= new reserva();
+    //huesped auxhuesped=new huesped();
+    //habitacion auxnhab= new habitacion();
+    String sql="SELECT * FROM reserva WHERE Estado=true AND ? BETWEEN FechaEntrada AND FechaSalida ";
+    huesped auxhuesped=new huesped();
+    habitacion auxnhab= new habitacion();
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setDate(1, fechaSql);
+            ResultSet rs=ps.executeQuery();
+            
+            while(rs.next()){
+                 int auxnum;
+                 int estadia;
+                 int auxhuespedId;
+                 int auxIdreserva;
+                 double auxImporte;
+                 auxhuesped=null;
+                 auxnhab=null;
+                 //reservaParaLista=null;
+                 auxIdreserva=rs.getInt(1);
+                 System.out.println("auxIdReserva "+auxIdreserva);
+                 auxImporte=rs.getDouble(6);
+                 
+                 auxnum=rs.getInt(2);
+                 auxnhab=habData.buscarHabitacion(auxnum);
+                 auxhuespedId=rs.getInt(3);
+                 auxhuesped=huesData.buscarporId(auxhuespedId);
+                 LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                 LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                 reservaParaLista.setIdReserva(auxIdreserva);
+                 reservaParaLista.setNrohabitacion(auxnhab);
+                 reservaParaLista.setIdHuesped(auxhuesped);
+                 reservaParaLista.setFechaEntrada(entrada);
+                 reservaParaLista.setFechaSalida(salida);
+                 reservaParaLista.setImporteTotal(auxImporte);
+                 estadia=(int) ChronoUnit.DAYS.between(reservaParaLista.getFechaEntrada(),reservaParaLista.getFechaSalida());
+                 formatoHabitacionesReservadas.addRow(new Object[]{reservaParaLista.getNrohabitacion().getNumero(),reservaParaLista.getNrohabitacion().getTipohabitacion().getTipo(),reservaParaLista.getIdHuesped().getDni(),reservaParaLista.getIdHuesped().getApellidoynom(),estadia, reservaParaLista.getFechaSalida()});             
+             
+             }
+            
+            
+            
+                 }catch (SQLException ex) {
+            Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
+        
+        }
+    
 }
+}   
+
+
 
     
-}    
   
