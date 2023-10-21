@@ -5,17 +5,95 @@
  */
 package Formularios;
 
+import Entidades.habitacion;
+import Entidades.huesped;
+import Entidades.reserva;
+import Entidades.tipodehabitacion;
+import accesoAdatos.habitacionData;
+import accesoAdatos.huespedData;
+import accesoAdatos.reservaData;
+import accesoAdatos.tipohabitaciondata;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author perey
  */
 public class BuscarReserva extends javax.swing.JInternalFrame {
-
+    DefaultTableModel formatoTablaTipos =new DefaultTableModel();
+    DefaultTableModel formatoTablaHabs=new DefaultTableModel();
+    habitacionData habData=new habitacionData();
+    huespedData huesData=new huespedData();
+    tipohabitaciondata tipohData=new tipohabitaciondata();
+    reservaData resData=new reservaData();
+    double importe;
+    habitacion habitReserva=new habitacion();
     /**
      * Creates new form BuscarReserva
      */
     public BuscarReserva() {
         initComponents();
+        inicializarTablas();
+        
+        //SIMULO QUE YA ELEGI UNA RESERVA
+        
+        reserva reservaElegida=new reserva();
+        habitacion habitacionReserva=new habitacion();
+        huesped huespedReserva=new huesped();
+        habitacionReserva=habData.buscarHabitacion(105);
+        huespedReserva=huesData.buscarporId(10);
+        
+        reservaElegida.setIdReserva(12);
+        reservaElegida.setNrohabitacion(habitacionReserva);
+        reservaElegida.setIdHuesped(huespedReserva);
+        reservaElegida.setFechaEntrada(LocalDate.of(2023, Month.OCTOBER, 20));
+        reservaElegida.setFechaSalida(LocalDate.of(2023, Month.OCTOBER, 30));
+        reservaElegida.setImporteTotal(260000);
+        reservaElegida.setEstado(true);
+        
+        
+        
+        
+        
+        //Cargo dia mes año de entrada y salida
+        int diaE=reservaElegida.getFechaEntrada().getDayOfMonth();
+        int mesE=reservaElegida.getFechaEntrada().getMonthValue();
+        int anoE=reservaElegida.getFechaEntrada().getYear();
+        int diaS=reservaElegida.getFechaSalida().getDayOfMonth();
+        int mesS=reservaElegida.getFechaSalida().getMonthValue();
+        int anoS=reservaElegida.getFechaSalida().getYear();
+        jTdiaE.setText(Integer.toString(diaE));
+        jTmesE.setText(Integer.toString(mesE));
+        jTanoE.setText(Integer.toString(anoE));
+        jTdiaS.setText(Integer.toString(diaS));
+        jTmesS.setText(Integer.toString(mesS));
+        jTanoS.setText(Integer.toString(anoS));
+        ///
+        
+        formatoTablaTipos.setNumRows(0);
+        //Relleno la tabla con los tipos 
+      
+        ArrayList<tipodehabitacion> tiposdeH=new ArrayList<>();
+        tiposdeH=tipohData.todoslostipos();
+   
+      for(tipodehabitacion tipo:tiposdeH){
+                   formatoTablaTipos.addRow(new Object[]{tipo.getCodigo(),tipo.getTipo(),tipo.getCapacidad(),tipo.getCantcamas(),tipo.getTipocamas(),tipo.getPrecio()});           
+       
+        }
+        //hago que se selecciona el tipo de habitacion de esa reserva
+        
+        int filaTipo=(reservaElegida.getNrohabitacion().getTipohabitacion().getCodigo()-1);
+        jTtiposHabitacion.setRowSelectionInterval(filaTipo,filaTipo);
+        
+        //traigo la habitacion de ese tipo, de esa reserva
+        
+        formatoTablaHabs.addRow(new Object[]{reservaElegida.getNrohabitacion().getNumero(),reservaElegida.getNrohabitacion().getTipohabitacion().getTipo(),reservaElegida.getNrohabitacion().getPiso(),reservaElegida.getNrohabitacion().isEstado()});
+        
+        
+        
     }
 
     /**
@@ -28,6 +106,32 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jBSalir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTdni = new javax.swing.JTextField();
+        jBbuscarReservas = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jTdiaE = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTmesE = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTanoE = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jTdiaS = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jTmesS = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jTanoS = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTtiposHabitacion = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jThabitaciones = new javax.swing.JTable();
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -36,21 +140,186 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("Ingrese Dni del huésped:");
+
+        jBbuscarReservas.setText("Buscar Reservas");
+
+        jLabel2.setText("Reservas Activas");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel3.setText("Fecha de Entrada:");
+
+        jLabel12.setText("  dd        mm          aaaa");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("/");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("/");
+
+        jLabel6.setText("Fecha de Salida");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("/");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("/");
+
+        jLabel13.setText("  dd        mm          aaaa");
+
+        jLabel9.setText("Elija el tipo de habitacion deseada");
+
+        jTtiposHabitacion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTtiposHabitacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTtiposHabitacionMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTtiposHabitacion);
+
+        jLabel10.setText("Elija la habtacion deseada y haga click en confimar Reserva");
+
+        jThabitaciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jThabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jThabitacionesMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jThabitaciones);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(641, Short.MAX_VALUE)
-                .addComponent(jBSalir)
-                .addGap(46, 46, 46))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBSalir)
+                        .addGap(129, 129, 129))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jBbuscarReservas))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addContainerGap(77, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTdiaE, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTmesE, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTanoE, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTdiaS, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTmesS, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTanoS, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(388, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBbuscarReservas))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTdiaE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTmesE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTanoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTdiaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTmesS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTanoS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel6))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addComponent(jBSalir)
-                .addGap(27, 27, 27))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         pack();
@@ -62,8 +331,98 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBSalirActionPerformed
 
+    private void jTtiposHabitacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTtiposHabitacionMouseClicked
+        formatoTablaHabs.setNumRows(0);
+
+        boolean verifico;
+        int filaSeleccionada=jTtiposHabitacion.getSelectedRow();
+        int codigo=(Integer) formatoTablaTipos.getValueAt(filaSeleccionada,0);
+
+        importe=(Double) formatoTablaTipos.getValueAt(filaSeleccionada,5);
+        /*try{
+            importe=importe*Integer.parseInt(jTcantNoches.getText());
+            jTimporte.setText(String.valueOf(importe));
+
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Debe completar las fechas primnero");
+            return;
+        }
+*/
+        ArrayList<habitacion> habitacionesTipo=new ArrayList<>();
+        habitacionesTipo=habData.listarHabitacionesTipo(codigo);
+
+        for(habitacion hab:habitacionesTipo){
+            //Busco las habitaciones en la BD de reserva para ver si estan ocupada en esa fecha
+            //verifico=resData.verificarDisponible(hab.getNumero(),fechaIng);
+            //if(verifico==false){
+                //verifico el estado de la habitacion y no agrego si esta en False
+           //     boolean estadoHabit=hab.isEstado();
+             //   if(estadoHabit==true){
+                    formatoTablaHabs.addRow(new Object[]{hab.getNumero(),hab.getTipohabitacion().getTipo(),hab.getPiso(),"ACTIVA"});
+                //}
+
+            }
+
+    }//GEN-LAST:event_jTtiposHabitacionMouseClicked
+
+    private void jThabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jThabitacionesMouseClicked
+        int filaSeleccionada=jThabitaciones.getSelectedRow();
+        int numeroBuscar=(Integer) formatoTablaHabs.getValueAt(filaSeleccionada,0);
+        habitReserva=habData.buscarHabitacion(numeroBuscar);
+
+    }//GEN-LAST:event_jThabitacionesMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBSalir;
+    private javax.swing.JButton jBbuscarReservas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTanoE;
+    private javax.swing.JTextField jTanoS;
+    private javax.swing.JTextField jTdiaE;
+    private javax.swing.JTextField jTdiaS;
+    private javax.swing.JTextField jTdni;
+    private javax.swing.JTable jThabitaciones;
+    private javax.swing.JTextField jTmesE;
+    private javax.swing.JTextField jTmesS;
+    private javax.swing.JTable jTtiposHabitacion;
     // End of variables declaration//GEN-END:variables
+public void inicializarTablas(){
+        //Tabla de tipos de habitaciones
+        formatoTablaTipos.addColumn("Codigo");
+        formatoTablaTipos.addColumn("Tipo de Habitacion");
+        formatoTablaTipos.addColumn("Capacidad");
+        formatoTablaTipos.addColumn("Cantidad de Camas");
+        formatoTablaTipos.addColumn("Tipo de camas");
+        formatoTablaTipos.addColumn("Precio por noche");
+        
+        
+        
+        //Tabla que va a mostrar las habitaciones disponibles
+        
+        formatoTablaHabs.addColumn("Numero");
+        formatoTablaHabs.addColumn("Tipo");
+        formatoTablaHabs.addColumn("Piso");
+        formatoTablaHabs.addColumn("Estado");
+        
+        jTtiposHabitacion.setModel(formatoTablaTipos);
+        jThabitaciones.setModel(formatoTablaHabs);
+}
+
+
 }

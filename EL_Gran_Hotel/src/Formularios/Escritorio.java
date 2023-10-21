@@ -125,7 +125,7 @@ public class Escritorio extends javax.swing.JFrame {
         });
         jMenu3.add(jMcrearreserva);
 
-        jMbuscarres.setText("Buscar Reserva");
+        jMbuscarres.setText("Buscar/Modificar/Cancelar");
         jMbuscarres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMbuscarresActionPerformed(evt);
