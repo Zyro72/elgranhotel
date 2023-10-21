@@ -215,9 +215,7 @@ public reserva buscarresevaxfecha(LocalDate fecha){
         
         
         ArrayList<reserva> actuales=new ArrayList<>();
-        reserva reserva= new reserva();
-        huesped auxhuesped=new huesped();
-        habitacion auxnhab= new habitacion();
+        
         try {
             
             
@@ -228,6 +226,9 @@ public reserva buscarresevaxfecha(LocalDate fecha){
             
            
              while(rs.next()){
+                 reserva reserva= new reserva();
+        huesped auxhuesped=new huesped();
+        habitacion auxnhab= new habitacion();
                  auxnhab.setNumero(rs.getInt("nrohabitacion"));
                  auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
                  

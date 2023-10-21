@@ -211,15 +211,15 @@ public class ListarReserva extends javax.swing.JInternalFrame {
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
         
-    if(jTingreso.getText()=="Ingresar Fecha"){
-        reserva r=new reserva();
-        LocalDate aux=jTdato.getText();
-        
-    } else if (jTingreso.getText()=="Omgresar IdHuesped"){
-        huesped h=new huesped ();
-        h.setIdHuesped(Integer.parseInt(jTdato.getText()));
-        listar.buscarreservaxhuesped(h);
-    }
+//    if(jTingreso.getText()=="Ingresar Fecha"){
+//        reserva r=new reserva();
+//        LocalDate aux=jTdato.getText();
+//        
+//    } else if (jTingreso.getText()=="Omgresar IdHuesped"){
+//        huesped h=new huesped ();
+//        h.setIdHuesped(Integer.parseInt(jTdato.getText()));
+//        listar.buscarreservaxhuesped(h);
+//    }
     // TODO add your handling code here:
     }//GEN-LAST:event_jBbuscarActionPerformed
 
