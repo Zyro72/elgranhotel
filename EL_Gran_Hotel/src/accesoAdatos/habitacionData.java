@@ -27,7 +27,7 @@ public class habitacionData {
     
     public void guardarHabitacion(habitacion habit){
        
-        String sql="INSERT INTO habitacion (Numero, TipoHabitacion, Piso, Estado) VALUES(?,?,?,?)";
+        String sql="INSERT INTO habitacion (Numero, TipoHabitacion, Piso, Estado, Ocupada) VALUES(?,?,?,?,false)";
         
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -102,6 +102,7 @@ public class habitacionData {
                 hab.setTipohabitacion(tipoH);
                 hab.setPiso(rs.getInt(3));
                 hab.setEstado(rs.getBoolean(4));
+                hab.setOcupada(rs.getBoolean(5));
                 return hab;
                 
             }
@@ -138,6 +139,7 @@ public class habitacionData {
                 habit.setTipohabitacion(tipodeH);
                 habit.setPiso(rs.getInt(3));
                 habit.setEstado(rs.getBoolean(4));
+                habit.setOcupada(rs.getBoolean(5));
                 listadoHabitacionesT.add(habit);
             }
         
@@ -148,16 +150,6 @@ public class habitacionData {
             
         }
         return listadoHabitacionesT;
-        
-        
-        
-        
-                
-        
-        
-        
-        
-        
         
     }
 
@@ -190,6 +182,7 @@ public class habitacionData {
                     hab.setTipohabitacion(tipoH);
                     hab.setPiso(rs.getInt("Piso"));
                     hab.setEstado(rs.getBoolean("Estado"));
+                    hab.setOcupada(rs.getBoolean("Ocupada"));
                     listado.add(hab);
                 }
                 
@@ -203,12 +196,6 @@ public class habitacionData {
         }
      
     }
-        
-
-    
-    
-        
-        
         
         
     }

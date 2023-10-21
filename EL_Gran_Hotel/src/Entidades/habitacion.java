@@ -14,6 +14,23 @@ public class habitacion {
  private tipodehabitacion tipohabitacion;
  private int piso;
  private boolean estado;
+ private boolean ocupada;
+
+    public boolean isOcupada() {
+        return ocupada;
+    }
+
+    public void setOcupada(boolean ocupada) {
+        this.ocupada = ocupada;
+    }
+
+    public habitacion(int numero, tipodehabitacion tipohabitacion, int piso, boolean estado, boolean ocupada) {
+        this.numero = numero;
+        this.tipohabitacion = tipohabitacion;
+        this.piso = piso;
+        this.estado = estado;
+        this.ocupada = ocupada;
+    }
 
     public habitacion(int numero, tipodehabitacion tipohabitacion, int piso, boolean estado) {
         this.numero = numero;

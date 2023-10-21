@@ -450,7 +450,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
             //verifico el estado de la habitacion y no agrego si esta en False
             boolean estadoHabit=hab.isEstado();
             if(estadoHabit==true){
-        formatoTablaHabs.addRow(new Object[]{hab.getNumero(),hab.getTipohabitacion().getTipo(),hab.getPiso(),"ACTIVA"});
+        formatoTablaHabs.addRow(new Object[]{hab.getNumero(),hab.getTipohabitacion().getTipo(),hab.getPiso()});
         }
        
     }
@@ -636,7 +636,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         formatoTablaHabs.addColumn("Numero");
         formatoTablaHabs.addColumn("Tipo");
         formatoTablaHabs.addColumn("Piso");
-        formatoTablaHabs.addColumn("Estado");
+        //formatoTablaHabs.addColumn("Estado");
         
         //Tabla que muestra datos del huesped
         formatoTablaHuesped.addColumn("Apellido y Nombre");

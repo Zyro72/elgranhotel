@@ -19,7 +19,9 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
     DefaultTableModel formatoHabitacionesComp=new DefaultTableModel();
     habitacionData habData=new habitacionData();
     String estadoPalabra;
+    String ocupadaPalabra;
     boolean estadoH;
+    boolean ocupadaH;
         /**
      * Creates new form ListarHabitaciones
      */
@@ -170,7 +172,8 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
 public void inicializoTabla(){
-    formatoHabitacionesComp.addColumn("Disponibilidad");
+    formatoHabitacionesComp.addColumn("Activa (SI/NO)");
+    formatoHabitacionesComp.addColumn("Ocupada(SI/NO)");
     formatoHabitacionesComp.addColumn("Numero");
     formatoHabitacionesComp.addColumn("Piso");
     formatoHabitacionesComp.addColumn("Tipo");
@@ -187,13 +190,19 @@ public void cargoDatos(){
     ListadoCompleto=habData.listarHabitacion();
     for(habitacion hab:ListadoCompleto){
         estadoH=hab.isEstado();
+        ocupadaH=hab.isOcupada();
         if(estadoH==true){
-            estadoPalabra="DISPONIBLE";
+            estadoPalabra="SI";
             
         }else {
-            estadoPalabra="NO DISPONIBLE";
+            estadoPalabra="NO";
         }
-        formatoHabitacionesComp.addRow(new Object[]{estadoPalabra,hab.getNumero(),hab.getPiso(),hab.getTipohabitacion().getTipo(),hab.getTipohabitacion().getCapacidad(),hab.getTipohabitacion().getCantcamas(),hab.getTipohabitacion().getTipocamas(),hab.getTipohabitacion().getPrecio()});
+        if(ocupadaH==true){
+            ocupadaPalabra="SI";
+        }else {
+            ocupadaPalabra="NO";
+        }
+        formatoHabitacionesComp.addRow(new Object[]{estadoPalabra,ocupadaPalabra,hab.getNumero(),hab.getPiso(),hab.getTipohabitacion().getTipo(),hab.getTipohabitacion().getCapacidad(),hab.getTipohabitacion().getCantcamas(),hab.getTipohabitacion().getTipocamas(),hab.getTipohabitacion().getPrecio()});
         
         
         
@@ -204,14 +213,21 @@ public void buscoHab(int numeroHab){
     habi=habData.buscarHabitacion(numeroHab);
     formatoHabitacionesComp.setRowCount(0);
     estadoH=habi.isEstado();
+    ocupadaH=habi.isOcupada();
     if(estadoH==true){
-        estadoPalabra="DISPONIBLE";
+        estadoPalabra="SI";
     }
     else {
-        estadoPalabra="NO DISPONIBLE";
+        estadoPalabra="NO";
+    }
+    if(ocupadaH==true){
+        ocupadaPalabra="SI";
+    }else { 
+        ocupadaPalabra="NO";
+        
     }
         
-    formatoHabitacionesComp.addRow(new Object[]{estadoPalabra,habi.getNumero(),habi.getPiso(),habi.getTipohabitacion().getTipo(),habi.getTipohabitacion().getCapacidad(),habi.getTipohabitacion().getCantcamas(),habi.getTipohabitacion().getTipocamas(),habi.getTipohabitacion().getPrecio()});
+    formatoHabitacionesComp.addRow(new Object[]{estadoPalabra,ocupadaPalabra,habi.getNumero(),habi.getPiso(),habi.getTipohabitacion().getTipo(),habi.getTipohabitacion().getCapacidad(),habi.getTipohabitacion().getCantcamas(),habi.getTipohabitacion().getTipocamas(),habi.getTipohabitacion().getPrecio()});
     
     
 }    
