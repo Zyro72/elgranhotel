@@ -146,21 +146,22 @@ public void cargoDatos(){
     //huesped auxhuesped=new huesped();
     //habitacion auxnhab= new habitacion();
     String sql="SELECT * FROM reserva WHERE Estado=true AND ? BETWEEN FechaEntrada AND FechaSalida ";
-    huesped auxhuesped=new huesped();
-    habitacion auxnhab= new habitacion();
+    
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setDate(1, fechaSql);
             ResultSet rs=ps.executeQuery();
             
             while(rs.next()){
+                huesped auxhuesped=new huesped();
+                habitacion auxnhab= new habitacion();
                  int auxnum;
                  int estadia;
                  int auxhuespedId;
                  int auxIdreserva;
                  double auxImporte;
-                 auxhuesped=null;
-                 auxnhab=null;
+//                 auxhuesped=null;
+//                 auxnhab=null;
                  //reservaParaLista=null;
                  auxIdreserva=rs.getInt(1);
                  System.out.println("auxIdReserva "+auxIdreserva);
