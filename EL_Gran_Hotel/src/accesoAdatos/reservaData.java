@@ -258,5 +258,51 @@ public reserva buscarresevaxfecha(LocalDate fecha){
      return null;
      
 }
+    public void modificarReserva(reserva modificaReserva){
+ 
+    String sql="UPDATE reserva SET nrohabitacion=?, idHuesped=?, fechaEntrada=?, fechaSalida=?, ImporteTotal=?,Estado=? WHERE idReserva=?";
+    
+    try {
+    PreparedStatement ps=con.prepareStatement(sql);
+    ps.setInt(1, modificaReserva.getNrohabitacion().getNumero());
+    ps.setInt(2, modificaReserva.getIdHuesped().getIdHuesped());
+    Date fechaEntrada=Date.valueOf(modificaReserva.getFechaEntrada());
+    Date fechaSalida=Date.valueOf(modificaReserva.getFechaSalida());
+    ps.setDate(3,fechaEntrada);
+    ps.setDate(4, fechaSalida);
+    ps.setDouble(5,modificaReserva.getImporteTotal());
+    ps.setBoolean(6, modificaReserva.isEstado());
+    ps.setInt(7, modificaReserva.getIdReserva());
+    ps.executeUpdate();
+    
+    JOptionPane.showMessageDialog(null, "Se han guardado los cambios");
+    
+}catch(SQLException ex){
+        JOptionPane.showMessageDialog(null, "Error al intentar guardar los cambios" + ex);
+        }
+    
+    
+    
+    
+    
+}
+     public void cancelarReserva(int idReserva){
+ 
+    String sql="UPDATE reserva SET Estado=false WHERE idReserva=?";
+    
+    try {
+    PreparedStatement ps=con.prepareStatement(sql);
+    ps.setInt(1, idReserva);
+    ps.executeUpdate();
+    JOptionPane.showMessageDialog(null, "Se ha cancelado la reserva");
+    
+}catch(SQLException ex){
+        JOptionPane.showMessageDialog(null, "Error al intentar cancelar la resertva" );
+        }
+    
+}
+     
+     
+     
 
 }

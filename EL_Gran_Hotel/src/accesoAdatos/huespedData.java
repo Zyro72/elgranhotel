@@ -246,7 +246,22 @@ public class huespedData {
           
           
            
-       } 
+       }
+         public void reactivarHuesped(int idHuesped){
+        String sql="UPDATE huesped SET estado=1 Where idHuesped=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, idHuesped);
+            ps.executeQuery();
+            JOptionPane.showMessageDialog(null,"Se ha reactivado el huesped");
+            
+            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error reactivando el huesped");
+            
+        }
+    }
  
  
         

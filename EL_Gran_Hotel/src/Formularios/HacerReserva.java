@@ -40,6 +40,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     habitacion habitReserva=new habitacion();
     huesped huespedReserva=new huesped();
     reserva nuevaReserva=new reserva();
+    int idHues;
     double importe;
     boolean estadoHuesped;
     /**
@@ -520,16 +521,18 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     
     //Validaciones Varias    
         
-    if(estadoHuesped=false){
-        JOptionPane.showMessageDialog(this,"El huesped está dado de baja, Reactívelo primero o elije un huesped activo");
-        return;
-    }
-    
-    
-    
-    
-    
-    
+    if(estadoHuesped==false){
+        int respuesta=JOptionPane.showConfirmDialog(this,"RECUERDE...El Huesped elegido esta INACTIVO, desea reactivarlo? ", "ADVERTENCIA",JOptionPane.YES_NO_OPTION );
+            if (respuesta==JOptionPane.YES_OPTION){
+                huesData.reactivarHuesped(huespedReserva.getIdHuesped());
+                formatoTablaHuesped.setRowCount(0);
+                formatoTablaHuesped.addRow(new Object[]{huespedReserva.getApellidoynom(),huespedReserva.getDireccion(),huespedReserva.getCorreo(),huespedReserva.getCelular(),"REACTIVADO"});
+                
+            }else {
+                JOptionPane.showMessageDialog(this,"El huesped continuará inactivo, no se puede guardar la reserva...");
+                return;
+            }
+   }
     
     nuevaReserva.setNrohabitacion(habitReserva);
     nuevaReserva.setIdHuesped(huespedReserva);
@@ -559,11 +562,21 @@ public class HacerReserva extends javax.swing.JInternalFrame {
    try{
         huespedReserva=huesData.buscarporDni(dniHuesped);
         estadoHuesped=huespedReserva.isEstado();
-        
-        if (estadoHuesped==false){
-            JOptionPane.showMessageDialog(this,"ADVERTENCIA, el HUESPED INGRESADO ESTA DADO DE BAJA, DEBE REACTIVARLO PRIMERO");
-            palabraEstadoHuesped="INACTIVO";
-            return;
+        idHues=huespedReserva.getIdHuesped();
+        if(estadoHuesped==false){
+        int respuesta=JOptionPane.showConfirmDialog(this,"El Huesped elegido esta INACTIVO, desea reactivarlo? ", "ADVERTENCIA",JOptionPane.YES_NO_OPTION );
+            if (respuesta==JOptionPane.YES_OPTION){
+                huesData.reactivarHuesped(idHues);
+                palabraEstadoHuesped="ACTIVO";
+                
+            }else {
+                JOptionPane.showMessageDialog(this,"No se han realizado cambios, podrá continuar pero no podrá guardar la reserva");
+                palabraEstadoHuesped="INACTIVO";
+                //return;
+            }
+            
+            
+            
                    
         }else {
         palabraEstadoHuesped="ACTIVO";
