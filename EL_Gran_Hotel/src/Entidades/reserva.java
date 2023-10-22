@@ -100,7 +100,7 @@ public class reserva {
     
     public String toString(){
         
-       return  idReserva+"-"+idHuesped +"-"+nrohabitacion.toString() +"-"+FechaEntrada+"-"+FechaSalida+"-"+ImporteTotal+"-"+estado;
+       return  idReserva+"-"+idHuesped +"-"+nrohabitacion.toString() +"-"+FechaEntrada+"-"+FechaSalida+"-"+ImporteTotal;
        
         
         

@@ -86,8 +86,9 @@ public boolean verificarDisponible(int numeroHab, LocalDate fechaIng){
     
 }
 
-public reserva buscarresevaxfecha(LocalDate fecha){
-    reserva reserva= new reserva();
+public ArrayList<reserva> buscarresevaxfecha(LocalDate fecha){
+   ArrayList<reserva> listaxfecha=new ArrayList<>();
+   
         try {
             String sql="SELECT * FROM reserva WHERE  ? BETWEEN FechaEntrada AND FechaSalida";
             
@@ -95,28 +96,39 @@ public reserva buscarresevaxfecha(LocalDate fecha){
             Date Fecha=Date.valueOf(fecha);
             ps.setDate(1, Fecha);
             ResultSet rs=ps.executeQuery();
-       if(rs.next()){
-           reserva.getIdHuesped();
-           reserva.getNrohabitacion();
-           reserva.getFechaEntrada();
-           reserva.getFechaSalida();
-           reserva.getImporteTotal();
-           ps.close();
-           return reserva;
-       }else {
-            JOptionPane.showMessageDialog(null, "Reserva inexistente ");
-            ps.close();
-            return null;
-       }
             
+      while(rs.next()){
+          reserva reserva= new reserva();
+            huesped auxhuesped=new huesped();
+            habitacion auxnhab= new habitacion();
+            auxnhab.setNumero(rs.getInt("nrohabitacion"));
+            auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
+                 
+             LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+             LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+             reserva.setIdReserva(rs.getInt("idReserva"));
+             reserva.setIdHuesped(auxhuesped);
+             reserva.setNrohabitacion(auxnhab);
+//                 System.out.println("nrohabitacion"+reserva.getNrohabitacion());
+             reserva.setFechaEntrada(entrada);
+             reserva.setFechaSalida(salida);
+             reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
+             reserva.setEstado(rs.getBoolean("Estado"));
+             listaxfecha.add(reserva);
+           ps.close();
+           
+       
+       }
+            return listaxfecha;
         } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null,"Error buscando Reservas");
        return null;
         }
         
 }
-    public reserva buscarreservaxhuesped(huesped huesped){
-        reserva reserva= new reserva();
+    public ArrayList<reserva> buscarreservaxhuesped(huesped huesped){
+        ArrayList<reserva> listadorev=new ArrayList<>();
+
         
         try {
             
@@ -127,26 +139,41 @@ public reserva buscarresevaxfecha(LocalDate fecha){
             
             ps.setInt(1, huesped.getIdHuesped());
             ResultSet rs=ps.executeQuery();
-             if(rs.next()){
-           reserva.getIdHuesped();
-           reserva.getNrohabitacion();
-           reserva.getFechaEntrada();
-           reserva.getFechaSalida();
-           reserva.getImporteTotal();
+             while (rs.next()){
+//           reserva.getIdHuesped();
+//           reserva.getNrohabitacion();
+//           reserva.getFechaEntrada();
+//           reserva.getFechaSalida();
+//           reserva.getImporteTotal();
+//           listadorev.add(reserva);
+            reserva reserva= new reserva();
+            huesped auxhuesped=new huesped();
+            habitacion auxnhab= new habitacion();
+            auxnhab.setNumero(rs.getInt("nrohabitacion"));
+            auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
+                 
+             LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+             LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+             reserva.setIdReserva(rs.getInt("idReserva"));
+             reserva.setIdHuesped(auxhuesped);
+             reserva.setNrohabitacion(auxnhab);
+//                 System.out.println("nrohabitacion"+reserva.getNrohabitacion());
+             reserva.setFechaEntrada(entrada);
+             reserva.setFechaSalida(salida);
+             reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
+             reserva.setEstado(rs.getBoolean("Estado"));
+             listadorev.add(reserva);
            ps.close();
-           return reserva;
-             }else{
-                 JOptionPane.showMessageDialog(null, "Reserva inexistente ");
-            ps.close();
-            return null;
+          
              }
-            
+             
+             return listadorev;
             
         } catch (SQLException ex) {
             Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
         }
      
-     return reserva;
+     return null;
      
 }
      public ArrayList<reserva> reservasActivasHoy(){
