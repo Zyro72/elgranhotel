@@ -6,8 +6,12 @@
 package Formularios;
 
 import Entidades.huesped;
+import Entidades.reserva;
 import accesoAdatos.huespedData;
+import accesoAdatos.reservaData;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,7 +53,7 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         jBbuscar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jTestado = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
+        jBguardar = new javax.swing.JButton();
         jBsalir = new javax.swing.JButton();
 
         jLabel2.setText("Apellido y Nombre :");
@@ -89,10 +93,10 @@ public class ModHuesped extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Guardar Cambios");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBguardar.setText("Guardar Cambios");
+        jBguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBguardarActionPerformed(evt);
             }
         });
 
@@ -112,8 +116,8 @@ public class ModHuesped extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                            .addComponent(jBguardar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                             .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(18, 18, 18)
@@ -176,7 +180,7 @@ public class ModHuesped extends javax.swing.JInternalFrame {
                     .addComponent(jTestado))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jBguardar)
                     .addComponent(jBsalir))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
@@ -232,24 +236,47 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTestadoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-            mod.modificarhuesped(id,Integer.parseInt(jTdni.getText()), jTapeynom.getText(),jTmail.getText(),jTdire.getText(),jTcelu.getText(), estados);
-            jTdni.setText("");
+    private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
+        reservaData res= new reservaData();
+         int i=0;
+           ArrayList<reserva> reser= res.buscarreservaxhuesped(aux);
+          for (reserva item:reser){
+             
+                      i ++;
+          }
+          
+        if (i>0){
+            
+           JOptionPane.showMessageDialog(null,"Este Huesped tiene reservas ACTIVAS no puede cambiar su estado");
+           jTdni.setText("");
             jTapeynom.setText("");
             jTdire.setText("");
             jTmail.setText("");
             jTcelu.setText("");
-            jTestado.setText("");
+            jTestado.setText(""); 
+            
+             jTapeynom.setEnabled(false);
+        jTdire.setEnabled(false);
+        jTmail.setEnabled(false);
+        jTcelu.setEnabled(false);
+        jTestado.setEnabled(false);
+        } else{
+            mod.modificarhuesped(id,Integer.parseInt(jTdni.getText()), jTapeynom.getText(),jTmail.getText(),jTdire.getText(),jTcelu.getText(), estados);
+             jTdni.setText("");
+            jTapeynom.setText("");
+            jTdire.setText("");
+            jTmail.setText("");
+            jTcelu.setText("");
+            jTestado.setText(""); 
         jTapeynom.setEnabled(false);
         jTdire.setEnabled(false);
         jTmail.setEnabled(false);
         jTcelu.setEnabled(false);
         jTestado.setEnabled(false);
 
-
+        }
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBguardarActionPerformed
 
     private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
     this.dispose();
@@ -259,8 +286,8 @@ public class ModHuesped extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBbuscar;
+    private javax.swing.JButton jBguardar;
     private javax.swing.JButton jBsalir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
