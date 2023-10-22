@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 public class BuscarReserva extends javax.swing.JInternalFrame {
     DefaultTableModel formatoTablaTipos =new DefaultTableModel();
     DefaultTableModel formatoTablaHabs=new DefaultTableModel();
+    DefaultTableModel formatoTablaReserva=new DefaultTableModel();
     habitacionData habData=new habitacionData();
     huespedData huesData=new huespedData();
     tipohabitaciondata tipohData=new tipohabitaciondata();
@@ -41,6 +43,9 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
     reserva reservaElegida=new reserva();
     reserva modiReserva=new reserva();
     huesped huespedReserva=new huesped();
+    DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    String stHuesped;
+    
    
     /**
      * Creates new form BuscarReserva
@@ -51,60 +56,10 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         jBcancelarReserva.setForeground(Color.WHITE);
         inicializarTablas();
         
-        //SIMULO QUE YA ELEGI UNA RESERVA
-        
-        
-        habitacion habitacionReserva=new habitacion();
-        
-        habitacionReserva=habData.buscarHabitacion(105);
-        huespedReserva=huesData.buscarporId(10);
-        
-        reservaElegida.setIdReserva(12);
-        reservaElegida.setNrohabitacion(habitacionReserva);
-        reservaElegida.setIdHuesped(huespedReserva);
-        reservaElegida.setFechaEntrada(LocalDate.of(2023, Month.OCTOBER, 20));
-        reservaElegida.setFechaSalida(LocalDate.of(2023, Month.OCTOBER, 30));
-        reservaElegida.setImporteTotal(260000);
-        reservaElegida.setEstado(true);
-        
-        
-        
-        
-        
-        //Cargo dia mes año de entrada y salida
-        int diaE=reservaElegida.getFechaEntrada().getDayOfMonth();
-        int mesE=reservaElegida.getFechaEntrada().getMonthValue();
-        int anoE=reservaElegida.getFechaEntrada().getYear();
-        int diaS=reservaElegida.getFechaSalida().getDayOfMonth();
-        int mesS=reservaElegida.getFechaSalida().getMonthValue();
-        int anoS=reservaElegida.getFechaSalida().getYear();
-        jTdiaE.setText(Integer.toString(diaE));
-        jTmesE.setText(Integer.toString(mesE));
-        jTanoE.setText(Integer.toString(anoE));
-        jTdiaS.setText(Integer.toString(diaS));
-        jTmesS.setText(Integer.toString(mesS));
-        jTanoS.setText(Integer.toString(anoS));
-        ///
-        
-        formatoTablaTipos.setNumRows(0);
-        //Relleno la tabla con los tipos 
-      
-        ArrayList<tipodehabitacion> tiposdeH=new ArrayList<>();
-        tiposdeH=tipohData.todoslostipos();
-   
-      for(tipodehabitacion tipo:tiposdeH){
-                   formatoTablaTipos.addRow(new Object[]{tipo.getCodigo(),tipo.getTipo(),tipo.getCapacidad(),tipo.getCantcamas(),tipo.getTipocamas(),tipo.getPrecio()});           
        
-        }
-        //hago que se selecciona el tipo de habitacion de esa reserva
         
-        int filaTipo=(reservaElegida.getNrohabitacion().getTipohabitacion().getCodigo()-1);
-        jTtiposHabitacion.setRowSelectionInterval(filaTipo,filaTipo);
         
-        //traigo la habitacion de ese tipo, de esa reserva
-        
-        formatoTablaHabs.addRow(new Object[]{reservaElegida.getNrohabitacion().getNumero(),reservaElegida.getNrohabitacion().getTipohabitacion().getTipo(),reservaElegida.getNrohabitacion().getPiso()});
-        
+       
         
         
     }
@@ -124,7 +79,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         jBbuscarReservas = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablaReservas = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jTdiaE = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -166,10 +121,15 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         jLabel1.setText("Ingrese Dni del huésped:");
 
         jBbuscarReservas.setText("Buscar Reservas");
+        jBbuscarReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBbuscarReservasActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Reservas Activas");
+        jLabel2.setText("Reservas Activas, Seleccione para Ver/Modificar o Cancelar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablaReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -180,7 +140,12 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jTablaReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablaReservasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTablaReservas);
 
         jLabel3.setText("Fecha de Entrada:");
 
@@ -444,7 +409,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
             jTimporte.setText(String.valueOf(importe));
 
         }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "Debe completar las fechas primnero");
+            JOptionPane.showMessageDialog(this, "Debe completar y validar las fechas");
             return;
         }
 
@@ -523,7 +488,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         modiReserva.setImporteTotal(importe);
         modiReserva.setEstado(true);
         resData.modificarReserva(modiReserva);
-        //limpioform();
+        limpioform();
 
     }//GEN-LAST:event_jBguardarCambiosReservaActionPerformed
 
@@ -570,14 +535,143 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jBcancelarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBcancelarReservaActionPerformed
-        // primero tendria que validar
-    
-        int respuesta=JOptionPane.showConfirmDialog(this,"ESTA SEGURO? ESTA ACCION NO SE PODRÁ REVERTIR", "ADVERTENCIA",JOptionPane.YES_NO_OPTION );
+        // Validaciones
+        
+        stHuesped=jTdni.getText();
+        if(stHuesped.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un DNI y elegir una reserva para cancelar...");
+            return;
+            
+            
+        }
+        int filaSeleccionada=jTablaReservas.getSelectedRow();
+        
+        if(filaSeleccionada<0){
+            JOptionPane.showMessageDialog(this,"Debe seleccionar alguna reserva para cancelar...");
+            return;
+        }
+        int respuesta=JOptionPane.showConfirmDialog(this,"ESTA SEGURO? ESTA ACCION NO SE PODRÁ REVERTIR", "ADVERTENCIA" + reservaElegida.getIdReserva(),JOptionPane.YES_NO_OPTION );
             if (respuesta==JOptionPane.YES_OPTION){
                 resData.cancelarReserva(reservaElegida.getIdReserva());
             } 
+            limpioform();
             
     }//GEN-LAST:event_jBcancelarReservaActionPerformed
+
+    private void jBbuscarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarReservasActionPerformed
+        //busco el huesped x DNI
+          stHuesped=jTdni.getText();
+        if(stHuesped.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un DNI...");
+            return;
+            
+            
+        }
+        
+        
+        String fechaEntradaFormateada;
+        String fechaSalidaFormateada;
+          
+        int dniHuesped=Integer.parseInt(jTdni.getText());
+        
+        huespedReserva=huesData.buscarporDni(dniHuesped);
+        if(huespedReserva==null){
+        jTdni.setText("");
+            return;
+        }
+        //Muestro el apellido y nombre para que el usuario confirme
+        int respuesta=JOptionPane.showConfirmDialog(this,"El DNI elegido Corresponde a: //" + huespedReserva.getApellidoynom() + " //, Confirma?" , "Revise y confirme los datos" , JOptionPane.YES_NO_OPTION);
+        
+            if (respuesta==JOptionPane.NO_OPTION){
+                jTdni.setText("");
+                return;
+            }
+        
+        
+               
+        //busco las reservas del huesped
+        ArrayList<reserva> reservasHuesped=new ArrayList<>();
+        reservasHuesped=resData.buscarreservaxhuesped2(huespedReserva);
+        
+        if(reservasHuesped.isEmpty()){
+            JOptionPane.showMessageDialog(this,"No hay reservas activas para ese huesped");
+            jTdni.setText("");
+            return;
+            
+        }
+        for (reserva resdelhuesped:reservasHuesped){
+            fechaEntradaFormateada=resdelhuesped.getFechaEntrada().format(formatoFecha);
+            fechaSalidaFormateada=resdelhuesped.getFechaSalida().format(formatoFecha);
+        
+            formatoTablaReserva.addRow(new Object[]{resdelhuesped.getIdReserva(),resdelhuesped.getNrohabitacion().getNumero(),resdelhuesped.getNrohabitacion().getTipohabitacion().getTipo(),fechaEntradaFormateada,fechaSalidaFormateada,resdelhuesped.getImporteTotal()});
+        }
+        
+        
+            
+        
+        
+        
+    
+    
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jBbuscarReservasActionPerformed
+
+    private void jTablaReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaReservasMouseClicked
+    //armo el objeto Reserva con los datos de la reserva elegida
+    int filaSeleccionada=jTablaReservas.getSelectedRow();
+    
+    int idReserva=(int) (jTablaReservas.getValueAt(filaSeleccionada,0));
+    reservaElegida=resData.buscarreservaxId(idReserva);
+    
+        
+    //Completo el formulario
+    
+    int diaE=reservaElegida.getFechaEntrada().getDayOfMonth();
+    int mesE=reservaElegida.getFechaEntrada().getMonthValue();
+    int anoE=reservaElegida.getFechaEntrada().getYear();
+    int diaS=reservaElegida.getFechaSalida().getDayOfMonth();
+    int mesS=reservaElegida.getFechaSalida().getMonthValue();
+    int anoS=reservaElegida.getFechaSalida().getYear();
+    jTdiaE.setText(Integer.toString(diaE));
+    jTmesE.setText(Integer.toString(mesE));
+    jTanoE.setText(Integer.toString(anoE));
+    jTdiaS.setText(Integer.toString(diaS));
+    jTmesS.setText(Integer.toString(mesS));
+    jTanoS.setText(Integer.toString(anoS));
+          
+    formatoTablaTipos.setNumRows(0);
+    
+    //Relleno la tabla con los tipos 
+      
+    ArrayList<tipodehabitacion> tiposdeH=new ArrayList<>();
+    tiposdeH=tipohData.todoslostipos();
+   
+    for(tipodehabitacion tipo:tiposdeH){
+        formatoTablaTipos.addRow(new Object[]{tipo.getCodigo(),tipo.getTipo(),tipo.getCapacidad(),tipo.getCantcamas(),tipo.getTipocamas(),tipo.getPrecio()});           
+    }
+        //hago que se selecciona el tipo de habitacion de esa reserva
+        
+        int filaTipo=(reservaElegida.getNrohabitacion().getTipohabitacion().getCodigo()-1);
+        jTtiposHabitacion.setRowSelectionInterval(filaTipo,filaTipo);
+        
+        //traigo la habitacion de ese tipo, de esa reserva
+        
+        formatoTablaHabs.addRow(new Object[]{reservaElegida.getNrohabitacion().getNumero(),reservaElegida.getNrohabitacion().getTipohabitacion().getTipo(),reservaElegida.getNrohabitacion().getPiso()});
+        
+    
+    
+    
+    
+    
+    
+        
+        
+        
+    }//GEN-LAST:event_jTablaReservasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -605,7 +699,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablaReservas;
     private javax.swing.JTextField jTanoE;
     private javax.swing.JTextField jTanoS;
     private javax.swing.JTextField jTcantNoches;
@@ -628,6 +722,16 @@ public void inicializarTablas(){
         formatoTablaTipos.addColumn("Tipo de camas");
         formatoTablaTipos.addColumn("Precio por noche");
         
+        //Tabla que muestra las reservas del huesped elegido
+        
+        formatoTablaReserva.addColumn("Codigo");
+        formatoTablaReserva.addColumn("Habitacion");
+        formatoTablaReserva.addColumn("Tipo de Habitacion");
+        formatoTablaReserva.addColumn("Fecha Entrada");
+        formatoTablaReserva.addColumn("Fecha Salida");
+        formatoTablaReserva.addColumn("Importe Total");
+        
+        
         
         
         //Tabla que va a mostrar las habitaciones disponibles
@@ -638,7 +742,36 @@ public void inicializarTablas(){
                 
         jTtiposHabitacion.setModel(formatoTablaTipos);
         jThabitaciones.setModel(formatoTablaHabs);
+        jTablaReservas.setModel(formatoTablaReserva);
+        
 }
+public void limpioform(){
+    jTdiaE.setText("");
+    jTmesE.setText("");
+    jTanoE.setText("");
+    jTdiaS.setText("");
+    jTmesS.setText("");
+    jTanoS.setText("");
+    jTdni.setText("");
+    jTcantNoches.setText("");
+    jTcantPas.setText("");
+    jTimporte.setText("");
+    formatoTablaReserva.setRowCount(0);
+    formatoTablaHabs.setRowCount(0);
+    formatoTablaTipos.setRowCount(0);
+    
+            
+    
+    
+    
+    
+    
+    
+    
+}
+
+
+
 
 
 }

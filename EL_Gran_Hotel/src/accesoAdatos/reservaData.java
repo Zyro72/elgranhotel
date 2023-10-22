@@ -328,8 +328,94 @@ public ArrayList<reserva> buscarresevaxfecha(LocalDate fecha){
         }
     
 }
-     
-     
-     
+     public ArrayList<reserva> buscarreservaxhuesped2(huesped huesped){
+        ArrayList<reserva> listadorev=new ArrayList<>();
 
+        
+        try {
+            
+            
+            String sql="SELECT * FROM reserva WHERE  idHuesped = ? AND Estado=true";
+            
+            PreparedStatement ps=con.prepareStatement(sql);
+            
+            ps.setInt(1, huesped.getIdHuesped());
+            ResultSet rs=ps.executeQuery();
+             while (rs.next()){
+
+            reserva reserva= new reserva();
+            huesped auxhuesped=new huesped();
+            habitacion auxnhab= new habitacion();
+            auxnhab=habData.buscarHabitacion(rs.getInt(2));
+            auxhuesped=huesData.buscarporId(rs.getInt(3));
+                 
+             LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+             LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+             reserva.setIdReserva(rs.getInt("idReserva"));
+             reserva.setIdHuesped(auxhuesped);
+             reserva.setNrohabitacion(auxnhab);
+             reserva.setFechaEntrada(entrada);
+             reserva.setFechaSalida(salida);
+             reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
+             reserva.setEstado(rs.getBoolean("Estado"));
+             listadorev.add(reserva);
+           ps.close();
+          
+             }
+             
+             return listadorev;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     return null;
+     
+     
+     
+     }
+public reserva buscarreservaxId(int idReserva){
+        String sql="SELECT * FROM reserva WHERE  idReserva = ?";
+
+        
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            
+            ps.setInt(1,idReserva);
+            ResultSet rs=ps.executeQuery();
+            if (rs.next()){
+                reserva reserva= new reserva();
+                huesped auxhuesped=new huesped();
+                habitacion auxnhab= new habitacion();
+                auxnhab=habData.buscarHabitacion(rs.getInt(2));
+                auxhuesped=huesData.buscarporId(rs.getInt(3));
+                LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate(); 
+                LocalDate salida=rs.getDate("FechaSalida").toLocalDate();
+                reserva.setIdReserva(rs.getInt("idReserva"));
+                reserva.setIdHuesped(auxhuesped);
+                reserva.setNrohabitacion(auxnhab);
+                reserva.setFechaEntrada(entrada);
+                reserva.setFechaSalida(salida);
+                reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
+                reserva.setEstado(rs.getBoolean("Estado"));
+                ps.close();
+                return reserva;
+           
+          
+             }
+             
+             
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(reservaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     return null;
+     
+     
+     
+     }     
+     
+     
+     
 }
