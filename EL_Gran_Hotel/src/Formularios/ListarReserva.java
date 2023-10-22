@@ -255,15 +255,15 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         reserva r=new reserva();
                 if(auxd.isEmpty()|| auxm.isEmpty()|| auxa.isEmpty()&&!aux.isEmpty()){
             JOptionPane.showMessageDialog(null, "Ingrese una fecha valida por favor ");
-        }
+        }else {
         int dia=Integer.parseInt(jTdia.getText());
         int mes=Integer.parseInt(jTmes.getText());
         int anio=Integer.parseInt(jTanio.getText());
         LocalDate fecha= LocalDate.of(anio, mes, dia);
         res=(ArrayList)listar.buscarresevaxfecha(fecha);
-        
+                }
          for (reserva item : res) {
-            System.out.println(""+item);
+//            System.out.println(""+item);
             formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped(), item.getNrohabitacion(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
         }
         
@@ -278,11 +278,11 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         huesped buscado = new huesped();
          if(aux.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Complete el campo con un Id por favor ");
-         }  
+         } else { 
         int id=Integer.parseInt(jTdato.getText());
        buscado= h.buscarporId(id);
 //        h.setIdHuesped(Integer.parseInt(jTdato.getText()));
-       
+         }
                res= (ArrayList)listar.buscarreservaxhuesped(buscado);
         for (reserva item : res) {
             System.out.println(""+item);
@@ -304,7 +304,8 @@ public class ListarReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTdatoActionPerformed
 
     private void jBresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBresetActionPerformed
-       cargarTabla();
+        limpiarT();
+        cargarTabla();
         // TODO add your handling code here:
     }//GEN-LAST:event_jBresetActionPerformed
 
