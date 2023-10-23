@@ -345,7 +345,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         ArrayList<reserva> lista = new ArrayList<>();
         lista = (ArrayList) listar.listarreserva();
         for (reserva item : lista) {
-            formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped(), item.getNrohabitacion(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
+            formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped().getApellidoynom(), item.getNrohabitacion().getNumero(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
         }
 
     }

@@ -254,11 +254,11 @@ public ArrayList<reserva> buscarresevaxfecha(LocalDate fecha){
            
              while(rs.next()){
                  reserva reserva= new reserva();
-        huesped auxhuesped=new huesped();
-        habitacion auxnhab= new habitacion();
-                 auxnhab.setNumero(rs.getInt("nrohabitacion"));
-                 auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
-                 
+                 huesped auxhuesped=new huesped();
+                habitacion auxnhab= new habitacion();
+                 auxnhab=habData.buscarHabitacion(rs.getInt("nrohabitacion"));
+                 //auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
+                 auxhuesped=huesData.buscarporId(rs.getInt("idHuesped"));
                  LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                  LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
              reserva.setIdReserva(rs.getInt("idReserva"));
