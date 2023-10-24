@@ -31,7 +31,6 @@ public class Escritorio extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMaltahuesped = new javax.swing.JMenuItem();
-        jMbajahuesped = new javax.swing.JMenuItem();
         jMmodhuesped = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMaltahab = new javax.swing.JMenuItem();
@@ -40,6 +39,8 @@ public class Escritorio extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMcrearreserva = new javax.swing.JMenuItem();
         jMbuscarres = new javax.swing.JMenuItem();
+        jMcheckin = new javax.swing.JMenuItem();
+        jMcheckout = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMLhuesped = new javax.swing.JMenuItem();
         jMListarH = new javax.swing.JMenuItem();
@@ -68,14 +69,6 @@ public class Escritorio extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMaltahuesped);
-
-        jMbajahuesped.setText("Baja");
-        jMbajahuesped.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMbajahuespedActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMbajahuesped);
 
         jMmodhuesped.setText("Modificacion");
         jMmodhuesped.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +126,22 @@ public class Escritorio extends javax.swing.JFrame {
         });
         jMenu3.add(jMbuscarres);
 
+        jMcheckin.setText("CheckIn");
+        jMcheckin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMcheckinActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMcheckin);
+
+        jMcheckout.setText("CheckOut");
+        jMcheckout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMcheckoutActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMcheckout);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Consultas");
@@ -188,16 +197,6 @@ public class Escritorio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMbajahuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMbajahuespedActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
-        BajaHuesped bajahuesped = new BajaHuesped();
-        bajahuesped.setVisible(true);
-        escritorio.add(bajahuesped);
-        escritorio.moveToFront(bajahuesped);  
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMbajahuespedActionPerformed
 
     private void jMmodhuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMmodhuespedActionPerformed
         escritorio.removeAll();
@@ -312,6 +311,26 @@ public class Escritorio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMListarReservasActionPerformed
 
+    private void jMcheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMcheckinActionPerformed
+escritorio.removeAll();
+        escritorio.repaint();
+       Checkin ci=new Checkin();
+        ci.setVisible(true);
+        escritorio.add(ci);
+        escritorio.moveToFront(ci);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMcheckinActionPerformed
+
+    private void jMcheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMcheckoutActionPerformed
+escritorio.removeAll();
+        escritorio.repaint();
+       Checkout co=new Checkout ();
+        co.setVisible(true);
+        escritorio.add(co);
+        escritorio.moveToFront(co);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMcheckoutActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -355,8 +374,9 @@ public class Escritorio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMListarReservas;
     private javax.swing.JMenuItem jMaltahab;
     private javax.swing.JMenuItem jMaltahuesped;
-    private javax.swing.JMenuItem jMbajahuesped;
     private javax.swing.JMenuItem jMbuscarres;
+    private javax.swing.JMenuItem jMcheckin;
+    private javax.swing.JMenuItem jMcheckout;
     private javax.swing.JMenuItem jMcrearreserva;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
