@@ -156,7 +156,7 @@ public class Checkin extends javax.swing.JInternalFrame {
                try {
                    i++;
                     item.getNrohabitacion().setOcupada(true);
-                   System.out.println(""+item.getNrohabitacion().isOcupada());
+                   
                    String sql="UPDATE habitacion SET Ocupada =? WHERE Numero=?";
                    PreparedStatement ps=con.prepareStatement(sql);
                    
@@ -164,7 +164,7 @@ public class Checkin extends javax.swing.JInternalFrame {
                    ps.setInt(2,item.getNrohabitacion().getNumero());
                    ps.executeUpdate();
                     
-                    JOptionPane.showMessageDialog(null, "Reserva de la habitacion "+item.getNrohabitacion().getNumero()+"CheckIn Exitoso");
+                    JOptionPane.showMessageDialog(null, "Se ha realizado el Check in en la Habitacion: "+item.getNrohabitacion().getNumero()+" exitosamente");
                } catch (SQLException ex) {
                    JOptionPane.showMessageDialog(null, "Error al realizar el Check In");
                }

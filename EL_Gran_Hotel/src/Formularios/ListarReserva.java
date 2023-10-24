@@ -11,6 +11,7 @@ import accesoAdatos.huespedData;
 import accesoAdatos.reservaData;
 import java.awt.Color;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +25,10 @@ public class ListarReserva extends javax.swing.JInternalFrame {
     reservaData listar = new reservaData();
     DefaultTableModel formatoTabla = new DefaultTableModel();
     ArrayList<reserva> res= new ArrayList<> ();
+    String palabraEstado;
+    DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    String fechaEntradaFormateada;
+    String fechaSalidaFormateada;
     /**
      * Creates new form ListarReserva
      */
@@ -32,7 +37,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
 //        listar.listarreserva();
         inicializarTabla();
         cargarTabla();
-        jTingreso.setText("Ingresar IdHuesped");
+        jTingreso.setText("Por DNI...");
         jTingreso.setBackground(Color.GREEN);
         jTingreso.setForeground(Color.BLACK);
 
@@ -63,6 +68,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jBreset = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         jTlistares.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,6 +80,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTlistares);
 
+        jBSalir.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +90,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Listado de Reservas");
+        jLabel1.setText("Formulario de Listado de Reservas");
 
         jTdato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,12 +98,14 @@ public class ListarReserva extends javax.swing.JInternalFrame {
             }
         });
 
+        jTingreso.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTingreso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTingresoActionPerformed(evt);
             }
         });
 
+        jBbuscar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jBbuscar.setText("Buscar");
         jBbuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +134,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
 
         jLabel6.setText("aaaa");
 
+        jBreset.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jBreset.setText("Reiniciar Tabla");
         jBreset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,87 +142,86 @@ public class ListarReserva extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
+        jLabel7.setText("Elija Modo de filtro:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBSalir))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jTingreso, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jTdato, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jTingreso, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(jTdato, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTdia, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                                    .addComponent(jTdia, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTmes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTmes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                                        .addGap(47, 47, 47)
-                                        .addComponent(jBbuscar)
-                                        .addGap(51, 51, 51)
-                                        .addComponent(jBreset)
-                                        .addGap(148, 148, 148))
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jTanio, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))))
-                .addContainerGap())
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(jBbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jBreset, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(38, 38, 38))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTingreso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTdato, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTdia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTdia, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(jTmes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTmes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(jTanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTanio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBbuscar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTingreso, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jBbuscar)
-                                .addComponent(jBreset)))
-                        .addGap(8, 8, 8)))
-                .addComponent(jTdato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBSalir, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                            .addComponent(jLabel6))))
+                .addGap(17, 17, 17)
+                .addComponent(jBreset)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jBSalir)
+                .addContainerGap())
         );
 
         pack();
@@ -225,8 +234,8 @@ public class ListarReserva extends javax.swing.JInternalFrame {
 
     private void jTingresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTingresoActionPerformed
         if (jTingreso.isSelected()) {
-            jTingreso.setText("Ingresar Fecha");
-            jTingreso.setBackground(Color.RED);
+            jTingreso.setText("Por Fecha Inicio...");
+            jTingreso.setBackground(Color.blue);
             jTingreso.setForeground(Color.WHITE);
             jTdato.enable(false);
             jTdia.enable(true);
@@ -234,7 +243,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
             jTanio.enable(true);
 
         } else {
-            jTingreso.setText("Ingresar IdHuesped");
+            jTingreso.setText("Por DNI...");
             jTingreso.setBackground(Color.GREEN);
             jTingreso.setForeground(Color.BLACK);
             jTdato.enable(true);
@@ -250,8 +259,9 @@ public class ListarReserva extends javax.swing.JInternalFrame {
          String auxd =jTdia.getText();
           String auxm =jTmes.getText();
            String auxa =jTanio.getText();
+           
           
-    if(jTingreso.getText()=="Ingresar Fecha"){
+    if(jTingreso.getText()=="Por Fecha Inicio..."){
         reserva r=new reserva();
                 if(auxd.isEmpty()|| auxm.isEmpty()|| auxa.isEmpty()&&!aux.isEmpty()){
             JOptionPane.showMessageDialog(null, "Ingrese una fecha valida por favor ");
@@ -262,9 +272,16 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         LocalDate fecha= LocalDate.of(anio, mes, dia);
         res=(ArrayList)listar.buscarresevaxfecha(fecha);
                 }
+                
          for (reserva item : res) {
-//            System.out.println(""+item);
-            formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped().getApellidoynom(), item.getNrohabitacion().getNumero(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
+            if(item.isEstado()==true) {
+                palabraEstado="ACTIVA";
+            }else {
+                palabraEstado="INACTIVA";
+            }
+            fechaEntradaFormateada=item.getFechaEntrada().format(formatoFecha);
+            fechaSalidaFormateada=item.getFechaSalida().format(formatoFecha);
+            formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped().getApellidoynom(), item.getNrohabitacion().getNumero(), fechaEntradaFormateada, fechaSalidaFormateada, item.getImporteTotal(),palabraEstado});
         }
         
         
@@ -273,20 +290,26 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         jTmes.setText("");
         jTanio.setText("");
         
-    } else if (jTingreso.getText()=="Ingresar IdHuesped"){
+    } else if (jTingreso.getText()=="Por DNI..."){
         huespedData h=new huespedData ();
         huesped buscado = new huesped();
          if(aux.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Complete el campo con un Id por favor ");
          } else { 
-        int id=Integer.parseInt(jTdato.getText());
-       buscado= h.buscarporId(id);
+        int dniHuesped=Integer.parseInt(jTdato.getText());
+       buscado= h.buscarporDni(dniHuesped);
 //        h.setIdHuesped(Integer.parseInt(jTdato.getText()));
          }
                res= (ArrayList)listar.buscarreservaxhuesped(buscado);
         for (reserva item : res) {
-            System.out.println(""+item);
-            formatoTabla.addRow(new Object[]{item.getIdReserva(),  item.getIdHuesped().getApellidoynom(), item.getNrohabitacion().getNumero(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
+            if(item.isEstado()==true){
+                palabraEstado="ACTIVA";
+            }else{
+                palabraEstado="INACTIVA";
+            }
+            fechaEntradaFormateada=item.getFechaEntrada().format(formatoFecha);
+            fechaSalidaFormateada=item.getFechaSalida().format(formatoFecha);
+            formatoTabla.addRow(new Object[]{item.getIdReserva(),  item.getIdHuesped().getApellidoynom(), item.getNrohabitacion().getNumero(), fechaEntradaFormateada, fechaSalidaFormateada, item.getImporteTotal(),palabraEstado});
         }
         jTdato.setText("");
     }
@@ -320,6 +343,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTanio;
     private javax.swing.JTextField jTdato;
@@ -337,6 +361,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         formatoTabla.addColumn("Fecha de Entrada");
         formatoTabla.addColumn("Fecha de Salida");
         formatoTabla.addColumn("Importe Total");
+        formatoTabla.addColumn("Estado Reserva");
 //        formatoTabla.addColumn("");
         jTlistares.setModel(formatoTabla);
     }
@@ -344,8 +369,16 @@ public class ListarReserva extends javax.swing.JInternalFrame {
     public void cargarTabla() {
         ArrayList<reserva> lista = new ArrayList<>();
         lista = (ArrayList) listar.listarreserva();
+        
         for (reserva item : lista) {
-            formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped().getApellidoynom(), item.getNrohabitacion().getNumero(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
+            if(item.isEstado()==true){
+                palabraEstado="ACTIVA";
+            }else{
+                palabraEstado="INACTIVA";
+            }
+            fechaEntradaFormateada=item.getFechaEntrada().format(formatoFecha);
+            fechaSalidaFormateada=item.getFechaSalida().format(formatoFecha);
+            formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped().getApellidoynom(), item.getNrohabitacion().getNumero(), fechaEntradaFormateada, fechaSalidaFormateada, item.getImporteTotal(),palabraEstado});
         }
 
     }

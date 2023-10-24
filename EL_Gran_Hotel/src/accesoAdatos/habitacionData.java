@@ -83,7 +83,6 @@ public class habitacionData {
             PreparedStatement ps=con.prepareStatement(sql);
             PreparedStatement psTh=con.prepareStatement(sqlTh);
             ps.setInt(1, numero);
-            System.out.println(numero);
             ResultSet rs=ps.executeQuery();
             if (rs.next()){
                 int tipoHab=rs.getInt(2);

@@ -163,7 +163,7 @@ public void cargoDatos(){
 //                 auxnhab=null;
                  //reservaParaLista=null;
                  auxIdreserva=rs.getInt(1);
-                 System.out.println("auxIdReserva "+auxIdreserva);
+                 
                  auxImporte=rs.getDouble(6);
                  
                  auxnum=rs.getInt(2);

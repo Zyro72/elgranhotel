@@ -805,7 +805,7 @@ int diasEstadia=0;
                         diasEstadia=(int) ChronoUnit.DAYS.between(fechaIng, fechaSal);
                         jTcantNoches.setText(String.valueOf(diasEstadia));
                         double monto=precioTipoReserva*diasEstadia;
-                        System.out.println("Monto 2 "+monto);
+                        
                         jTimporte.setText(String.valueOf(monto));
                         return true;
                     }
@@ -814,8 +814,8 @@ int diasEstadia=0;
             }
 
             
-            if (diasEstadia<0){
-                JOptionPane.showMessageDialog(this,"La fecha de salida no puede ser anterior a la fecha de entrada");
+            if (diasEstadia<=0){
+                JOptionPane.showMessageDialog(this,"La fecha de salida no puede ser anterior o igual a la fecha de entrada");
                 return false;
             }
 
@@ -833,7 +833,7 @@ int diasEstadia=0;
         diasEstadia=(int) ChronoUnit.DAYS.between(fechaIng, fechaSal);
         jTcantNoches.setText(String.valueOf(diasEstadia));
         double monto=precioTipoReserva*diasEstadia;
-        System.out.println("Monto 2 "+monto);
+        
         jTimporte.setText(String.valueOf(monto));
         return true;
     }   

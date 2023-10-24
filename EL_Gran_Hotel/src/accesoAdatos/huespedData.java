@@ -24,8 +24,7 @@ public class huespedData {
         
         con=Conexion.getConection();
         
-        System.out.println("conexion creada");
-         }
+        }
 
     public void listarhuespedes(){
         String sql="SELECT * FROM huesped";

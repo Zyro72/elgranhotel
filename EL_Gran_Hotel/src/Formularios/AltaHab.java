@@ -215,7 +215,7 @@ public class AltaHab extends javax.swing.JInternalFrame {
         habi.setTipohabitacion(tipoH);
         habi.setPiso(pisoH);
         habi.setEstado(estadoh);
-        System.out.println("Estado habitacion "+estadoh);
+        
         habData.guardarHabitacion(habi);
         
         

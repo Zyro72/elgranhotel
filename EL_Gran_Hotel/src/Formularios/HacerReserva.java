@@ -501,8 +501,8 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         }
         
         int diasEstadia=(int) ChronoUnit.DAYS.between(fechaIng, fechaSal);
-        if (diasEstadia<0){
-            JOptionPane.showMessageDialog(this,"La fecha de salida no puede ser anterior a la fecha de entrada");
+        if (diasEstadia<=0){
+            JOptionPane.showMessageDialog(this,"La fecha de salida no puede ser anterior o igual a la fecha de entrada");
             return;
         }
         
@@ -540,7 +540,35 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     private void jBconfirmarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBconfirmarReservaActionPerformed
     
     //Validaciones Varias    
-        
+    String cnoches=jTcantNoches.getText();
+    String cpasajeros=jTcantPas.getText();
+    String dniHuesped=jTdniHuesped.getText();
+    
+    if (cnoches.isEmpty()){
+        JOptionPane.showMessageDialog(this,"Por favor, complete y verifique las fechas");
+        return;
+    }
+    if (dniHuesped.isEmpty()){
+        JOptionPane.showMessageDialog(this,"Por favor, complete el formulario (Introducir el DNI del huésped)");
+        return;
+    }
+    if (cpasajeros.isEmpty()){
+        JOptionPane.showMessageDialog(this,"Por favor, complete el formulario (Introducir cantidad de huéspedes");
+        return;
+    }
+    int filaSeleccionadaThab=jTtiposHabitacion.getSelectedRow();
+    if(filaSeleccionadaThab<0){
+        JOptionPane.showMessageDialog(this,"Por favor, complete el formulario (Elegir Tipo de habitacion y habitacion)");
+        return;
+    }
+    int filaSeleccionadaHabs=jThabitaciones.getSelectedRow();
+    if(filaSeleccionadaHabs<0){
+        JOptionPane.showMessageDialog(this,"Por favor, complete el formulario (Elegir la habitacion deseada");
+    }
+    
+    
+    
+    
     if(estadoHuesped==false){
         int respuesta=JOptionPane.showConfirmDialog(this,"RECUERDE...El Huesped elegido esta INACTIVO, desea reactivarlo? ", "ADVERTENCIA",JOptionPane.YES_NO_OPTION );
             if (respuesta==JOptionPane.YES_OPTION){
@@ -588,6 +616,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
             if (respuesta==JOptionPane.YES_OPTION){
                 huesData.reactivarHuesped(idHues);
                 palabraEstadoHuesped="ACTIVO";
+                estadoHuesped=true;
                 
             }else {
                 JOptionPane.showMessageDialog(this,"No se han realizado cambios, podrá continuar pero no podrá guardar la reserva");
