@@ -66,7 +66,7 @@ public class Checkout extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Ingrese IdHuesped :");
+        jLabel1.setText("Ingrese Dni del Huesped :");
 
         jLabel2.setText("Check Out");
 
@@ -131,8 +131,8 @@ public class Checkout extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 private void checkout(){
         int aux = Integer.parseInt(jTid.getText());
-        h=hcheck.buscarporId(aux);
-        
+        h=hcheck.buscarporDni(aux);
+        int i =0;
         LocalDate fechaActual=LocalDate.now();
          ArrayList<reserva> listaux = new ArrayList<>();
         listaux=listar.buscarreservaxhuesped2(h);
@@ -140,8 +140,8 @@ private void checkout(){
 //             System.out.println(""+item.getNrohabitacion().isOcupada());
            if (item.getFechaSalida().isEqual(fechaActual)){
                try {
-                   
-                    item.getNrohabitacion().setOcupada(true);
+                   i++;
+                    item.getNrohabitacion().setOcupada(false);
 //                   System.out.println(""+item.getNrohabitacion().isOcupada());
                    String sql="UPDATE habitacion SET Ocupada =? WHERE Numero=?";
                    PreparedStatement ps=con.prepareStatement(sql);
@@ -151,12 +151,20 @@ private void checkout(){
                    ps.executeUpdate();
                     
                     JOptionPane.showMessageDialog(null, "Reserva de la habitacion "+item.getNrohabitacion().getNumero()+"Check Out Exitoso");
+                    jTid.setText("");
                } catch (SQLException ex) {
                    JOptionPane.showMessageDialog(null, "Error al realizar el Check out");
                }
            }
+              
+              
+           
            
             
+        }if(i==0){
+            JOptionPane.showMessageDialog(null, "Este Huesped no tiene reservas activas para esta fecha"); 
+              jTid.setText("");
+              this.dispose();
         }
         
         

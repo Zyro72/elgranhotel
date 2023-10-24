@@ -63,7 +63,7 @@ public class Checkin extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Ingrese IdHuesped :");
+        jLabel1.setText("Ingrese Dni del Huesped :");
 
         jLabel2.setText("CheckIn");
 
@@ -80,8 +80,8 @@ public class Checkin extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(113, 113, 113)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -92,7 +92,7 @@ public class Checkin extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBsalir)
-                .addGap(82, 82, 82))
+                .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,9 +104,9 @@ public class Checkin extends javax.swing.JInternalFrame {
                     .addComponent(jTid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jBok))
-                .addGap(28, 28, 28)
+                .addGap(48, 48, 48)
                 .addComponent(jBsalir)
-                .addGap(136, 136, 136))
+                .addGap(116, 116, 116))
         );
 
         pack();
@@ -144,8 +144,8 @@ public class Checkin extends javax.swing.JInternalFrame {
   
     private void checkin(){
         int aux = Integer.parseInt(jTid.getText());
-        h=hcheck.buscarporId(aux);
-        
+        h=hcheck.buscarporDni(aux);
+        int i=0;
         LocalDate fechaActual=LocalDate.now();
          ArrayList<reserva> listaux = new ArrayList<>();
         listaux=listar.buscarreservaxhuesped2(h);
@@ -153,7 +153,7 @@ public class Checkin extends javax.swing.JInternalFrame {
 //             System.out.println(""+item.getNrohabitacion().isOcupada());
            if (item.getFechaEntrada().isEqual(fechaActual)){
                try {
-                   
+                   i++;
                     item.getNrohabitacion().setOcupada(true);
                    System.out.println(""+item.getNrohabitacion().isOcupada());
                    String sql="UPDATE habitacion SET Ocupada =? WHERE Numero=?";
@@ -172,7 +172,10 @@ public class Checkin extends javax.swing.JInternalFrame {
             
         }
         
-        
-        
+        if(i==0){
+            JOptionPane.showMessageDialog(null, "Este Huesped no tiene reservas activas para esta fecha"); 
+              jTid.setText("");
+              this.dispose();
+        }
     }
 }
