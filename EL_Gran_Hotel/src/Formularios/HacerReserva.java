@@ -126,7 +126,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Fecha de Salida");
 
-        jLabel7.setText("Ingrese Cantidad de Pasajeros");
+        jLabel7.setText("Ingrese Cantidad de Huéspedes");
 
         jTtiposHabitacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -228,7 +228,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ingrese Cantidad de Pasajeros"/>
+        <Property name="text" type="java.lang.String" value="Ingrese Cantidad de Hu&#xe9;spedes"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTcantPas">

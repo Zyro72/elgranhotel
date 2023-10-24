@@ -45,7 +45,10 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
     huesped huespedReserva=new huesped();
     DateTimeFormatter formatoFecha=DateTimeFormatter.ofPattern("dd/MM/yyyy");
     String stHuesped;
+    boolean fechaVerificada;
+    double precioTipoReserva;
     
+          
    
     /**
      * Creates new form BuscarReserva
@@ -229,7 +232,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel11.setText("Ingrese Cantidad de Pasajeros");
+        jLabel11.setText("Ingrese Cantidad de Huéspedes");
 
         jBbuscar.setText("Buscar");
         jBbuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -438,48 +441,34 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jThabitacionesMouseClicked
 
     private void jBvalidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBvalidarActionPerformed
-
-        LocalDate fechaActual=LocalDate.now();
-        try{
-            int diaE=Integer.parseInt(jTdiaE.getText());
-            int mesE=Integer.parseInt(jTmesE.getText());
-            int anoE=Integer.parseInt(jTanoE.getText());
-
-            int diaS=Integer.parseInt(jTdiaS.getText());
-            int mesS=Integer.parseInt(jTmesS.getText());
-            int anoS=Integer.parseInt(jTanoS.getText());
-            fechaIng= LocalDate.of(anoE, mesE, diaE);
-            fechaSal= LocalDate.of(anoS,mesS, diaS);
-            int validoInicio=(int) ChronoUnit.DAYS.between(fechaActual, fechaIng);
-            if (validoInicio<0){
-                JOptionPane.showMessageDialog(this,"La fecha de inicio no puede ser anterior a la fecha actual");
-                return;
-
-            }
-
-            int diasEstadia=(int) ChronoUnit.DAYS.between(fechaIng, fechaSal);
-            if (diasEstadia<0){
-                JOptionPane.showMessageDialog(this,"La fecha de salida no puede ser anterior a la fecha de entrada");
-                return;
-            }
-
-            jTcantNoches.setText(String.valueOf(diasEstadia));
-
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese numeros validos para Dia, Mes, y Año");
-        }
-        catch(DateTimeParseException e){
-            JOptionPane.showMessageDialog(this,"Por favor, ingrese valores válidos para Dia, Mes y Año");
-        }
-        catch(DateTimeException x){
-            JOptionPane.showMessageDialog(this,"Por favor, ingrese valores válidos para Dia, Mes y Año");
-        }
-
+        fechaVerificada=verificoFechas();
+        
     }//GEN-LAST:event_jBvalidarActionPerformed
 
     private void jBguardarCambiosReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarCambiosReservaActionPerformed
-
+        
+        
         //Validaciones Varias
+        int filaseleccionadaRes=jTablaReservas.getSelectedRow();
+        int filaseleccionadaHab=jThabitaciones.getSelectedRow();
+        String noches=jTcantNoches.getText();
+        if (filaseleccionadaRes<0){
+            JOptionPane.showMessageDialog(this,"Debe Elegir una reserva");
+            return;
+        }
+        if(noches.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Revise las fechas y haga click en el botón Verificar ");
+            return;
+        }
+        
+        
+        if (fechaVerificada==false){
+            return;
+        }
+        if (filaseleccionadaHab<0){
+            JOptionPane.showMessageDialog(this,"Por favor haga click en la habitación para continuar...");
+            return;
+        }
         modiReserva.setIdReserva(reservaElegida.getIdReserva());
         modiReserva.setNrohabitacion(habitReserva);
         modiReserva.setIdHuesped(huespedReserva);
@@ -560,6 +549,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
 
     private void jBbuscarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarReservasActionPerformed
         //busco el huesped x DNI
+        int dniHuesped;
           stHuesped=jTdni.getText();
         if(stHuesped.isEmpty()){
             JOptionPane.showMessageDialog(this, "Debe ingresar un DNI...");
@@ -572,7 +562,13 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         String fechaEntradaFormateada;
         String fechaSalidaFormateada;
           
-        int dniHuesped=Integer.parseInt(jTdni.getText());
+        try{
+            dniHuesped=Integer.parseInt(jTdni.getText());
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this,"Debe ingresar un DNI válido");
+            jTdni.setText("");
+            return;
+        }
         
         huespedReserva=huesData.buscarporDni(dniHuesped);
         if(huespedReserva==null){
@@ -590,6 +586,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         
                
         //busco las reservas del huesped
+        formatoTablaHabs.setRowCount(0);
         ArrayList<reserva> reservasHuesped=new ArrayList<>();
         reservasHuesped=resData.buscarreservaxhuesped2(huespedReserva);
         
@@ -622,6 +619,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
 
     private void jTablaReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablaReservasMouseClicked
     //armo el objeto Reserva con los datos de la reserva elegida
+    formatoTablaHabs.setRowCount(0);
     int filaSeleccionada=jTablaReservas.getSelectedRow();
     
     int idReserva=(int) (jTablaReservas.getValueAt(filaSeleccionada,0));
@@ -661,7 +659,8 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         //traigo la habitacion de ese tipo, de esa reserva
         
         formatoTablaHabs.addRow(new Object[]{reservaElegida.getNrohabitacion().getNumero(),reservaElegida.getNrohabitacion().getTipohabitacion().getTipo(),reservaElegida.getNrohabitacion().getPiso()});
-        
+        precioTipoReserva=reservaElegida.getNrohabitacion().getTipohabitacion().getPrecio();
+        jTimporte.setText(String.valueOf(reservaElegida.getImporteTotal()));
     
     
     
@@ -769,7 +768,61 @@ public void limpioform(){
     
     
 }
+private boolean verificoFechas(){
+LocalDate fechaActual=LocalDate.now();
+int diasEstadia=0;
+        try{
+            int diaE=Integer.parseInt(jTdiaE.getText());
+            int mesE=Integer.parseInt(jTmesE.getText());
+            int anoE=Integer.parseInt(jTanoE.getText());
 
+            int diaS=Integer.parseInt(jTdiaS.getText());
+            int mesS=Integer.parseInt(jTmesS.getText());
+            int anoS=Integer.parseInt(jTanoS.getText());
+            fechaIng= LocalDate.of(anoE, mesE, diaE);
+            fechaSal= LocalDate.of(anoS,mesS, diaS);
+            int validoInicio=(int) ChronoUnit.DAYS.between(fechaActual, fechaIng);
+            if (validoInicio<0){
+                int respuesta=JOptionPane.showConfirmDialog(this,"La fecha de ingreso en anterior a la fecha actual, prosigue? (Solo aceptar en caso de Extension o cambio de habitacion)", "AVISO", JOptionPane.YES_NO_OPTION );
+                    if (respuesta==JOptionPane.NO_OPTION){
+                        JOptionPane.showMessageDialog(this,"Verifique y modifique la fecha de Ingreso");
+                        return false;
+                        } else {
+                        diasEstadia=(int) ChronoUnit.DAYS.between(fechaIng, fechaSal);
+                        jTcantNoches.setText(String.valueOf(diasEstadia));
+                        double monto=precioTipoReserva*diasEstadia;
+                        System.out.println("Monto 2 "+monto);
+                        jTimporte.setText(String.valueOf(monto));
+                        return true;
+                    }
+                                     
+                    
+            }
+
+            
+            if (diasEstadia<0){
+                JOptionPane.showMessageDialog(this,"La fecha de salida no puede ser anterior a la fecha de entrada");
+                return false;
+            }
+
+            
+
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese numeros validos para Dia, Mes, y Año");
+        }
+        catch(DateTimeParseException e){
+            JOptionPane.showMessageDialog(this,"Por favor, ingrese valores válidos para Dia, Mes y Año");
+        }
+        catch(DateTimeException x){
+            JOptionPane.showMessageDialog(this,"Por favor, ingrese valores válidos para Dia, Mes y Año");
+        }
+        diasEstadia=(int) ChronoUnit.DAYS.between(fechaIng, fechaSal);
+        jTcantNoches.setText(String.valueOf(diasEstadia));
+        double monto=precioTipoReserva*diasEstadia;
+        System.out.println("Monto 2 "+monto);
+        jTimporte.setText(String.valueOf(monto));
+        return true;
+    }   
 
 
 
