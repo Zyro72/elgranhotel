@@ -222,7 +222,7 @@
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="14" style="3"/>
+          <Font name="Times New Roman" size="16" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Complete los datos del formulario"/>
       </Properties>

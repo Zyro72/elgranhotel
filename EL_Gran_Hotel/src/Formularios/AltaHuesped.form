@@ -71,13 +71,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTapeynom" min="-2" pref="250" max="-2" attributes="0"/>
-                                      <Component id="jTdomi" min="-2" pref="250" max="-2" attributes="0"/>
-                                      <Component id="jTcorreo" min="-2" pref="250" max="-2" attributes="0"/>
-                                      <Component id="jTcelu" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
-                                      <Component id="jTdni" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTapeynom" pref="250" max="32767" attributes="0"/>
+                                      <Component id="jTdomi" pref="250" max="32767" attributes="0"/>
+                                      <Component id="jTcorreo" pref="250" max="32767" attributes="0"/>
+                                      <Component id="jTcelu" alignment="0" pref="250" max="32767" attributes="0"/>
                                       <Component id="jTestado" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jTdni" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -87,7 +87,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -125,7 +125,7 @@
                       <Component id="jLabel6" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="jTestado" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="41" max="32767" attributes="0"/>
+                  <EmptySpace pref="44" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBguardar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="jBsalir" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>

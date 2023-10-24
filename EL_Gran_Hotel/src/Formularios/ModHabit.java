@@ -116,7 +116,7 @@ public class ModHabit extends javax.swing.JInternalFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Formulario Modificacion de Habitaciones");
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
         jLabel8.setText("Complete los datos del formulario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
