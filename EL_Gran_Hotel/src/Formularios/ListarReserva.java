@@ -264,7 +264,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
                 }
          for (reserva item : res) {
 //            System.out.println(""+item);
-            formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped(), item.getNrohabitacion(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
+            formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped().getApellidoynom(), item.getNrohabitacion().getNumero(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
         }
         
         
@@ -286,7 +286,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
                res= (ArrayList)listar.buscarreservaxhuesped(buscado);
         for (reserva item : res) {
             System.out.println(""+item);
-            formatoTabla.addRow(new Object[]{item.getIdReserva(), item.getIdHuesped(), item.getNrohabitacion(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
+            formatoTabla.addRow(new Object[]{item.getIdReserva(),  item.getIdHuesped().getApellidoynom(), item.getNrohabitacion().getNumero(), item.getFechaEntrada(), item.getFechaSalida(), item.getImporteTotal()});
         }
         jTdato.setText("");
     }
@@ -332,7 +332,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
     public void inicializarTabla() {
 
         formatoTabla.addColumn("IdReserva");
-        formatoTabla.addColumn("IdHuesped");
+        formatoTabla.addColumn("Huesped");
         formatoTabla.addColumn("N° de Habitacion");
         formatoTabla.addColumn("Fecha de Entrada");
         formatoTabla.addColumn("Fecha de Salida");

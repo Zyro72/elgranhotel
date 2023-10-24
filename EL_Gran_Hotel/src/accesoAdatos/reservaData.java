@@ -101,9 +101,10 @@ public ArrayList<reserva> buscarresevaxfecha(LocalDate fecha){
           reserva reserva= new reserva();
             huesped auxhuesped=new huesped();
             habitacion auxnhab= new habitacion();
-            auxnhab.setNumero(rs.getInt("nrohabitacion"));
-            auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
-                 
+//            auxnhab.setNumero(rs.getInt("nrohabitacion"));
+//            auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
+             auxnhab=habData.buscarHabitacion(rs.getInt("nrohabitacion"));
+             auxhuesped=huesData.buscarporId(rs.getInt("idHuesped"));  
              LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
              LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
              reserva.setIdReserva(rs.getInt("idReserva"));
@@ -149,8 +150,10 @@ public ArrayList<reserva> buscarresevaxfecha(LocalDate fecha){
             reserva reserva= new reserva();
             huesped auxhuesped=new huesped();
             habitacion auxnhab= new habitacion();
-            auxnhab.setNumero(rs.getInt("nrohabitacion"));
-            auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
+//            auxnhab.setNumero(rs.getInt("nrohabitacion"));
+//            auxhuesped.setIdHuesped(rs.getInt("idHuesped"));
+             auxnhab=habData.buscarHabitacion(rs.getInt("nrohabitacion"));
+             auxhuesped=huesData.buscarporId(rs.getInt("idHuesped"));
                  
              LocalDate entrada=rs.getDate("FechaEntrada").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
              LocalDate salida=rs.getDate("FechaSalida").toLocalDate();//.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
