@@ -107,7 +107,7 @@ public class AltaHab extends javax.swing.JInternalFrame {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Formulario de Carga de Habitaciones");
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
         jLabel8.setText("Complete los datos del formulario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -122,7 +122,7 @@ public class AltaHab extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTBestadoh, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -162,7 +162,7 @@ public class AltaHab extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jTBestadoh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)

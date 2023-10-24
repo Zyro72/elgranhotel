@@ -113,22 +113,24 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTdiaE" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="jTmesE" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="jTanoE" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="jTdiaS" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="jTmesS" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="jTanoS" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBvalidar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jTcantNoches" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTdiaE" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jTmesE" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jTanoE" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jTdiaS" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jTmesS" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jTanoS" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBvalidar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -174,7 +176,7 @@
                   <Component id="jBconfirmarReserva" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jBSalir" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -277,7 +279,7 @@
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="14" style="3"/>
+          <Font name="Times New Roman" size="16" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Elija el tipo de habitacion deseada"/>
       </Properties>
@@ -285,7 +287,7 @@
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="14" style="3"/>
+          <Font name="Times New Roman" size="16" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Elija la habtacion deseada y haga click en confimar Reserva"/>
       </Properties>
@@ -442,7 +444,7 @@
     <Component class="javax.swing.JLabel" name="jLabel16">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="14" style="3"/>
+          <Font name="Times New Roman" size="16" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Datos del Huesped"/>
       </Properties>

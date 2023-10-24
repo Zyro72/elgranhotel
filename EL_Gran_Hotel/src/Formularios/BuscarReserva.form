@@ -175,7 +175,7 @@
                   <Component id="jBguardarCambiosReserva" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jBSalir" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -216,7 +216,7 @@
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="14" style="3"/>
+          <Font name="Times New Roman" size="16" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Reservas Activas, Seleccione para Ver/Modificar o Cancelar"/>
       </Properties>
@@ -318,7 +318,7 @@
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="14" style="3"/>
+          <Font name="Times New Roman" size="16" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Elija el tipo de habitacion deseada"/>
       </Properties>
@@ -350,7 +350,7 @@
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="14" style="3"/>
+          <Font name="Times New Roman" size="16" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Elija la habtacion deseada y haga click en confimar Reserva"/>
       </Properties>

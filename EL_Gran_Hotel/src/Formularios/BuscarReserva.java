@@ -133,7 +133,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
         jLabel2.setText("Reservas Activas, Seleccione para Ver/Modificar o Cancelar");
 
         jTablaReservas.setModel(new javax.swing.table.DefaultTableModel(
@@ -176,7 +176,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
 
         jLabel13.setText("  dd        mm          aaaa");
 
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
         jLabel9.setText("Elija el tipo de habitacion deseada");
 
         jTtiposHabitacion.setModel(new javax.swing.table.DefaultTableModel(
@@ -197,7 +197,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jTtiposHabitacion);
 
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
         jLabel10.setText("Elija la habtacion deseada y haga click en confimar Reserva");
 
         jThabitaciones.setModel(new javax.swing.table.DefaultTableModel(
@@ -399,7 +399,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBguardarCambiosReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
