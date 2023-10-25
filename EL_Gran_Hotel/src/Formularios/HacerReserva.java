@@ -133,6 +133,12 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel7.setText("Ingrese Cantidad de Huéspedes");
 
+        jTcantPas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTcantPasKeyReleased(evt);
+            }
+        });
+
         jTtiposHabitacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -223,6 +229,12 @@ public class HacerReserva extends javax.swing.JInternalFrame {
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel15.setText("DNI del Huesped:");
+
+        jTdniHuesped.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTdniHuespedKeyReleased(evt);
+            }
+        });
 
         jTablaHuesped.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -599,6 +611,11 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBconfirmarReservaActionPerformed
 
     private void jBverificarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBverificarHuespedActionPerformed
+    String huesped=jTdniHuesped.getText();
+    if(huesped.isEmpty()){
+        JOptionPane.showMessageDialog(this,"Por favor, ingrese un DNI....");
+        return;
+    }
     int dniHuesped=0;
     String palabraEstadoHuesped;
         try{
@@ -642,7 +659,28 @@ public class HacerReserva extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jBverificarHuespedActionPerformed
 
-
+    private void jTdniHuespedKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniHuespedKeyReleased
+try {
+    int dniH=Integer.parseInt(jTdniHuesped.getText());
+    }//GEN-LAST:event_jTdniHuespedKeyReleased
+catch(NumberFormatException ex){
+    JOptionPane.showMessageDialog(this,"Solo puede ingresar números");
+    jTdniHuesped.setText("");
+    return;
+}
+    }
+    private void jTcantPasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTcantPasKeyReleased
+     try{
+         int pas=Integer.parseInt(jTcantPas.getText());
+     }
+     catch(NumberFormatException ex){
+         JOptionPane.showMessageDialog(this,"Solo puede ingresar números");
+         jTcantPas.setText("");
+         return;
+        
+    }//GEN-LAST:event_jTcantPasKeyReleased
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBSalir;
     private javax.swing.JButton jBbuscar;

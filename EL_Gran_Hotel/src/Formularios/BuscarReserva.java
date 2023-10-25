@@ -125,6 +125,12 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel1.setText("Ingrese Dni del huésped:");
 
+        jTdni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTdniKeyReleased(evt);
+            }
+        });
+
         jBbuscarReservas.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jBbuscarReservas.setText("Buscar Reservas");
         jBbuscarReservas.addActionListener(new java.awt.event.ActionListener() {
@@ -247,6 +253,12 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel11.setText("Ingrese Cantidad de Huéspedes");
 
+        jTcantPas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTcantPasKeyReleased(evt);
+            }
+        });
+
         jBbuscar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jBbuscar.setText("Buscar");
         jBbuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -347,7 +359,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTdni, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,13 +407,11 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jTimporte, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jBguardarCambiosReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jBguardarCambiosReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -686,6 +696,26 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jTablaReservasMouseClicked
 
+    private void jTdniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyReleased
+try{
+    int dni=Integer.parseInt(jTdni.getText());
+    }//GEN-LAST:event_jTdniKeyReleased
+catch(NumberFormatException ex){
+    JOptionPane.showMessageDialog(this,"Solo puede ingresar números");
+    jTdni.setText("");
+    return;
+}
+    }
+    private void jTcantPasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTcantPasKeyReleased
+ try{
+    int cpas=Integer.parseInt(jTcantPas.getText());
+    }                                 
+catch(NumberFormatException ex){
+    JOptionPane.showMessageDialog(this,"Solo puede ingresar números");
+    jTcantPas.setText("");
+    return;
+}
+    }//GEN-LAST:event_jTcantPasKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBSalir;
