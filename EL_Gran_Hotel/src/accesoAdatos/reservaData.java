@@ -120,8 +120,11 @@ public ArrayList<reserva> buscarresevaxfecha(LocalDate fecha){
            
        
        }
+      JOptionPane.showMessageDialog(null,"No hay reservas relacionadas a esa fecha");
             return listaxfecha;
-        } catch (SQLException ex) {
+           
+        } 
+        catch (SQLException ex) {
              JOptionPane.showMessageDialog(null,"Error buscando Reservas");
        return null;
         }
