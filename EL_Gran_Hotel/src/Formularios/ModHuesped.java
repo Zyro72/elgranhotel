@@ -70,6 +70,9 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         jLabel5.setText("Celular :");
 
         jTdni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTdniKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTdniKeyTyped(evt);
             }
@@ -300,6 +303,13 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         jTcelu.setEnabled(false);
         jTestado.setEnabled(false);
         } else{
+            if(estados==false){
+                 int respuesta=JOptionPane.showConfirmDialog(this,"El huésped quedará INACTIVO, está seguro?", "ADVERTENCIA",JOptionPane.YES_NO_OPTION );
+                 if (respuesta==JOptionPane.NO_OPTION){
+                    JOptionPane.showMessageDialog(this,"No se han guardado cambios");
+                    return;
+                    }
+            }
             mod.modificarhuesped(id,Integer.parseInt(jTdni.getText()), jTapeynom.getText(),jTmail.getText(),jTdire.getText(),jTcelu.getText(), estados);
              jTdni.setText("");
             jTapeynom.setText("");
@@ -323,7 +333,7 @@ public class ModHuesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBsalirActionPerformed
 
     private void jTdniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyTyped
- int tecla =evt.getKeyChar();
+/* int tecla =evt.getKeyChar();
         
         boolean numeros = tecla >=48 && tecla <=57;
         if(!numeros){
@@ -331,10 +341,11 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
+*/
     }//GEN-LAST:event_jTdniKeyTyped
 
     private void jTceluKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTceluKeyTyped
-
+/*
 
  int tecla =evt.getKeyChar();
         
@@ -342,7 +353,22 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         if(!numeros){
             evt.consume();
         }        // TODO add your handling code here:
+*/
     }//GEN-LAST:event_jTceluKeyTyped
+
+    private void jTdniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyReleased
+try{
+    int dni=Integer.parseInt(jTdni.getText());
+}catch(NumberFormatException ex){
+    JOptionPane.showMessageDialog(this,"Solo puede ingresar números");
+    jTdni.setText("");
+    return;
+}
+    
+
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_jTdniKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

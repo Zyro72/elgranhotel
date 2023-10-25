@@ -63,6 +63,7 @@ public class huespedData {
             ps.setBoolean(6, estado);
             ps.setInt(7, idHuesped);
             ps.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Se han guardado los cambios con éxito");
            // listarhuespedes();
             
             

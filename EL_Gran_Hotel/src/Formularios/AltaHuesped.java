@@ -238,7 +238,7 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
 
        if(jTdni.getText().isEmpty()||jTapeynom.getText().isEmpty()||jTdomi.getText().isEmpty()||jTcorreo.getText().isEmpty()||jTcelu.getText().isEmpty()){
-             JOptionPane.showMessageDialog(null,"No debe dejar campos vacios");
+             JOptionPane.showMessageDialog(null,"Por favor, complete todos los datos del formulario");
             return;}
         huesped auxh=new huesped();
 //        int dni=Integer.parseInt(jTdni.getText());
@@ -267,13 +267,19 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBguardarActionPerformed
 
     private void jTdniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyReleased
-   
+try {
+    int dni=Integer.parseInt(jTdni.getText());
+}   catch (NumberFormatException ex){
+    JOptionPane.showMessageDialog(this,"Solo puede ingresar números");
+    jTdni.setText("");
+    return;
+}
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jTdniKeyReleased
 
     private void jTdniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyTyped
-        int tecla =evt.getKeyChar();
+        /*int tecla =evt.getKeyChar();
         
         boolean numeros = tecla >=48 && tecla <=57;
         if(!numeros){
@@ -281,10 +287,11 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
         }
 
         // TODO add your handling code here:
+    */    
     }//GEN-LAST:event_jTdniKeyTyped
 
     private void jTceluKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTceluKeyTyped
-
+/*
  int tecla =evt.getKeyChar();
         
         boolean numeros = tecla >=48 && tecla <=57;
@@ -292,6 +299,7 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
             evt.consume();
         }
         // TODO add your handling code here:
+*/
     }//GEN-LAST:event_jTceluKeyTyped
     
 
