@@ -8,6 +8,8 @@ package Formularios;
 import Entidades.huesped;
 import accesoAdatos.huespedData;
 import java.awt.Color;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -71,6 +73,21 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel6.setText("Estado :");
+
+        jTdni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTdniKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTdniKeyTyped(evt);
+            }
+        });
+
+        jTcelu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTceluKeyTyped(evt);
+            }
+        });
 
         jTestado.setText("jToggleButton1");
         jTestado.addActionListener(new java.awt.event.ActionListener() {
@@ -220,7 +237,9 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
 
-       
+       if(jTdni.getText().isEmpty()||jTapeynom.getText().isEmpty()||jTdomi.getText().isEmpty()||jTcorreo.getText().isEmpty()||jTcelu.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null,"No debe dejar campos vacios");
+            return;}
         huesped auxh=new huesped();
 //        int dni=Integer.parseInt(jTdni.getText());
 //        String apeynom =jTapeynom.getText();
@@ -237,10 +256,43 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
         nuevo.guardarhuesped(auxh);
   
         
+        jTdni.setText("");
+        jTapeynom.setText("");
+        jTdomi.setText("");
+        jTcorreo.setText("");
+        jTcelu.setText("");
         
         
         // TODO add your handling code here:
     }//GEN-LAST:event_jBguardarActionPerformed
+
+    private void jTdniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyReleased
+   
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTdniKeyReleased
+
+    private void jTdniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyTyped
+        int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTdniKeyTyped
+
+    private void jTceluKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTceluKeyTyped
+
+ int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTceluKeyTyped
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

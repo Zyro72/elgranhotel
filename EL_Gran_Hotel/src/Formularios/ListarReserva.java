@@ -97,6 +97,11 @@ public class ListarReserva extends javax.swing.JInternalFrame {
                 jTdatoActionPerformed(evt);
             }
         });
+        jTdato.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTdatoKeyTyped(evt);
+            }
+        });
 
         jTingreso.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jTingreso.addActionListener(new java.awt.event.ActionListener() {
@@ -114,10 +119,20 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         });
 
         jTdia.setEnabled(false);
+        jTdia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTdiaKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("/");
 
         jTmes.setEnabled(false);
+        jTmes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTmesKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("/");
 
@@ -125,6 +140,11 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         jTanio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTanioActionPerformed(evt);
+            }
+        });
+        jTanio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTanioKeyTyped(evt);
             }
         });
 
@@ -331,6 +351,50 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         cargarTabla();
         // TODO add your handling code here:
     }//GEN-LAST:event_jBresetActionPerformed
+
+    private void jTdatoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdatoKeyTyped
+
+ int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTdatoKeyTyped
+
+    private void jTdiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdiaKeyTyped
+
+ int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTdiaKeyTyped
+
+    private void jTmesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTmesKeyTyped
+
+ int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTmesKeyTyped
+
+    private void jTanioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTanioKeyTyped
+
+ int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTanioKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -68,6 +68,12 @@ public class Checkout extends javax.swing.JInternalFrame {
             }
         });
 
+        jTid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTidKeyTyped(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel1.setText("Ingrese Dni del Huésped :");
 
@@ -120,6 +126,17 @@ public class Checkout extends javax.swing.JInternalFrame {
         checkout();
         // TODO add your handling code here:
     }//GEN-LAST:event_jBokActionPerformed
+
+    private void jTidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTidKeyTyped
+
+ int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTidKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

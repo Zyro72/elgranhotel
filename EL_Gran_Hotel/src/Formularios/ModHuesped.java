@@ -69,6 +69,12 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel5.setText("Celular :");
 
+        jTdni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTdniKeyTyped(evt);
+            }
+        });
+
         jTapeynom.setEnabled(false);
 
         jTdire.setEnabled(false);
@@ -79,6 +85,11 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         jLabel1.setText("Dni :");
 
         jTcelu.setEnabled(false);
+        jTcelu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTceluKeyTyped(evt);
+            }
+        });
 
         jBbuscar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jBbuscar.setText("Buscar");
@@ -137,9 +148,8 @@ public class ModHuesped extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,9 +207,9 @@ public class ModHuesped extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTcelu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTestado))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTestado)
+                    .addComponent(jLabel6))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBguardar)
@@ -260,6 +270,10 @@ public class ModHuesped extends javax.swing.JInternalFrame {
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
         reservaData res= new reservaData();
+        if(jTdni.getText().isEmpty()||jTapeynom.getText().isEmpty()||jTdire.getText().isEmpty()||jTmail.getText().isEmpty()||jTcelu.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null,"No debe dejar campos vacios");
+            return;
+        }
          int i=0;
            ArrayList<reserva> reser= res.buscarreservaxhuesped(aux);
           for (reserva item:reser){
@@ -304,6 +318,28 @@ public class ModHuesped extends javax.swing.JInternalFrame {
     this.dispose();
     // TODO add your handling code here:
     }//GEN-LAST:event_jBsalirActionPerformed
+
+    private void jTdniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyTyped
+ int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTdniKeyTyped
+
+    private void jTceluKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTceluKeyTyped
+
+
+ int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jTceluKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
