@@ -234,7 +234,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
 
     private void jTingresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTingresoActionPerformed
         if (jTingreso.isSelected()) {
-            jTingreso.setText("Por Fecha Inicio...");
+            jTingreso.setText("Por Fecha Reserva...");
             jTingreso.setBackground(Color.blue);
             jTingreso.setForeground(Color.WHITE);
             jTdato.enable(false);
@@ -261,7 +261,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
            String auxa =jTanio.getText();
            
           
-    if(jTingreso.getText()=="Por Fecha Inicio..."){
+    if(jTingreso.getText()=="Por Fecha Reserva..."){
         reserva r=new reserva();
                 if(auxd.isEmpty()|| auxm.isEmpty()|| auxa.isEmpty()&&!aux.isEmpty()){
             JOptionPane.showMessageDialog(null, "Ingrese una fecha valida por favor ");

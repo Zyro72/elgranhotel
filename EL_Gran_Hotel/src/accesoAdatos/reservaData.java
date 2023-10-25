@@ -160,7 +160,7 @@ public ArrayList<reserva> buscarresevaxfecha(LocalDate fecha){
              reserva.setIdReserva(rs.getInt("idReserva"));
              reserva.setIdHuesped(auxhuesped);
              reserva.setNrohabitacion(auxnhab);
-//                 System.out.println("nrohabitacion"+reserva.getNrohabitacion());
+//                 .out.println("nrohabitacion"+reserva.getNrohabitacion());
              reserva.setFechaEntrada(entrada);
              reserva.setFechaSalida(salida);
              reserva.setImporteTotal(rs.getDouble("ImporteTotal"));

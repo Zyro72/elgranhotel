@@ -5,12 +5,14 @@
  */
 package Formularios;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author perey
  */
 public class Escritorio extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Escritorio
      */
@@ -366,6 +368,7 @@ escritorio.removeAll();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Escritorio().setVisible(true);
+                
             }
         });
     }
