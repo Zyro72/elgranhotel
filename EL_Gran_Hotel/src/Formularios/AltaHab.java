@@ -11,6 +11,7 @@ import accesoAdatos.habitacionData;
 import accesoAdatos.tipohabitaciondata;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -58,11 +59,23 @@ public class AltaHab extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel1.setText("Numero de Habitación:");
 
+        jTnumeroh.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTnumerohKeyReleased(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jLabel2.setText("Elija el Tipo de Habitación");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Piso:");
+
+        jTpiso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTpisoKeyReleased(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jButton1.setText("Guardar");
@@ -193,10 +206,35 @@ public class AltaHab extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //Guardo en variables todos los datos primero
+        boolean verificoNum;
+        String hab=jTnumeroh.getText();
+        String pis=jTpiso.getText();
+        int filaSeleccionada=jTablatiposh.getSelectedRow();
+        
+        if(hab.isEmpty()||pis.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Por favor complete el formulario");
+            return;
+        }
+        
+        if (filaSeleccionada<0){
+            JOptionPane.showMessageDialog(this,"Por favor, debe elegir el Tipo de Habitación");
+            return;
+        }
+        
         int numH=Integer.parseInt(jTnumeroh.getText());
         tipodehabitacion tipoH=new tipodehabitacion();
         habitacion habi=new habitacion();
         habitacionData habData=new habitacionData();
+        verificoNum=habData.verificarNumeroHab(numH);
+        if(verificoNum==true){
+            JOptionPane.showMessageDialog(this,"Ese número de Habitacion YA EXISTE");
+            return;
+        }
+        int pisoH=Integer.parseInt(jTpiso.getText());
+        if(pisoH>10){
+            JOptionPane.showMessageDialog(this,"Nuestro Hotel solo tiene 10 Pisos, revise el valor ingresado");
+            return;
+        }
         int filaseleccionada=jTablatiposh.getSelectedRow();
         int codigoThab=(Integer) jTablatiposh.getValueAt(filaseleccionada, 0);
         String tipoThab=(String) jTablatiposh.getValueAt(filaseleccionada,1);
@@ -210,13 +248,14 @@ public class AltaHab extends javax.swing.JInternalFrame {
         tipoH.setCantcamas(cantCamaThab);
         tipoH.setTipocamas(tipoCamaThab);
         tipoH.setPrecio(precioThab);
-        int pisoH=Integer.parseInt(jTpiso.getText());
+        
         habi.setNumero(numH);
         habi.setTipohabitacion(tipoH);
         habi.setPiso(pisoH);
         habi.setEstado(estadoh);
-        
+        limpioform();
         habData.guardarHabitacion(habi);
+       
         
         
         
@@ -243,6 +282,26 @@ public class AltaHab extends javax.swing.JInternalFrame {
     private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
      this.dispose();
     }//GEN-LAST:event_jBsalirActionPerformed
+
+    private void jTnumerohKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTnumerohKeyReleased
+        try{
+        int tecla=Integer.parseInt(jTnumeroh.getText());
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this,"Sólo puede ingresar números");
+            jTnumeroh.setText("");
+            return;
+        }
+    }//GEN-LAST:event_jTnumerohKeyReleased
+
+    private void jTpisoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTpisoKeyReleased
+try{
+        int tecla=Integer.parseInt(jTpiso.getText());
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this,"Sólo puede ingresar números");
+            jTpiso.setText("");
+            return;
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jTpisoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -273,23 +332,10 @@ public class AltaHab extends javax.swing.JInternalFrame {
         for (tipodehabitacion tipo:tiposH){
             formatoTabla.addRow(new Object[]{tipo.getCodigo(),tipo.getTipo(),tipo.getCapacidad(),tipo.getCantcamas(),tipo.getTipocamas(),tipo.getPrecio()});
             
-                   
-            
-            
-            
-            
         }
-                
-        
-               
-        
-        
-        
-        
-        
-        
         
         jTablatiposh.setModel(formatoTabla);
+         jTablatiposh.setRowSelectionInterval(0,0);
         
         
         
@@ -297,7 +343,15 @@ public class AltaHab extends javax.swing.JInternalFrame {
         
     }
 
-
+public void limpioform(){
+    jTnumeroh.setText("");
+    jTpiso.setText("");
+    jTablatiposh.setRowSelectionInterval(0,0);
+    
+    
+    
+    
+}
 
 
 
