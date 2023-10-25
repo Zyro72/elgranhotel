@@ -117,7 +117,15 @@ public class huespedData {
             }else {
             JOptionPane.showMessageDialog(null, "No existe ese huesped ");
             ps.close();
-            return null;
+             buscado.setIdHuesped(0);
+                buscado.setDni(0);
+                buscado.setApellidoynom("");
+                buscado.setDireccion("");
+                buscado.setCorreo("");
+                buscado.setCelular("");
+                
+                 ps.close();
+            return buscado;
              
             }
              

@@ -146,11 +146,15 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
     } else {
         
         listado=lista.buscarporDni(Integer.parseInt(jTdni.getText()));
-        
+        if(listado.getApellidoynom()==""){
+            cargarTabla();
+                jTdni.setText("");  
+            
+        }else{
           formatoTabla.addRow(new Object[]{listado.getDni(),listado.getApellidoynom(),listado.getDireccion(),listado.getCorreo(),listado.getCelular()});
         
         jTdni.setText("");
-        
+        }
         
     }
         // TODO add your handling code here:
