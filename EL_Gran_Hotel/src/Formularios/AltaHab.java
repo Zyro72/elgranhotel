@@ -209,13 +209,13 @@ public class AltaHab extends javax.swing.JInternalFrame {
         boolean verificoNum;
         String hab=jTnumeroh.getText();
         String pis=jTpiso.getText();
-        int filaSeleccionada=jTablatiposh.getSelectedRow();
+        
         
         if(hab.isEmpty()||pis.isEmpty()){
             JOptionPane.showMessageDialog(this,"Por favor complete el formulario");
             return;
         }
-        
+        int filaSeleccionada=jTablatiposh.getSelectedRow();
         if (filaSeleccionada<0){
             JOptionPane.showMessageDialog(this,"Por favor, debe elegir el Tipo de Habitación");
             return;

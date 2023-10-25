@@ -29,6 +29,7 @@ public class ModHabit extends javax.swing.JInternalFrame {
         initComponents();
         inicializarTabla();
         jTBestadoh.setEnabled(false);
+        jBGuardarCambios.setEnabled(false);
                        
     }
 
@@ -59,11 +60,23 @@ public class ModHabit extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel1.setText("Numero de Habitacion");
 
+        jTnumeroh.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTnumerohKeyReleased(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jLabel2.setText("Tipo de Habitacion");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Piso:");
+
+        jTpiso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTpisoKeyReleased(evt);
+            }
+        });
 
         jBGuardarCambios.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jBGuardarCambios.setText("Guardar Cambios");
@@ -198,6 +211,24 @@ public class ModHabit extends javax.swing.JInternalFrame {
 
     private void jBGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarCambiosActionPerformed
         //Guardo en variables todos los datos primero
+        String hab=jTnumeroh.getText();
+        String pis=jTpiso.getText();
+           
+        if(hab.isEmpty()||pis.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Por favor complete el formulario");
+            return;
+        }
+        int pisoH=Integer.parseInt(jTpiso.getText());
+         if(pisoH>10){
+            JOptionPane.showMessageDialog(this,"Nuestro Hotel solo tiene 10 Pisos, revise el valor ingresado");
+            return;
+        }
+        int filaSeleccionada=jTablatiposh.getSelectedRow();
+        if (filaSeleccionada<0){
+            JOptionPane.showMessageDialog(this,"Por favor, debe elegir el Tipo de Habitación");
+            return;
+        }
+        
         int numH=Integer.parseInt(jTnumeroh.getText());
         tipodehabitacion tipoH=new tipodehabitacion();
         habitacion habi=new habitacion();
@@ -215,7 +246,7 @@ public class ModHabit extends javax.swing.JInternalFrame {
         tipoH.setCantcamas(cantCamaThab);
         tipoH.setTipocamas(tipoCamaThab);
         tipoH.setPrecio(precioThab);
-        int pisoH=Integer.parseInt(jTpiso.getText());
+        
         habi.setNumero(numH);
         habi.setTipohabitacion(tipoH);
         habi.setPiso(pisoH);
@@ -231,6 +262,7 @@ public class ModHabit extends javax.swing.JInternalFrame {
                        
         }else {
             habData.modificarHabitacion(habi);
+            limpioform();
         }
         
         
@@ -259,11 +291,24 @@ public class ModHabit extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBGuardarCambiosActionPerformed
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
-    jTBestadoh.setEnabled(true);
+    String numh=jTnumeroh.getText();
+    if(numh.isEmpty()){
+        JOptionPane.showMessageDialog(this,"Por favor, ingrese un numero de habitación...");
+        return;
+    }
+    
+    boolean verificoNumero;
     int numeroBuscar= Integer.parseInt(jTnumeroh.getText());
     habitacionData habdata=new habitacionData();
+    verificoNumero=habdata.verificarNumeroHab(numeroBuscar);
+    if(verificoNumero==false){
+        JOptionPane.showMessageDialog(this,"Esa habitacion no existe, verifique el numero ingresado");
+        return;
+    }
     habitacion habit=new habitacion();
     habit=habdata.buscarHabitacion(numeroBuscar);
+    jTBestadoh.setEnabled(true);
+    jBGuardarCambios.setEnabled(true);
     estadoh=habit.isEstado();
     if (estadoh==true){
         jTBestadoh.setBackground(Color.GREEN);
@@ -311,6 +356,26 @@ public class ModHabit extends javax.swing.JInternalFrame {
     this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTnumerohKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTnumerohKeyReleased
+try{
+        int tecla=Integer.parseInt(jTnumeroh.getText());
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this,"Sólo puede ingresar números");
+            jTnumeroh.setText("");
+            return;
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_jTnumerohKeyReleased
+
+    private void jTpisoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTpisoKeyReleased
+try{
+        int tecla=Integer.parseInt(jTpiso.getText());
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this,"Sólo puede ingresar números");
+            jTpiso.setText("");
+            return;
+        }            // TODO add your handling code here:
+    }//GEN-LAST:event_jTpisoKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardarCambios;
@@ -341,32 +406,21 @@ public class ModHabit extends javax.swing.JInternalFrame {
         tiposH=tipohdata.todoslostipos();
         for (tipodehabitacion tipo:tiposH){
             formatoTabla.addRow(new Object[]{tipo.getCodigo(),tipo.getTipo(),tipo.getCapacidad(),tipo.getCantcamas(),tipo.getTipocamas(),tipo.getPrecio()});
-            
-                   
-            
-            
-            
-            
+             
         }
-                
-        
-               
-        
-        
-        
-        
-        
-        
-        
+           
         jTablatiposh.setModel(formatoTabla);
-        
-        
-        
-        
-        
+        jTablatiposh.setRowSelectionInterval(0,0);
     }
 
-
+public void limpioform(){
+    jTnumeroh.setText("");
+    jTpiso.setText("");
+    jTablatiposh.setRowSelectionInterval(0,0);
+    jTBestadoh.setEnabled(false);
+    jBGuardarCambios.setEnabled(false);
+    
+}
 
 
 
