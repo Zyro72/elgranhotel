@@ -185,6 +185,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTdni">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTdniKeyReleased"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTdniKeyTyped"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
           </AuxValues>
@@ -196,6 +200,9 @@
         <Component class="javax.swing.JTextField" name="jTcorreo">
         </Component>
         <Component class="javax.swing.JTextField" name="jTcelu">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTceluKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="jTestado">
           <Properties>

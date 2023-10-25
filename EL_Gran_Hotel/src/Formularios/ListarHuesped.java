@@ -71,6 +71,9 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTdniKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTdniKeyTyped(evt);
+            }
         });
 
         jBuscar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
@@ -152,6 +155,17 @@ public class ListarHuesped extends javax.swing.JInternalFrame {
     }
         // TODO add your handling code here:
     }//GEN-LAST:event_jBuscarActionPerformed
+
+    private void jTdniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdniKeyTyped
+
+ int tecla =evt.getKeyChar();
+        
+        boolean numeros = tecla >=48 && tecla <=57;
+        if(!numeros){
+            evt.consume();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTdniKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

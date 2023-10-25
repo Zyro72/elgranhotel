@@ -104,6 +104,7 @@
     <Component class="javax.swing.JTextField" name="jTdni">
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTdniKeyPressed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTdniKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBuscar">
