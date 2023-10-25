@@ -221,7 +221,8 @@ public class ModHuesped extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
-       jTapeynom.setEnabled(true);
+     if(!jTdni.getText().isEmpty()){
+        jTapeynom.setEnabled(true);
         jTdire.setEnabled(true);
         jTmail.setEnabled(true);
         jTcelu.setEnabled(true);
@@ -247,7 +248,9 @@ public class ModHuesped extends javax.swing.JInternalFrame {
         jTdire.setText(aux.getDireccion());
         jTmail.setText(aux.getCorreo());
         jTcelu.setText(aux.getCelular());
-        
+     }else{
+         JOptionPane.showMessageDialog(null,"Ingrese un Dni para comenzar la busqueda por favor");
+     }
         // TODO add your handling code here:
     }//GEN-LAST:event_jBbuscarActionPerformed
 
