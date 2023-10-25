@@ -256,6 +256,11 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
         nuevo.guardarhuesped(auxh);
   
         
+        jTdni.setText("");
+        jTapeynom.setText("");
+        jTdomi.setText("");
+        jTcorreo.setText("");
+        jTcelu.setText("");
         
         
         // TODO add your handling code here:
