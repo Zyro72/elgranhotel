@@ -820,14 +820,6 @@ public void limpioform(){
     formatoTablaHabs.setRowCount(0);
     formatoTablaTipos.setRowCount(0);
     
-            
-    
-    
-    
-    
-    
-    
-    
 }
 private boolean verificoFechas(){
 LocalDate fechaActual=LocalDate.now();
@@ -860,7 +852,7 @@ int diasEstadia=0;
                     
             }
 
-            
+            diasEstadia=(int) ChronoUnit.DAYS.between(fechaIng, fechaSal);
             if (diasEstadia<=0){
                 JOptionPane.showMessageDialog(this,"La fecha de salida no puede ser anterior o igual a la fecha de entrada");
                 return false;
