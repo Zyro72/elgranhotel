@@ -176,7 +176,7 @@ private void checkout(){
                    ps.setInt(2,item.getNrohabitacion().getNumero());
                    ps.executeUpdate();
                     listar.cancelarReserva(item.getIdReserva());
-                    JOptionPane.showMessageDialog(null, "Reserva de la habitacion "+item.getNrohabitacion().getNumero()+"Check Out Exitoso");
+                    JOptionPane.showMessageDialog(null, "Reserva de la habitacion: "+item.getNrohabitacion().getNumero()+" Check Out Exitoso");
                     jTid.setText("");
                    }
                } catch (SQLException ex) {
