@@ -57,7 +57,11 @@ public class HacerReserva extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        
+        this.formatoTablaHuesped=new DefaultTableModel(){
+            public boolean isCellEditable(int fila,int columna){
+                return false;
+            }
+        };
         
         initComponents();
         inicializarTablas();
@@ -611,6 +615,7 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBconfirmarReservaActionPerformed
 
     private void jBverificarHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBverificarHuespedActionPerformed
+    
     String huesped=jTdniHuesped.getText();
     if(huesped.isEmpty()){
         JOptionPane.showMessageDialog(this,"Por favor, ingrese un DNI....");
@@ -624,6 +629,8 @@ public class HacerReserva extends javax.swing.JInternalFrame {
     }catch(NumberFormatException ex){
         JOptionPane.showMessageDialog(this,"Ingrese un Dni Válido");
     }
+        
+    formatoTablaHuesped.setRowCount(0);
    try{
         huespedReserva=huesData.buscarporDni(dniHuesped);
         estadoHuesped=huespedReserva.isEstado();

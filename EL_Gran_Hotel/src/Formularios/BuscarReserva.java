@@ -54,6 +54,23 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
      * Creates new form BuscarReserva
      */
     public BuscarReserva() {
+        
+        this.formatoTablaTipos=new DefaultTableModel(){
+            public boolean isCellEditable(int fila,int columna){
+                return false;
+            }
+        };
+        this.formatoTablaHabs=new DefaultTableModel(){
+            public boolean isCellEditable(int fila,int columna){
+                return false;
+            }
+        };
+        this.formatoTablaHuesped=new DefaultTableModel(){
+            public boolean isCellEditable(int fila,int columna){
+                return false;
+            }
+        };
+        
         initComponents();
         jBcancelarReserva.setBackground(Color.RED);
         jBcancelarReserva.setForeground(Color.WHITE);
