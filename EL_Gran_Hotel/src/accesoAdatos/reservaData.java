@@ -329,7 +329,7 @@ public ArrayList<reserva> buscarresevaxfecha(LocalDate fecha){
     PreparedStatement ps=con.prepareStatement(sql);
     ps.setInt(1, idReserva);
     ps.executeUpdate();
-    JOptionPane.showMessageDialog(null, "Se ha cancelado la reserva");
+    JOptionPane.showMessageDialog(null, "Se ha finalizado la reserva");
     
 }catch(SQLException ex){
         JOptionPane.showMessageDialog(null, "Error al intentar cancelar la resertva" );
