@@ -10,6 +10,7 @@ import Entidades.reserva;
 import accesoAdatos.Conexion;
 import accesoAdatos.huespedData;
 import accesoAdatos.reservaData;
+import accesoAdatos.habitacionData;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -31,6 +32,7 @@ public class Checkin extends javax.swing.JInternalFrame {
     ArrayList<reserva> res= new ArrayList<> ();
     huespedData hcheck= new huespedData();
     huesped h = new huesped();
+    habitacionData hab= new habitacionData();
     /**
      * Creates new form Checkin
      */
@@ -161,6 +163,7 @@ public class Checkin extends javax.swing.JInternalFrame {
 
   
     private void checkin(){
+       boolean habi;
         int aux = Integer.parseInt(jTid.getText());
         h=hcheck.buscarporDni(aux);
         int i=0;
@@ -173,8 +176,11 @@ public class Checkin extends javax.swing.JInternalFrame {
            if (item.getFechaEntrada().isEqual(fechaActual)){
                try {
                    i++;
-                   
-                    item.getNrohabitacion().setOcupada(true);
+                  habi= hab.verificarHabOcupada(item.getNrohabitacion().getNumero());
+                   if(habi==true){
+                       JOptionPane.showMessageDialog(null, " Check In ya realizado");
+                   }else{
+                  item.getNrohabitacion().setOcupada(true);
                    
                    String sql="UPDATE habitacion SET Ocupada =? WHERE Numero=?";
                    PreparedStatement ps=con.prepareStatement(sql);
@@ -184,7 +190,7 @@ public class Checkin extends javax.swing.JInternalFrame {
                    ps.executeUpdate();
                     
                     JOptionPane.showMessageDialog(null, "Se ha realizado el Check in en la Habitacion: "+item.getNrohabitacion().getNumero()+" exitosamente");
-              
+                   }
               
                } catch (SQLException ex) {
                    JOptionPane.showMessageDialog(null, "Error al realizar el Check In");

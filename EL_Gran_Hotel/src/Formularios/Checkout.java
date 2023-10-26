@@ -8,6 +8,7 @@ package Formularios;
 import Entidades.huesped;
 import Entidades.reserva;
 import accesoAdatos.Conexion;
+import accesoAdatos.habitacionData;
 import accesoAdatos.huespedData;
 import accesoAdatos.reservaData;
 import java.sql.Connection;
@@ -29,6 +30,7 @@ public class Checkout extends javax.swing.JInternalFrame {
     ArrayList<reserva> res= new ArrayList<> ();
     huespedData hcheck= new huespedData();
     huesped h = new huesped();
+    habitacionData hab=new habitacionData();
     /**
      * Creates new form Checkout
      */
@@ -147,7 +149,8 @@ public class Checkout extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTid;
     // End of variables declaration//GEN-END:variables
 private void checkout(){
-        int aux = Integer.parseInt(jTid.getText());
+      boolean habi;
+    int aux = Integer.parseInt(jTid.getText());
         h=hcheck.buscarporDni(aux);
         int i =0;
         LocalDate fechaActual=LocalDate.now();
@@ -159,7 +162,12 @@ private void checkout(){
            if (item.getFechaSalida().isEqual(fechaActual)){
                try {
                    i++;
-                    item.getNrohabitacion().setOcupada(false);
+                   
+                 habi=  hab.verificarHabOcupada(item.getNrohabitacion().getNumero());
+                   if(habi==false){
+                      JOptionPane.showMessageDialog(null, " Check out ya realizado"); 
+                   }else{
+                 item.getNrohabitacion().setOcupada(false);
 //                   System.out.println(""+item.getNrohabitacion().isOcupada());
                    String sql="UPDATE habitacion SET Ocupada =? WHERE Numero=?";
                    PreparedStatement ps=con.prepareStatement(sql);
@@ -167,9 +175,10 @@ private void checkout(){
                    ps.setBoolean(1,item.getNrohabitacion().isOcupada());
                    ps.setInt(2,item.getNrohabitacion().getNumero());
                    ps.executeUpdate();
-                    
+                    listar.cancelarReserva(item.getIdReserva());
                     JOptionPane.showMessageDialog(null, "Reserva de la habitacion "+item.getNrohabitacion().getNumero()+"Check Out Exitoso");
                     jTid.setText("");
+                   }
                } catch (SQLException ex) {
                    JOptionPane.showMessageDialog(null, "Error al realizar el Check out");
                }
