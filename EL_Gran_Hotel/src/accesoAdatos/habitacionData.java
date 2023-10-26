@@ -214,7 +214,25 @@ public class habitacionData {
      return false;
     }
         
-        
+public boolean verificarHabOcupada(int numero)    {
+        String sql="SELECT * FROM habitacion WHERE numero=? AND Ocupada=true";
+        try{
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, numero);
+            ResultSet rs=ps.executeQuery();
+            if (rs.next()){
+                return true;
+            } else {
+                return false;
+            }
+                      
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error buscando habitacion");
+            
+        }
+     return false;
+    }
+    
 }    
     
     
