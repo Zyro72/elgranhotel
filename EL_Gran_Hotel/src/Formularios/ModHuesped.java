@@ -258,7 +258,8 @@ public class ModHuesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     private void jTestadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTestadoActionPerformed
-    if (jTestado.getText()=="ACTIVO"){
+     reservaData res= new reservaData();
+        if (jTestado.getText()=="ACTIVO"){
                 jTestado.setText("INACTIVO");
                 jTestado.setBackground(Color.RED);
                 jTestado.setForeground(Color.WHITE);
@@ -270,39 +271,44 @@ public class ModHuesped extends javax.swing.JInternalFrame {
                 jTestado.setBackground(Color.GREEN);
                 jTestado.setForeground(Color.BLACK);
                 estados=true;
-    } 
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTestadoActionPerformed
-
-    private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
-        reservaData res= new reservaData();
-        if(jTdni.getText().isEmpty()||jTapeynom.getText().isEmpty()||jTdire.getText().isEmpty()||jTmail.getText().isEmpty()||jTcelu.getText().isEmpty()){
-             JOptionPane.showMessageDialog(null,"No debe dejar campos vacios");
-            return;
-        }
-         int i=0;
+    }  int i=0;
            ArrayList<reserva> reser= res.buscarreservaxhuesped(aux);
           for (reserva item:reser){
              
                       i ++;
           }
           
-        if (i>0){
-            
-           JOptionPane.showMessageDialog(null,"Este Huesped tiene reservas ACTIVAS no puede cambiar su estado");
-           jTdni.setText("");
-            jTapeynom.setText("");
-            jTdire.setText("");
-            jTmail.setText("");
-            jTcelu.setText("");
-            jTestado.setText(""); 
-            
-             jTapeynom.setEnabled(false);
-        jTdire.setEnabled(false);
-        jTmail.setEnabled(false);
-        jTcelu.setEnabled(false);
-        jTestado.setEnabled(false);
-        } else{
+        if (i>0 ){
+            jTestado.setText("ACTIVO"); 
+            jTestado.setBackground(Color.GREEN);
+             jTestado.setForeground(Color.BLACK);
+             estados=true;
+              jTestado.setEnabled(false);
+              JOptionPane.showMessageDialog(null,"Este Huesped tiene reservas ACTIVAS no puede cambiar su estado");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTestadoActionPerformed
+    }
+    private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
+       
+        if(jTdni.getText().isEmpty()||jTapeynom.getText().isEmpty()||jTdire.getText().isEmpty()||jTmail.getText().isEmpty()||jTcelu.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null,"No debe dejar campos vacios");
+            return;
+        }
+        
+//           
+//           jTdni.setText("");
+//            jTapeynom.setText("");
+//            jTdire.setText("");
+//            jTmail.setText("");
+//            jTcelu.setText("");
+//            jTestado.setText(""); 
+//            
+//             jTapeynom.setEnabled(false);
+//        jTdire.setEnabled(false);
+//        jTmail.setEnabled(false);
+//        jTcelu.setEnabled(false);
+       
+         else{
             if(estados==false){
                  int respuesta=JOptionPane.showConfirmDialog(this,"El huésped quedará INACTIVO, está seguro?", "ADVERTENCIA",JOptionPane.YES_NO_OPTION );
                  if (respuesta==JOptionPane.NO_OPTION){

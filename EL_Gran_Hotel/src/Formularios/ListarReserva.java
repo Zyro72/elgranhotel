@@ -292,7 +292,9 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         LocalDate fecha= LocalDate.of(anio, mes, dia);
         res=(ArrayList)listar.buscarresevaxfecha(fecha);
                 }
-                
+               if(res.isEmpty()){
+                  JOptionPane.showMessageDialog(null,"No hay reservas relacionadas a esa fecha"); 
+               } 
          for (reserva item : res) {
             if(item.isEstado()==true) {
                 palabraEstado="ACTIVA";

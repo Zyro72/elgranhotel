@@ -116,19 +116,21 @@ public ArrayList<reserva> buscarresevaxfecha(LocalDate fecha){
              reserva.setImporteTotal(rs.getDouble("ImporteTotal"));
              reserva.setEstado(rs.getBoolean("Estado"));
              listaxfecha.add(reserva);
+         
            ps.close();
-           
-       
-       }
-      JOptionPane.showMessageDialog(null,"No hay reservas relacionadas a esa fecha");
-            return listaxfecha;
+     
+     
+          
+               
+           }
+        return listaxfecha;
            
         } 
         catch (SQLException ex) {
              JOptionPane.showMessageDialog(null,"Error buscando Reservas");
        return null;
         }
-        
+         
 }
     public ArrayList<reserva> buscarreservaxhuesped(huesped huesped){
         ArrayList<reserva> listadorev=new ArrayList<>();
