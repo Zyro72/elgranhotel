@@ -65,7 +65,7 @@ public class BuscarReserva extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        this.formatoTablaHuesped=new DefaultTableModel(){
+        this.formatoTablaReserva=new DefaultTableModel(){
             public boolean isCellEditable(int fila,int columna){
                 return false;
             }
