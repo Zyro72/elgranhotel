@@ -191,15 +191,14 @@ public class Checkin extends javax.swing.JInternalFrame {
                }
              
            }
-           else if (!item.getFechaEntrada().isEqual(fechaActual)&& i==0){
-               i++;
-                JOptionPane.showMessageDialog(null, "Este Huesped no tiene reservas activas para esta fecha"); 
-              jTid.setText("");
-           }
+          
            
             
         }  
-        
+        if(i==0){
+               JOptionPane.showMessageDialog(null, "Este Huesped no tiene reservas activas para esta fecha"); 
+              jTid.setText("");
+        }
         
     }
 }
