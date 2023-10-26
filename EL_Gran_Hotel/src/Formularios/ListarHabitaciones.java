@@ -26,6 +26,12 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
      * Creates new form ListarHabitaciones
      */
     public ListarHabitaciones() {
+        this.formatoHabitacionesComp=new DefaultTableModel(){
+            public boolean isCellEditable(int fila,int columna){
+                return false;
+            }
+        };
+        
         initComponents();
         inicializoTabla();
         cargoDatos();
@@ -82,6 +88,12 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Ingrese número de habitacion:");
 
+        jTnumeroH.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTnumeroHKeyReleased(evt);
+            }
+        });
+
         jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +106,7 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,10 +134,11 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTnumeroH, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
         );
 
         pack();
@@ -162,6 +175,19 @@ public class ListarHabitaciones extends javax.swing.JInternalFrame {
     }
     
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTnumeroHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTnumeroHKeyReleased
+try{
+    int nro=Integer.parseInt(jTnumeroH.getText());
+}
+catch (NumberFormatException ex){
+    JOptionPane.showMessageDialog(this,"Solo puede ingresar números");
+    jTnumeroH.setText("");
+    return;
+}
+
+
+    }//GEN-LAST:event_jTnumeroHKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -215,6 +241,10 @@ public void cargoDatos(){
 public void buscoHab(int numeroHab){
     habitacion habi=new habitacion();
     habi=habData.buscarHabitacion(numeroHab);
+    if(habi==null){
+       return;
+    }
+    
     formatoHabitacionesComp.setRowCount(0);
     estadoH=habi.isEstado();
     ocupadaH=habi.isOcupada();
