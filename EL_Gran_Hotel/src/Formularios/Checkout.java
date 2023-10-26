@@ -153,6 +153,7 @@ private void checkout(){
         LocalDate fechaActual=LocalDate.now();
          ArrayList<reserva> listaux = new ArrayList<>();
         listaux=listar.buscarreservaxhuesped2(h);
+         jTid.setText("");
         for (reserva item:listaux){
 //             System.out.println(""+item.getNrohabitacion().isOcupada());
            if (item.getFechaSalida().isEqual(fechaActual)){
@@ -172,17 +173,22 @@ private void checkout(){
                } catch (SQLException ex) {
                    JOptionPane.showMessageDialog(null, "Error al realizar el Check out");
                }
+           }else if (!item.getFechaEntrada().isEqual(fechaActual)&& i==0){
+               i++;
+                JOptionPane.showMessageDialog(null, "Este Huesped no tiene reservas activas para esta fecha"); 
+              jTid.setText("");
+              
+                   }
+               
            }
-              
-              
            
            
             
-        }if(i==0){
-            JOptionPane.showMessageDialog(null, "Este Huesped no tiene reservas activas para esta fecha"); 
-              jTid.setText("");
-              this.dispose();
-        }
+//        }if(i==0){
+//            JOptionPane.showMessageDialog(null, "Este Huesped no tiene reservas activas para esta fecha"); 
+//              jTid.setText("");
+//              this.dispose();
+//        }
         
         
         

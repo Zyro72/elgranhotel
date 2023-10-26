@@ -167,11 +167,13 @@ public class Checkin extends javax.swing.JInternalFrame {
         LocalDate fechaActual=LocalDate.now();
          ArrayList<reserva> listaux = new ArrayList<>();
         listaux=listar.buscarreservaxhuesped2(h);
+         jTid.setText("");
         for (reserva item:listaux){
 //             System.out.println(""+item.getNrohabitacion().isOcupada());
            if (item.getFechaEntrada().isEqual(fechaActual)){
                try {
                    i++;
+                   
                     item.getNrohabitacion().setOcupada(true);
                    
                    String sql="UPDATE habitacion SET Ocupada =? WHERE Numero=?";
@@ -182,18 +184,22 @@ public class Checkin extends javax.swing.JInternalFrame {
                    ps.executeUpdate();
                     
                     JOptionPane.showMessageDialog(null, "Se ha realizado el Check in en la Habitacion: "+item.getNrohabitacion().getNumero()+" exitosamente");
+              
+              
                } catch (SQLException ex) {
                    JOptionPane.showMessageDialog(null, "Error al realizar el Check In");
                }
+             
+           }
+           else if (!item.getFechaEntrada().isEqual(fechaActual)&& i==0){
+               i++;
+                JOptionPane.showMessageDialog(null, "Este Huesped no tiene reservas activas para esta fecha"); 
+              jTid.setText("");
            }
            
             
-        }
+        }  
         
-        if(i==0){
-            JOptionPane.showMessageDialog(null, "Este Huesped no tiene reservas activas para esta fecha"); 
-              jTid.setText("");
-              this.dispose();
-        }
+        
     }
 }
